@@ -46,6 +46,10 @@ Installation needed:
 
 NodeJS (https://nodejs.org/en/) -> includes npm (package manager)
 
+Visual Studio Code (https://code.visualstudio.com/)
+
+follow the installation guides
+
 VS Code Extensions:
 
 ESLint
