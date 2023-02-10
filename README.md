@@ -50,6 +50,8 @@ NodeJS (https://nodejs.org/en/) -> includes npm (package manager)
 
 Visual Studio Code (https://code.visualstudio.com/)
 
+Git/ GitHub Desktop
+
 follow the installation guides
 
 VS Code Extensions:
@@ -94,4 +96,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
