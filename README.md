@@ -31,8 +31,8 @@ Ensure it has a checkmark
 ###
 
 Naming conventions:
-for component names -> pascal case
-for instances of components and file names -> camel case
+for component and file names -> pascal case
+for instances of components -> camel case
 
 # Getting Started with Create React App
 
