@@ -1,4 +1,4 @@
-About the project:
+# About the project:
 
 Проектът “Наръчник на първокурсника” е уеб приложение, което помага на
 първокурсниците да опознаят университета.
@@ -8,7 +8,7 @@ The project will implement features such as a variety of quests, map of the univ
 
 It is being developed by students from IT Master Class 10 at University of Economics - Varna and our mentors at Dev Labs.
 
-Prerequisites:
+## Prerequisites:
 
 NodeJS (https://nodejs.org/en/) -> includes npm (package manager)
 
@@ -16,11 +16,11 @@ Visual Studio Code (https://code.visualstudio.com/)
 
 //Follow the installation guides
 
-To install the project, essentially, that's all it's needed.
+To install the project:
 Open New Terminal
 Run npm install
 
-Recommended code editor settings:
+## Recommended code editor settings:
 
 VS Code Extensions:
 
@@ -40,9 +40,8 @@ Change it to Prettier
 Type "Editor: Format on Save"
 Ensure it has a checkmark
 
-###
+### Naming conventions:
 
-Naming conventions:
 for component and file names -> pascal case
 for instances of components -> camel case
 
