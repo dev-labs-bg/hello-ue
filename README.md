@@ -11,6 +11,7 @@ It is being developed by students from IT Master Class 10 at University of Econo
 ## Prerequisites:
 
 NodeJS (https://nodejs.org/en/) -> includes npm (package manager)
+Install the LTS version that is recommended (as of 17.02.2023 v18.14.1)
 
 Visual Studio Code (https://code.visualstudio.com/)
 
