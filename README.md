@@ -1,29 +1,26 @@
 # About the project:
 
-Проектът “Наръчник на първокурсника” е уеб приложение, което помага на
-първокурсниците да опознаят университета.
+"First-year handbook" is a web app, that helps first-year students get to know the university. The project will implement features such as a variety of quests, map of the university, event calendar and much more.
 
-"First-year handbook" is a web app, that helps first-year students get to know the university.
-The project will implement features such as a variety of quests, map of the university, event calendar and much more.
-
-It is being developed by students from IT Master Class 10 at University of Economics - Varna and our mentors at Dev Labs.
+It is being developed by students from IT Master Class #10 at University of Economics - Varna and our mentors at Dev Labs.
 
 ## Prerequisites:
 
-NodeJS (https://nodejs.org/en/) -> includes npm (package manager)
+NodeJS (https://nodejs.org/en/) -> includes npm (package manager).
+
 Install the LTS version that is recommended (as of 17.02.2023 v18.14.1)
 
-Visual Studio Code (https://code.visualstudio.com/)
-
-//Follow the installation guides
-
 To install the project:
-Open New Terminal
-Run npm install
 
-## Recommended code editor settings:
+Open New Terminal and run:
 
-VS Code Extensions:
+```bash
+npm install
+```
+
+## Recommended code editor:
+
+Visual Studio Code (https://code.visualstudio.com/) with the following extensions:
 
 ESLint
 Prettier
