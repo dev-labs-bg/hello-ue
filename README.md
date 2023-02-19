@@ -59,6 +59,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+If experiencing errors after `npm start` try uninstalling node.js
+and installing the Current version (as of 17.02.2023 v19.6.1)
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
