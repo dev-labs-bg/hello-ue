@@ -1,10 +1,10 @@
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
-const Logout = () => {
+const Logout = ({removeAuth}) => {
     return (
         <>
-            <h1>Logout</h1>
-            <Link to="../">Login</Link>
+            <button onClick={removeAuth}>Logout</button>
+            <Link to="../">Logout</Link>
         </>
     )
 }
