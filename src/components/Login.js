@@ -58,12 +58,12 @@ const Login = ({setAuth}) => {
                     <VStack bg="white" paddingY="5em" marginX="20em" className="form-wrap">
                         {hasError ? <Box>{hasError}</Box>: ""}
                         <Box >
-                            <Input name="username" placeholder="????????????? ???" required onChange={handleChange} />
+                            <Input name="username" placeholder="Потребителско име" required onChange={handleChange} />
                         </Box>
                         <Box >
-                            <Input name="password" placeholder="??????" type="password" required onChange={handleChange} />
+                            <Input name="password" placeholder="Парола" type="password" required onChange={handleChange} />
                         </Box>
-                        <Button type="submit">????</Button>
+                        <Button type="submit">Влез</Button>
                     </VStack>
                 </form>
             </Box>

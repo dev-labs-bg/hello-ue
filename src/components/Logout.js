@@ -1,10 +1,10 @@
-import {Link} from 'react-router-dom'
+import { Button } from '@chakra-ui/react'
 
 const Logout = ({removeAuth}) => {
     return (
         <>
-            <button onClick={removeAuth}>Logout</button>
-            <Link to="../">Logout</Link>
+            <h1>Logout</h1>
+            <Button onClick={removeAuth}>Logout</Button>
         </>
     )
 }
