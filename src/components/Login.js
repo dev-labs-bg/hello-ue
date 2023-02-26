@@ -1,4 +1,4 @@
-import { useState  } from 'react'
+import { useState } from 'react'
 import { ChakraProvider, Box, VStack, Input, Button } from '@chakra-ui/react'
 import PropTypes from 'prop-types';
 
@@ -57,10 +57,10 @@ const Login = ({setAuth}) => {
                 <form onSubmit={handleSubmit}>
                     <VStack bg="white" paddingY="5em" marginX="20em" className="form-wrap">
                         {hasError ? <Box>{hasError}</Box>: ""}
-                        <Box >
+                        <Box>
                             <Input name="username" placeholder="Потребителско име" required onChange={handleChange} />
                         </Box>
-                        <Box >
+                        <Box>
                             <Input name="password" placeholder="Парола" type="password" required onChange={handleChange} />
                         </Box>
                         <Button type="submit">Влез</Button>

@@ -6,7 +6,6 @@ import Profile from './components/Profile'
 import Logout from './components/Logout'
 import useAuth from './useAuth'
 
-
 function App() {
 	const {auth, setAuth, removeAuth} = useAuth();
 	
