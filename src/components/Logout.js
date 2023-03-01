@@ -1,6 +1,9 @@
 import { Button } from '@chakra-ui/react'
+import useAuth from '../useAuth'
 
-const Logout = ({removeAuth}) => {
+const Logout = () => {
+    const removeAuth = useAuth().removeAuth;
+    
     return (
         <>
             <h1>Logout</h1>

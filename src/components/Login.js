@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { ChakraProvider, Box, VStack, Input, Button } from '@chakra-ui/react'
-import PropTypes from 'prop-types';
+import useAuth from '../useAuth'
 
-const Login = ({setAuth}) => {
+const Login = () => {
+    const setAuth = useAuth().setAuth;
     const [formData, setFormdata] = useState({
         username: "",
         password: ""
@@ -50,13 +51,12 @@ const Login = ({setAuth}) => {
         });
     }
 
-
     return (
         <ChakraProvider>
             <Box bg="purple" paddingY="12em">
                 <form onSubmit={handleSubmit}>
                     <VStack bg="white" paddingY="5em" marginX="20em" className="form-wrap">
-                        {hasError ? <Box>{hasError}</Box>: ""}
+                        {hasError && <Box>{hasError}</Box>}
                         <Box>
                             <Input name="username" placeholder="Потребителско име" required onChange={handleChange} />
                         </Box>
@@ -70,9 +70,5 @@ const Login = ({setAuth}) => {
         </ChakraProvider>
     )
 }
-
-Login.propTypes = {
-    setAuth: PropTypes.func.isRequired
-};
 
 export default Login;

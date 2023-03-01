@@ -3,24 +3,25 @@ import Layout from './components/Layout'
 import Dashboard from './components/Dashboard'
 import Profile from './components/Profile'
 import Logout from './components/Logout'
-import { AuthProvider } from './AuthContext';
+import Login from './components/Login'
+import useAuth from './useAuth'
 
 function App() {
-	// if(!auth) {
-	//   return <Login setAuth={setAuth} />
-	// }
+	const user = useAuth().auth;
+
+	if(!user){
+		return <Login />
+	}
 
 	return (
-		<AuthProvider>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route index element={<Dashboard />} />
-					<Route path="dashboard" element={<Dashboard />} />
-					<Route path="profile" element={<Profile />} />
-					<Route path="logout" element={<Logout />} />
-				</Route>
-			</Routes>
-		</AuthProvider>
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route index element={<Dashboard />} />
+				<Route path="dashboard" element={<Dashboard />} />
+				<Route path="profile" element={<Profile />} />
+				<Route path="logout" element={<Logout />} />
+			</Route>
+		</Routes>
 	)
 }
 
