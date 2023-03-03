@@ -1,78 +1,23 @@
-import { useState } from 'react'
-import { Box, Stack, Input, Button, Heading, FormControl, Center, Link } from '@chakra-ui/react'
-import useAuth from '../useAuth'
-import HeaderLogin from './loginUI/HeaderLogin';
+import { Box, Button, Heading, Stack, FormControl, Center, Link, Input } from '@chakra-ui/react'
+ 
+ function MainLogin() {
 
-const Login = () => {
-    const setAuth = useAuth().setAuth;
-    const [formData, setFormdata] = useState({
-        username: "",
-        password: ""
-    });
-
-    const [hasError, setError] = useState(false);
-
-    function handleChange(event){
-        setFormdata(prevData => {
-        const {name, value} = event.target 
-            return {
-                ...prevData,
-                [name]: value
-            }
-        });
-    }
-
-    async function loginUser(credentials) {
-        let response = null;
-        try {
-            let request = await fetch('https://info.ue-varna.bg/api/v1/login',
-            {
-                method: 'POST',
-                body: JSON.stringify(credentials)
-            });
-            response = await request.json();
-            if (!request.ok) {
-                throw new Error(response ? response.error : request.statusText);
-            }
-        }
-        catch (err) {
-            setError(err.message);
-        }
-        if (response && !response.error) {
-            delete response.success;
-            setAuth(response);
-        }
-    }
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        loginUser({
-            faculty_number: formData.username,
-            password: formData.password
-        });
-    }
-
-    return (
+   return (
         <>
-            <HeaderLogin />
             <Box marginTop="5rem">
-                <Center>
+               <Center>
                    <Box marginBottom="3rem">
                        <Heading>
                            Вписване
                        </Heading>
                    </Box>
                </Center>
-               <form onSubmit={handleSubmit} id="form_id">
-                <Center>
-                    {hasError ? <Box color="red">Грешни входни данни. Моля, опитайте отново.</Box>: ""}
-                </Center>
+               <form onSubmit={handleSubmit}>
                    <Stack spacing={2} margin="1rem" marginBottom="5rem">
                     <Center>
                         <Box>
                             <FormControl isRequired>
                                 <Input
-                                    id="name_id"
                                     name="username"
                                     placeholder="Потребителско име"
                                     required onChange={handleChange}
@@ -85,7 +30,6 @@ const Login = () => {
                         <Box>
                            <FormControl isRequired>
                                <Input
-                                   id = "password_id"
                                    name="password"
                                    type="password"
                                    placeholder="Парола"
@@ -104,7 +48,6 @@ const Login = () => {
                                    colorScheme="green"
                                    size="lg"
                                    marginTop="4rem"
-                                   
                                >
                                    Влез
                                </Button>
@@ -115,13 +58,13 @@ const Login = () => {
            </Box>
            <Center>
                    <Box marginBottom="5rem">
-                       <Link href='https://info.ue-varna.bg/forgotten-password' isExternal>
+                       <Link href='https://info.ue-varna.bg/' isExternal>
                            Забравена парола?
                        </Link>
                    </Box>
             </Center>
         </>
     )
-}
+ }
 
-export default Login;
+export default MainLogin
