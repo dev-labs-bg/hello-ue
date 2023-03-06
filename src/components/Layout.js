@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom'
-import Header from './Header'
+import Navbar from './Navbar'
 
 const Layout = () => {
     return (
         <>
-            <Header />
+            {/* to be replaced with logic for if the user is logged in */}
+            {false ? <></> : <Navbar />}
             <main className="App">
                 <Outlet />
             </main>
