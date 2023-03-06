@@ -5,17 +5,21 @@ import Profile from './components/Profile'
 import Logout from './components/Logout'
 import Login from './components/Login'
 import useAuth from './useAuth'
+import ProtectedRoute from './components/ProtectedLayout'
 
 function App() {
-	const user = useAuth().auth;
+	const user = useAuth().auth
 
-	if(!user){
+	if (!user) {
 		return <Login />
 	}
 
 	return (
 		<Routes>
-			<Route path="/" element={<Layout />}>
+			<Route element={<Layout />}>
+				<Route path="login" element={<Login />} />
+			</Route>
+			<Route path="/" element={<ProtectedRoute />}>
 				<Route index element={<Dashboard />} />
 				<Route path="dashboard" element={<Dashboard />} />
 				<Route path="profile" element={<Profile />} />

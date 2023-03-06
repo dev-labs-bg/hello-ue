@@ -11,9 +11,11 @@ import {
 	Center,
 } from '@chakra-ui/react'
 import useAuth from '../useAuth'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 	const setAuth = useAuth().setAuth
+	const navigate = useNavigate()
 	const [formData, setFormdata] = useState({
 		facultyNumber: '',
 		password: '',
@@ -59,6 +61,7 @@ const Login = () => {
 		if (response && !response.error) {
 			delete response.success
 			setAuth(response)
+			navigate('/dashboard')
 		}
 	}
 
