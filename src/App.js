@@ -4,7 +4,7 @@ import Dashboard from './components/Dashboard'
 import Profile from './components/Profile'
 import Logout from './components/Logout'
 import Login from './components/Login'
-import useAuth from './useAuth'
+import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
 
 function App() {

@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
-import useAuth from '../useAuth'
+import useAuth from '../hooks/useAuth'
 
 const Logout = () => {
 	const removeAuth = useAuth().removeAuth

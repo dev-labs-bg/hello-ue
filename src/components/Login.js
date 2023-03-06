@@ -10,7 +10,7 @@ import {
 	AlertTitle,
 	Center,
 } from '@chakra-ui/react'
-import useAuth from '../useAuth'
+import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
