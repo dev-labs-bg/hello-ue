@@ -1,5 +1,7 @@
 # About the project:
 
+Test
+
 "First-year handbook" is a web app, that helps first-year students get to know the university. The project will implement features such as a variety of quests, map of the university, event calendar and much more.
 
 It is being developed by students from IT Master Class #10 at University of Economics - Varna and our mentors at Dev Labs.
