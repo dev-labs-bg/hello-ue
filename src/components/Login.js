@@ -56,6 +56,7 @@ const Login = () => {
 				throw new Error(response ? response.error : request.statusText)
 			}
 		} catch (err) {
+			setIsInvalid(true)
 			setError(err.message)
 		}
 		if (response && !response.error) {
