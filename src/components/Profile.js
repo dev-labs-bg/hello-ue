@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom'
+import Logout from './Logout'
 
 const Profile = () => {
-    return (
-        <>
-            <h1>Profile</h1>
-            <Link to="../logout">Logout</Link>
-        </>
-    )
+	return (
+		<>
+			<h1>Profile</h1>
+			<Logout></Logout>
+		</>
+	)
 }
 
 export default Profile
