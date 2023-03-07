@@ -59,6 +59,11 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+If experiencing **errors** (e.g. `error:03000086:digital envelope`, `ERR_OSSL_EVP_UNSUPPORTED`) \
+after `npm start` try uninstalling node.js and installing \
+the **Current** version (as of 19.02.2023 v19.6.1) \
+If still not working try applying `npm audit fix --force`
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
