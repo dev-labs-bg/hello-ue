@@ -10,3 +10,34 @@ header {
   background-color: darkslategray;
   padding: 1rem 2rem;
 }
+
+#begin-button {
+  border: 0px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  border: 0px solid #000000;
+  background-color: transparent;
+  /* font-family: Futura, Tahoma, sans-serif; */
+  color: black;
+  padding: 25px;
+  margin-left: 20px;
+  padding-bottom: 20px;
+}
+#begin-button::after {
+  content: "'";
+  color: transparent;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+  border-radius: 40px;
+  background-color: #FBB0A9;
+  transform: skew(30deg);
+-webkit-transform: skew(30deg);
+-o-transform: skew(30deg);
+-moz-transform: skew(30deg);
+-ms-transform: skew(30deg);
+}
