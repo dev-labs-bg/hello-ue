@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-	ChakraProvider,
 	Box,
 	VStack,
 	Input,
@@ -75,7 +74,6 @@ const Login = () => {
 	}
 
 	return (
-		<ChakraProvider>
 			<Box bg="purple" paddingY="12em">
 				<form onSubmit={handleSubmit}>
 					<VStack
@@ -117,7 +115,6 @@ const Login = () => {
 					</VStack>
 				</form>
 			</Box>
-		</ChakraProvider>
 	)
 }
 

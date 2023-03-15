@@ -18,7 +18,6 @@ header {
   z-index: 1;
   border: 0px solid #000000;
   background-color: transparent;
-  /* font-family: Futura, Tahoma, sans-serif; */
   color: black;
   padding: 25px;
   margin-left: 20px;
@@ -36,8 +35,4 @@ header {
   border-radius: 40px;
   background-color: #FBB0A9;
   transform: skew(30deg);
--webkit-transform: skew(30deg);
--o-transform: skew(30deg);
--moz-transform: skew(30deg);
--ms-transform: skew(30deg);
 }

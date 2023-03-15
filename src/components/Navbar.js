@@ -1,12 +1,16 @@
-import { BellIcon, SettingsIcon, HamburgerIcon } from "@chakra-ui/icons"
+import { BellIcon, SettingsIcon, HamburgerIcon, ChevronDownIcon } from "@chakra-ui/icons"
 import { Avatar, AvatarBadge, AvatarGroup, Box, Button, Flex,
-    HStack, Text, IconButton, useDisclosure, Slide, Heading, Image } from "@chakra-ui/react"
+    HStack, Text, IconButton, useDisclosure, Slide, Heading, Image,
+    Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { Link } from 'react-router-dom'
+import useAuth from "../hooks/useAuth"
 import logo from "../logo.png"
+import Logout from './Logout'
+
 const Navbar = () => {
 
     const { isOpen, onToggle } = useDisclosure()
-    const auth = JSON.parse(localStorage.getItem("auth"))
+    const { auth } = useAuth()
     const flex = {
         bg: "#96BFC6",
         justifyContent: "space-between",
@@ -91,8 +95,19 @@ const Navbar = () => {
                             <Text fontSize="xs" color="white">3</Text>
                         </AvatarBadge>
                     </Avatar>
-                    <Avatar size="sm" border="none" name={auth.data.firstName} bg="#44818B"/>
-                    <Text display={{base: "none",sm: "none", md: "none", lg: "flex"}}>{auth.data.firstName} {auth.data.lastName[0]}</Text>
+                    <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />} bg="#96BFC6">
+                        <HStack>
+                            <Avatar size="sm" border="none" name={auth.data.firstName} bg="#44818B"/>
+                            <Text display={{base: "none",sm: "none", md: "none", lg: "flex"}}>{auth.data.firstName} {auth.data.lastName[0]}</Text>
+                        </HStack>
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem><Link to="../profile">Profile</Link></MenuItem>
+                        <MenuItem><Logout /></MenuItem>
+                    </MenuList>
+                    </Menu>
+                    
                     <Avatar bg="none"  border="none" icon={<SettingsIcon />} display={{base: "none",sm: "none", md: "none", lg: "flex"}}/>
                 </AvatarGroup>
             </HStack>

@@ -1,8 +1,10 @@
 import { Box, Heading, Flex, Button } from "@chakra-ui/react";
 import dashboardImage from "../../headerImg.jpg"
+import useAuth from "../../hooks/useAuth"
 
 const DashboardMain = () => {
-    const auth = JSON.parse(localStorage.getItem("auth"))
+    const { auth } = useAuth()
+
 
     return(
         <Box 
