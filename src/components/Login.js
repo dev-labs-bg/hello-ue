@@ -11,7 +11,7 @@ import {
 	Alert,
 	AlertIcon,
 	AlertTitle,
-	Tag
+	FormLabel,
 } from '@chakra-ui/react'
 
 import HeaderLogin from './loginUI/HeaderLogin'
@@ -103,7 +103,9 @@ const Login = () => {
 					<Stack spacing={2} margin="1rem" marginBottom="5rem">
 						<Center>
 							<Box>
-								<Tag>Факултетен номер</Tag>
+								<Center>
+									<FormLabel>Факултетен номер</FormLabel>
+								</Center>
 								<FormControl isRequired>
 									<Input
 										id="id_facultyNUmber"
@@ -118,17 +120,18 @@ const Login = () => {
 							</Box>
 						</Center>
 						<Center>
-							<Box>
+							<Box marginTop="1rem">
+								<Center>
+									<FormLabel>Парола</FormLabel>
+								</Center>
 								<FormControl isRequired>
 									<Input
 										id="id_password"
 										name="password"
 										type="password"
-										placeholder="Парола"
 										required
 										onChange={handleChange}
 										bg="white"
-										marginTop="1rem"
 										maxWidth="60rem"
 									/>
 								</FormControl>

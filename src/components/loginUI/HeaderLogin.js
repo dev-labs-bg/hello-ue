@@ -20,7 +20,7 @@ function HeaderLogin() {
 					alt="Logo"
 					margin="1rem"
 					boxSize="4rem"
-					pos="fixed"
+					pos="absolute"
 					left="0"
 					top="0"
 				/>
