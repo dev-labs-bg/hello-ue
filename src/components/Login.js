@@ -128,6 +128,7 @@ const Login = () => {
 									<Input
 										id="id_password"
 										name="password"
+										placeholder="******"
 										type="password"
 										required
 										onChange={handleChange}
