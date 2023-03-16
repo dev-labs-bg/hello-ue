@@ -11,6 +11,7 @@ import {
 	Alert,
 	AlertIcon,
 	AlertTitle,
+	Tag
 } from '@chakra-ui/react'
 
 import HeaderLogin from './loginUI/HeaderLogin'
@@ -41,7 +42,7 @@ const Login = () => {
 
 	function validateFacultyNumber(evt) {
 		let value = evt.target.value
-		let isFacultyNumberInvalid = isNaN(Number(value)) || value.length < 4
+		let isFacultyNumberInvalid = isNaN(Number(value))
 		setIsInvalid(isFacultyNumberInvalid)
 		setError('Невалиден факултетен номер.')
 		if (!isFacultyNumberInvalid) {
@@ -102,11 +103,12 @@ const Login = () => {
 					<Stack spacing={2} margin="1rem" marginBottom="5rem">
 						<Center>
 							<Box>
+								<Tag>Факултетен номер</Tag>
 								<FormControl isRequired>
 									<Input
 										id="id_facultyNUmber"
 										name="facultyNumber"
-										placeholder="Потребителско име"
+										placeholder="91234"
 										required
 										onChange={validateFacultyNumber}
 										bg="white"
