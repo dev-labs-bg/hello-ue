@@ -11,6 +11,7 @@ const Navbar = () => {
 
     const { isOpen, onToggle } = useDisclosure()
     const { auth } = useAuth()
+    
     const flex = {
         bg: "#96BFC6",
         justifyContent: "space-between",
