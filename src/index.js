@@ -12,14 +12,16 @@ root.render(
 		<AuthProvider>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/*" element={
-						<ChakraProvider>
-							<App />
-						</ChakraProvider>	
-						} />
+					<Route
+						path="/*"
+						element={
+							<ChakraProvider>
+								<App />
+							</ChakraProvider>
+						}
+					/>
 				</Routes>
 			</BrowserRouter>
 		</AuthProvider>
 	</React.StrictMode>
 )
-
