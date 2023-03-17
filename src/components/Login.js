@@ -1,14 +1,20 @@
-import { useState } from 'react'
 import {
 	Box,
-	VStack,
+	Stack,
 	Input,
 	Button,
+	Heading,
+	FormControl,
+	Center,
+	Link,
 	Alert,
 	AlertIcon,
 	AlertTitle,
-	Center,
+	FormLabel,
 } from '@chakra-ui/react'
+
+import HeaderLogin from './loginUI/HeaderLogin'
+import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 
@@ -35,7 +41,7 @@ const Login = () => {
 
 	function validateFacultyNumber(evt) {
 		let value = evt.target.value
-		let isFacultyNumberInvalid = isNaN(Number(value)) || value.length < 4
+		let isFacultyNumberInvalid = isNaN(Number(value))
 		setIsInvalid(isFacultyNumberInvalid)
 		setError('Невалиден факултетен номер.')
 		if (!isFacultyNumberInvalid) {
@@ -74,14 +80,16 @@ const Login = () => {
 	}
 
 	return (
-			<Box bg="purple" paddingY="12em">
-				<form onSubmit={handleSubmit}>
-					<VStack
-						bg="white"
-						paddingY="5em"
-						marginX="20em"
-						className="form-wrap"
-					>
+		<>
+			<HeaderLogin />
+			<Box marginTop="5rem">
+				<Center>
+					<Box marginBottom="3rem">
+						<Heading>Вписване</Heading>
+					</Box>
+				</Center>
+				<form onSubmit={handleSubmit} id="form_id">
+					<Center>
 						{isInvalid && (
 							<Center>
 								<Alert status="error">
@@ -90,31 +98,72 @@ const Login = () => {
 								</Alert>
 							</Center>
 						)}
-						<Box>
-							<Input
-								name="facultyNumber"
-								placeholder="Факултетен номер"
-								required
-								onChange={validateFacultyNumber}
-								isInvalid={isInvalid}
-								errorBorderColor="red.300"
-							/>
-						</Box>
-						<Box>
-							<Input
-								name="password"
-								placeholder="Парола"
-								type="password"
-								required
-								onChange={handleChange}
-							/>
-						</Box>
-						<Button isDisabled={isInvalid} type="submit">
-							Влез
-						</Button>
-					</VStack>
+					</Center>
+					<Stack spacing={2} margin="1rem" marginBottom="5rem">
+						<Center>
+							<Box>
+								<Center>
+									<FormLabel>Факултетен номер</FormLabel>
+								</Center>
+								<FormControl isRequired>
+									<Input
+										id="id_facultyNUmber"
+										name="facultyNumber"
+										placeholder="91234"
+										required
+										onChange={validateFacultyNumber}
+										bg="white"
+										maxWidth="30rem"
+									/>
+								</FormControl>
+							</Box>
+						</Center>
+						<Center>
+							<Box marginTop="1rem">
+								<Center>
+									<FormLabel>Парола</FormLabel>
+								</Center>
+								<FormControl isRequired>
+									<Input
+										id="id_password"
+										name="password"
+										placeholder="*****"
+										type="password"
+										required
+										onChange={handleChange}
+										bg="white"
+										maxWidth="60rem"
+									/>
+								</FormControl>
+							</Box>
+						</Center>
+						<Center>
+							<Box>
+								<Button
+									type="submit"
+									width="100%"
+									colorScheme="green"
+									size="lg"
+									marginTop="4rem"
+								>
+									Влез
+								</Button>
+							</Box>
+						</Center>
+					</Stack>
 				</form>
 			</Box>
+			<Center>
+				<Box marginBottom="5rem">
+					<Link
+						href="https://info.ue-varna.bg/forgotten-password"
+						isExternal
+					>
+						Забравена парола?
+					</Link>
+				</Box>
+			</Center>
+		</>
 	)
 }
 
