@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 
@@ -13,7 +13,7 @@ const Logout = () => {
 
 	return (
 		<>
-			<Button onClick={handleLogout}>Logout</Button>
+			<Text onClick={handleLogout}>Logout</Text>
 		</>
 	)
 }

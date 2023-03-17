@@ -1,5 +1,4 @@
 import {
-	ChakraProvider,
 	Box,
 	Stack,
 	Input,
@@ -81,7 +80,7 @@ const Login = () => {
 	}
 
 	return (
-		<ChakraProvider>
+		<>
 			<HeaderLogin />
 			<Box marginTop="5rem">
 				<Center>
@@ -164,7 +163,7 @@ const Login = () => {
 					</Link>
 				</Box>
 			</Center>
-		</ChakraProvider>
+		</>
 	)
 }
 
