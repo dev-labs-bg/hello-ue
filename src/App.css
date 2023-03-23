@@ -36,3 +36,21 @@
         transform: rotate(360deg);
     }
 }
+
+.check-circle-animation {
+    animation: animate-check-icon 1.25s ease-in-out;
+}
+
+@keyframes animate-check-icon {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    70% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1) rotate(360deg);
+    }
+}

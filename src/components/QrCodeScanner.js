@@ -1,19 +1,15 @@
 import { useState } from 'react'
-import { Box, Center, VStack, CloseButton } from '@chakra-ui/react'
+import { Box, Center, VStack } from '@chakra-ui/react'
+import { CheckCircleIcon } from '@chakra-ui/icons'
 import { QrReader } from 'react-qr-reader'
+import '../App.css'
 
 const QrCodeScanner = () => {
 	const [scanResultWebCam, setScanResultWebCam] = useState('')
-	const isSucessed = false
-
-	const handleErrorWebCam = (error) => {
-		console.log(error)
-	}
-
 	const handleScanWebCam = (result, error) => {
 		if (!!result) {
 			setScanResultWebCam(result?.text)
-			console.log(scanResultWebCam)
+			console.log(result.text)
 		}
 		if (!!error) {
 			console.log(error)
@@ -21,34 +17,29 @@ const QrCodeScanner = () => {
 	}
 
 	return (
-		<Box bgColor="gray.100" position="relative">
+		<Box bgColor="gray.100">
 			<Center>
-				<CloseButton
-					boxSize="6em"
-					bgColor="red"
-					borderRadius="30"
-					position="fixed"
-					top="-260"
-				/>
 				<VStack
 					bgColor="white"
 					p="2rem"
-					width={[
-						'100%', // 0-30em
-						'70%', // 30em-48em
-						'50%', // 48em-62em
-						'35%', // 62em+
-					]}
+					width={['100%', '70%', '50%', '35%']}
 				>
 					<h1>Сканирай QR Code</h1>
-					<Box w="100%">
-						<QrReader
-							delay={500}
-							onError={handleErrorWebCam}
-							onScan={handleScanWebCam}
-							onResult={handleScanWebCam}
+					{scanResultWebCam === '#Akademika' ? (
+						<CheckCircleIcon
+							color="green"
+							boxSize={20}
+							className="check-circle-animation"
 						/>
-					</Box>
+					) : (
+						<Box w="100%">
+							<QrReader
+								scanDelay={1000}
+								onResult={handleScanWebCam}
+							/>
+						</Box>
+					)}
+
 					{scanResultWebCam === '' && ''}
 					{scanResultWebCam === '#Akademika' && (
 						<h3>Успешно премина Куест 1 </h3>
