@@ -23,24 +23,31 @@ npm install
 Visual Studio Code (https://code.visualstudio.com/) with the following extensions:
 
 ESLint
+
 Prettier
+
 Editor Config
 
 //Reload the window
 
 To configure Prettier on save formatting:
-Click Ctrl + , (Windows)/ Cmd + , (MacOS)
+
+Click Ctrl + "," (Windows)/ Cmd + "," (MacOS)
+
 It will open the settings
 
 Type "Editor: Default Formatter"
+
 Change it to Prettier
 
 Type "Editor: Format on Save"
+
 Ensure it has a checkmark
 
 ### Naming conventions:
 
 for component and file names -> pascal case
+
 for instances of components -> camel case
 
 # Getting Started with Create React App
