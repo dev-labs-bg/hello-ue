@@ -7,7 +7,7 @@ import Login from './components/Login'
 import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
-import QrCodeScanner from './components/QrCodeScanner'
+import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
 
 function App() {
 	const user = useAuth().auth
