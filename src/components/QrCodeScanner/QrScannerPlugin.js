@@ -22,24 +22,27 @@ const createConfig = (props) => {
 }
 
 const QrScannerPlugin = (props) => {
+	let html5QrcodeScanner
 	useEffect(() => {
 		// when component mounts
 		const config = createConfig(props)
 		const verbose = props?.verbose === true
-		// Suceess callback is required.
-		if (!props.qrCodeSuccessCallback) {
-			console.error('qrCodeSuccessCallback is required callback.')
+		if (!html5QrcodeScanner?.getState()) {
+			// Suceess callback is required.
+			if (!props.qrCodeSuccessCallback) {
+				console.error('qrCodeSuccessCallback is required callback.')
+			}
+			/* eslint-disable */
+			html5QrcodeScanner = new Html5QrcodeScanner(
+				qrcodeRegionId,
+				config,
+				verbose
+			)
 		}
-		const html5QrcodeScanner = new Html5QrcodeScanner(
-			qrcodeRegionId,
-			config,
-			verbose
-		)
 		html5QrcodeScanner.render(
 			props.qrCodeSuccessCallback,
 			props.qrCodeErrorCallback
 		)
-
 		// cleanup function when component will unmount
 		return () => {
 			html5QrcodeScanner.clear().catch((error) => {

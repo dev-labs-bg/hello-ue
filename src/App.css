@@ -58,3 +58,7 @@
 #html5qr-code-full-region__scan_region > img {
 	margin: auto;
 }
+
+#html5-qrcode-button-camera-start {
+	display: none;
+}
