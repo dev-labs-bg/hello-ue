@@ -70,8 +70,7 @@ const QrCodeScanner = () => {
 							size="xl"
 							textAlign="center"
 							color="#44818B"
-							pt="1rem"
-							pb="4rem"
+							h="3em"
 						>
 							{feedbackMessage}
 						</Box>
