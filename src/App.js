@@ -6,6 +6,7 @@ import Logout from './components/Logout'
 import Login from './components/Login'
 import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
+import Quest from './components/Quests/Quest'
 
 function App() {
 	const user = useAuth().auth
@@ -22,6 +23,7 @@ function App() {
 			<Route path="/" element={<ProtectedRoute />}>
 				<Route index element={<Dashboard />} />
 				<Route path="dashboard" element={<Dashboard />} />
+				<Route path="quest" element={<Quest />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="logout" element={<Logout />} />
 			</Route>
