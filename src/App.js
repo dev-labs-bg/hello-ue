@@ -13,6 +13,7 @@ import DashboardNews from './components/DashboardComponents/DashboardNews'
 import SalesMain from './components/SalesComponent/SalesMainDash'
 import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
+import Quest from './components/Quests/Quest'
 
 function App() {
 	const user = useAuth().auth
@@ -29,6 +30,7 @@ function App() {
 			<Route path="/" element={<ProtectedRoute />}>
 				<Route index element={<Dashboard />} />
 				<Route path="dashboard" element={<Dashboard />} />
+				<Route path="quest" element={<Quest />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />

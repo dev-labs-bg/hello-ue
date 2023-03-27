@@ -95,7 +95,7 @@ const Navbar = () => {
 							<Link to="dashboard">Начало</Link>
 						</Button>
 						<Button variant="ghost" mb="5px">
-							Куестове
+							<Link to="quest">Куестове</Link>
 						</Button>
 						<Button variant="ghost">
 							<Link to="events">Събития</Link>
