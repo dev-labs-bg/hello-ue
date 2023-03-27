@@ -1,5 +1,14 @@
+#root {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
 .App {
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
 }
 
 .App-logo {
@@ -61,4 +70,35 @@
 
 #html5-qrcode-button-camera-start {
 	display: none;
+}
+
+#html5-qrcode-button-camera-permission {
+	background-color: #44818b;
+	color: white;
+	padding: 0.6rem;
+	border-radius: 7px;
+	margin: 0rem 0.5rem 1rem 0.5rem;
+}
+
+#html5-qrcode-anchor-scan-type-change {
+	color: #44818b;
+}
+
+#html5-qrcode-button-camera-start {
+	background-color: #44818b;
+	color: white;
+	padding: 0.6rem;
+	border-radius: 7px;
+	margin-bottom: 1rem;
+}
+#html5-qrcode-button-camera-stop {
+	background-color: #44818b;
+	color: white;
+	padding: 0.6rem;
+	border-radius: 7px;
+	margin: 1rem;
+}
+
+#html5qr-code-full-region {
+	border: unset !important;
 }

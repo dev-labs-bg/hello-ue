@@ -17,7 +17,16 @@ const QrCodeScanner = () => {
 	}
 
 	return (
-		<Box bgColor="gray.100" p="4em">
+		<Box
+			bgColor={'gray.100'}
+			p={[
+				'3em', // 0-30em
+				'3em', // 30em-48em
+				'3em', // 48em-62em
+				'4em', // 62em+
+			]}
+			flexGrow={1}
+		>
 			<Center>
 				<VStack
 					bgColor="white"
@@ -25,10 +34,21 @@ const QrCodeScanner = () => {
 						'100%', // 0-30em
 						'70%', // 30em-48em
 						'55%', // 48em-62em
-						'35%', // 62em+
+						'40%', // 62em+
 					]}
+					position="relative"
 				>
-					<h1>Сканирай QR Code</h1>
+					<Box
+						size="xl"
+						textAlign="center"
+						color="#44818B"
+						mt="3rem"
+						mb="1rem"
+						ml="0.5em"
+						mr="0.5em"
+					>
+						Намери кафене "Академика" и се огледай за QR код.
+					</Box>
 					{!showScanner && (
 						<CheckCircleIcon
 							color="green"
@@ -40,13 +60,36 @@ const QrCodeScanner = () => {
 						<Box width={'100%'}>
 							<QrScannerPlugin
 								fps={10}
-								qrbox={250}
 								disableFlip={false}
 								qrCodeSuccessCallback={onNewScanResult}
 							/>
 						</Box>
 					)}
-					{<h3>{feedbackMessage}</h3>}
+					{
+						<Box
+							size="xl"
+							textAlign="center"
+							color="#44818B"
+							pt="1rem"
+							pb="4rem"
+						>
+							{feedbackMessage}
+						</Box>
+					}
+					<Box
+						bgColor="#44818B"
+						color="white"
+						w="1.75em"
+						h="1.75em"
+						position="absolute"
+						left="-0.85em"
+						top="-0.85em"
+						fontSize="2.5em"
+						borderRadius="100%"
+						p="0.1em"
+					>
+						1
+					</Box>
 				</VStack>
 			</Center>
 		</Box>
