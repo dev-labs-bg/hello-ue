@@ -23,18 +23,18 @@ const Quest1Main = () => {
 			<Box maxWidth={"100%"}>
 
 			<Box position={"absolute"}
-				bgColor={"blue.400"}
+				bgColor={"#44818B"}
 				height={"90px"}
 				width={"90px"}
 				borderRadius={"70%"}
 				color={'white'}
-				fontSize={"32px"}
+				fontSize={"40px"}
 			    display={"flex"}
 				justifyContent={"center"}
 				alignItems={"center"}
 				fontWeight={"bold"}
 				top={"6%"}
-				left={"5px"}>
+				left={"25px"}>
 				1
 			</Box>
 				<Image src={kafeImg} alt={"Coffee"} />
@@ -57,13 +57,13 @@ const Quest1Main = () => {
 				</Box>
 				<Button
 					mt={10}
-					bgColor="blue.400"
+					bgColor="#44818B"
 					color="white"
 					borderRadius="lg"
 					fontSize="1.5em"
 					fontWeight="bold"
 					p={8}
-					_hover={{ bgColor: 'blue.600' }}
+					_hover={{ bgColor: '#44818B' }}
 				>
 					Сканирай QR
 				</Button>

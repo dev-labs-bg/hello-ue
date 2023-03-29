@@ -92,7 +92,7 @@ const Navbar = () => {
 							<Link to="dashboard">Начало</Link>
 						</Button>
 						<Button variant="ghost" mb="5px">
-							<Link to="quest1">Куестове</Link>
+							<Link to="quest2">Куестове</Link>
 						</Button>
 						<Button variant="ghost" mb="5px">
 							Събития
