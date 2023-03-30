@@ -28,7 +28,7 @@ import useAuth from '../hooks/useAuth'
 import logo from '../logo.png'
 import Logout from './Logout'
 
-const Navbar = () => {
+const Navbar = ({ title }) => {
 	const { isOpen, onToggle } = useDisclosure()
 	const { auth } = useAuth()
 
@@ -66,7 +66,9 @@ const Navbar = () => {
 				<Button variant="ghost">
 					<Link to="dashboard">Начало</Link>
 				</Button>
-				<Button variant="ghost">Куестове</Button>
+				<Button variant="ghost">
+					<Link to="quest">Куестове</Link>
+				</Button>
 				<Button variant="ghost">
 					<Link to="events">Събития</Link>
 				</Button>
@@ -130,7 +132,7 @@ const Navbar = () => {
 				fontSize="18px"
 				display={{ sm: 'flex', md: 'flex', lg: 'none' }}
 			>
-				Начало
+				{title}
 			</Heading>
 
 			<HStack>

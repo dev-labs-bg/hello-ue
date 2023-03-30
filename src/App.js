@@ -14,6 +14,7 @@ import SalesMain from './components/SalesComponent/SalesMainDash'
 import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
 import Quest from './components/Quests/Quest'
+import Quest2 from './components/Quests/Quest2'
 
 function App() {
 	const user = useAuth().auth
@@ -31,6 +32,7 @@ function App() {
 				<Route index element={<Dashboard />} />
 				<Route path="dashboard" element={<Dashboard />} />
 				<Route path="quest" element={<Quest />} />
+				<Route path="questTwo" element={<Quest2 />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />
