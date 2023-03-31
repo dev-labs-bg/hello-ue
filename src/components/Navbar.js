@@ -132,7 +132,7 @@ const Navbar = ({ title }) => {
 				fontSize="18px"
 				display={{ sm: 'flex', md: 'flex', lg: 'none' }}
 			>
-				{title}
+				Начало
 			</Heading>
 
 			<HStack>
