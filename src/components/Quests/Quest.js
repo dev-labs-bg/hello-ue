@@ -28,13 +28,9 @@ export default function QuestList() {
 			id: 1,
 			name: 'quest1',
 			isComplete: false,
-			isUnlocked: questStatus.quest1,
+			isUnlocked: true,
 		},
-		{ id: 2, name: 'quest2', isComplete: false, isUnlocked: questStatus.quest2 },
-		{ id: 3, name: 'quest3', isComplete: false, isUnlocked: questStatus.quest3 },
-		{ id: 4, name: 'quest4', isComplete: false, isUnlocked: questStatus.quest4 },
-		{ id: 5, name: 'quest5', isComplete: false, isUnlocked: questStatus.quest5 },
-		{ id: 6, name: 'quest6', isComplete: false, isUnlocked: questStatus.quest6 },
+		{ id: 2, name: 'quest2', isComplete: false, isUnlocked: false },
 	])
 
 	function completeQuest(questId) {
@@ -72,6 +68,7 @@ export default function QuestList() {
 							<IconButton
 								bg="#FFFFFF"
 								_hover="#FFFFFF"
+								to={"/questTwo"}
 								icon={<IconDone />}
 								mt={8}
 							/>
@@ -89,13 +86,12 @@ export default function QuestList() {
 								_hover="#FFFFFF"
 								icon={<IconCurrent />}
 								mt={8}
+								to={"/questTwo"} //it has to be one
 								onClick={() => {
 									completeQuest(quest.id)
 								}}
 								as={Link}
-								to="/questTwo"
 							></IconButton>
-
 							<Image
 								src={PathImage}
 								height="90px"
@@ -119,8 +115,57 @@ export default function QuestList() {
 							/>
 						</Box>
 					)}
+
 				</Box>
+
 			))}
+
+			{/* Locked Quests */}
+			<Flex direction="column" mr={100} mt={5} alignItems="center" maxW="250px"
+					mx="auto" >
+				<Box maxWidth={100}>
+					<IconButton
+						bg="#FFFFFF"
+						_hover="#FFFFFF"
+						icon={<IconLocked />}
+						mt={8}
+					/>
+						<Image
+							src={PathImage}
+							height="90px"
+							m={41}
+							mt={70}
+						/>
+				</Box>
+				<Box maxWidth={100}>
+					<IconButton
+						bg="#FFFFFF"
+						_hover="#FFFFFF"
+						icon={<IconLocked />}
+						mt={8}
+					/>
+						<Image
+							src={PathImage}
+							height="90px"
+							m={41}
+							mt={70}
+						/>
+				</Box>
+				<Box maxWidth={100}>
+					<IconButton
+						bg="#FFFFFF"
+						_hover="#FFFFFF"
+						icon={<IconLocked />}
+						mt={8}
+					/>
+						<Image
+							src={PathImage}
+							height="90px"
+							m={41}
+							mt={70}
+						/>
+				</Box>
+			</Flex>
 
 			{/* Legend */}
 			<Box position="absolute" top="auto" right={0}>

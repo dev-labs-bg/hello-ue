@@ -3,7 +3,7 @@ import {
 	Input,
 	FormControl,
 	FormLabel,
-	Button, 
+	Button,
 	Alert,
 	AlertIcon,
 	AlertTitle,
@@ -30,10 +30,10 @@ export default function SecondQuest() {
 		console.log(formData)
 		setFormSubmitted(true)
 	  }
-	
+
 	  function handleChange(event) {
 		const { name, value } = event.target
-	
+
 		setFormData((prevState) => ({
 		  ...prevState,
 		  [name]: value,
@@ -41,7 +41,7 @@ export default function SecondQuest() {
 
 		console.log(formData)
 	  }
-	  
+
 
 	return (
 		<VStack
@@ -52,7 +52,7 @@ export default function SecondQuest() {
       h="700px"
       justifyContent="center"
     >
-		
+
 		  <FormControl isRequired>
 			<FormLabel>От кой град си?</FormLabel>
 			<Input
@@ -135,6 +135,6 @@ export default function SecondQuest() {
 			</Alert>
 		  ) : null}
 		</VStack>
-		
+
 	)
 }
