@@ -18,6 +18,7 @@ import {
 	IconLockedSmall,
 } from './Icons'
 import PathImage from './icons/path.png'
+import { questStatus } from './GlobalQuest'
 
 export const CurrentQuest = createContext()
 
@@ -25,15 +26,15 @@ export default function QuestList() {
 	const [quests, setQuests] = useState([
 		{
 			id: 1,
-			name: '1',
+			name: 'quest1',
 			isComplete: false,
-			isUnlocked: true,
+			isUnlocked: questStatus.quest1,
 		},
-		{ id: 2, name: '2', isComplete: false, isUnlocked: false },
-		{ id: 3, name: '3', isComplete: false, isUnlocked: false },
-		{ id: 4, name: '4', isComplete: false, isUnlocked: false },
-		{ id: 5, name: '5', isComplete: false, isUnlocked: false },
-		{ id: 6, name: '6', isComplete: false, isUnlocked: false },
+		{ id: 2, name: 'quest2', isComplete: false, isUnlocked: questStatus.quest2 },
+		{ id: 3, name: 'quest3', isComplete: false, isUnlocked: questStatus.quest3 },
+		{ id: 4, name: 'quest4', isComplete: false, isUnlocked: questStatus.quest4 },
+		{ id: 5, name: 'quest5', isComplete: false, isUnlocked: questStatus.quest5 },
+		{ id: 6, name: 'quest6', isComplete: false, isUnlocked: questStatus.quest6 },
 	])
 
 	function completeQuest(questId) {
@@ -44,12 +45,16 @@ export default function QuestList() {
 					isComplete: true,
 				}
 			} else if (quest.id === questId + 1) {
+				questStatus[`quest${questId + 1}`] = true
 				return { ...quest, isUnlocked: true }
 			} else {
 				return quest
 			}
 		})
 		setQuests(updatedQuests)
+
+		localStorage.setItem(`quest-${questId}`, true)
+
 	}
 
 	return (
