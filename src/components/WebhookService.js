@@ -35,7 +35,7 @@ const WebhookService = () => {
                         Завърших ${formData['high-school']}. 
                         В ИУ Варна съм записал/а специалност "${formData['university-major']}". 
                         Mоите интереси включват ${formData['interests']}. Моето любимо хоби е ${formData['fav-hobby']}!`,
-						color: '#3ba327',
+						color: 2002185,
 					},
 				],
 				attachments: [],
