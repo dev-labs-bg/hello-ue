@@ -67,7 +67,9 @@ const Navbar = () => {
 					<Link to="dashboard">Начало</Link>
 				</Button>
 				<Button variant="ghost">Куестове</Button>
-				<Button variant="ghost">Събития</Button>
+				<Button variant="ghost">
+					<Link to="events">Събития</Link>
+				</Button>
 				<Button variant="ghost">Как да стигна?</Button>
 				<Button variant="ghost">Забавни спомени</Button>
 				<Button variant="ghost">Полезно</Button>
@@ -94,8 +96,8 @@ const Navbar = () => {
 						<Button variant="ghost" mb="5px">
 							Куестове
 						</Button>
-						<Button variant="ghost" mb="5px">
-							Събития
+						<Button variant="ghost">
+							<Link to="events">Събития</Link>
 						</Button>
 						<Button variant="ghost" mb="5px">
 							Как да стигна?
@@ -200,3 +202,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

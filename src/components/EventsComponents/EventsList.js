@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
 import EventsListItem from './EventsListItem'
-import EventsListEmpty from './alternativeUi/EventsListEmpty'
+import EventsListEmpty from './EventsListEmpty'
 
 const EventsList = ({ events, isLoading }) => {
 	const eventsItems = events.map((event) => <EventsListItem event={event} />)
