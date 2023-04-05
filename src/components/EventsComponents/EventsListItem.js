@@ -1,56 +1,131 @@
-import { Box, Circle, Text, Heading } from '@chakra-ui/react'
-import { CheckCircleIcon } from '@chakra-ui/icons'
+import {
+	Box,
+	Text,
+	Heading,
+	AccordionItem,
+	AccordionButton,
+	AccordionIcon,
+	AccordionPanel,
+	Flex,
+	Button,
+	Link,
+} from '@chakra-ui/react'
+import { CheckCircleIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 
 const EventsListItem = ({ event }) => {
+	let src = 'https://ue-varna.bg/uploads/news/'
+		.concat(event.picture)
+		.replace(' ', '%20')
+
+	let link = 'https://www.ue-varna.bg/bg/'.concat(event.url)
+	console.log(src)
 	return (
-			<Box
-				key={event.id}
-				style={{
-					maxWidth: '100vh',
-					display: 'flex',
-					flexDirection: 'row',
-					alignItems: 'start',
-					padding: '10px',
-				}}
-			>
-				<Box
+		<AccordionItem
+			style={{
+				borderRadius: '10px',
+				borderWidth: '1px',
+				boxSizing: 'border-box',
+				padding: '5px',
+				background: 'white',
+				marginTop: '5px',
+			}}
+		>
+			<h2>
+				<AccordionButton>
+					<Flex align="center" as="span" flex="1" textAlign="left">
+						<CheckCircleIcon marginEnd="10px" color="#2CB930" />
+						<Box>
+							<Heading
+								w={{
+									base: '17em',
+									sm: '20em',
+									md: '24em',
+									lg: '30em',
+									xl: '35em',
+									'2xl': '40em',
+								}}
+								style={{
+									fontSize: '1em',
+									fontStyle: 'normal',
+									fontWeight: 'normal',
+								}}
+							>
+								{event.title}
+							</Heading>
+							<Text
+								style={{
+									fontSize: '0.8em',
+									color: '#A1A1A1',
+									fontWidth: 'normal',
+								}}
+							>
+								{event.event_date_from}
+							</Text>
+						</Box>
+					</Flex>
+
+					<AccordionIcon />
+				</AccordionButton>
+			</h2>
+			<AccordionPanel pb={4}>
+				<Flex
+					direction={'column'}
 					style={{
-						display: 'flex',
-						flexDirection: 'column',
-						alignItems: 'center',
-						justifyContent: 'center',
+						background: '#e3ffea',
+						padding: '20px',
+						borderRadius: '15px',
 					}}
 				>
-					<Circle size="15px" bg="white" color="#008b8b" margin="5px">
-						<CheckCircleIcon boxSize={5} />
-					</Circle>
-					<Box
+					<Text
 						style={{
-							marginTop: '5px',
-							width: '0.5px',
-							height: '5vh',
-							background: '#cfd5db',
+							fontSize: '0.8em',
+							color: '#A1A1A1',
+							fontWidth: 'normal',
 						}}
-					/>
-				</Box>
-				<Box
-					w={{
-						base: '18em',
-						sm: '25em',
-						md: '30em',
-						lg: '62em',
-						xl: '76em',
-						'2xl': '96em',
-					}}
-					style={{
-						play: 'flex',
-						flexDirection: 'column',
-					}}
-				>
-					<Text>{event.event_date_from}</Text>
-					<Heading style={{ fontSize: '1em' }}>{event.title}</Heading>
-				</Box>
-			</Box>
+					>
+						Добавено: {event.added}
+					</Text>
+					<Text
+						style={{
+							fontSize: '0.8em',
+							color: '#A1A1A1',
+							fontWidth: 'normal',
+						}}
+					>
+						Начало: {event.event_date_from} {event.event_hour_from}
+					</Text>
+					<Text
+						style={{
+							fontSize: '0.8em',
+							color: '#A1A1A1',
+							fontWidth: 'normal',
+						}}
+					>
+						Край: {event.event_date_to} {event.event_hour_to}
+					</Text>
+
+					{/* <Image
+						style={{
+							marginTop: '10px',
+							borderRadius: '20px',
+						}}
+						src={src}
+					/> */}
+					<Box>
+						<Button
+							style={{
+								marginTop: '10px',
+								background: '#2CB930',
+							}}
+						>
+							<Link href={link} isExternal color="white">
+								Виж повече <ExternalLinkIcon mx="2px" />
+							</Link>
+						</Button>
+					</Box>
+				</Flex>
+			</AccordionPanel>
+		</AccordionItem>
 	)
 }
 

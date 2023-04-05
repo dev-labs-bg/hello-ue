@@ -1,10 +1,9 @@
-import { Box } from '@chakra-ui/react'
+import { Accordion, Box } from '@chakra-ui/react'
 import EventsListItem from './EventsListItem'
 import EventsListEmpty from './EventsListEmpty'
-import React, { useState, useEffect } from 'react'
 
 const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
-	// const eventsItems = events.map((event) => <EventsListItem event={event} />)
+
 	const eventsPerMonth = events.filter(
 		(event) =>
 			new Date(event.start).getMonth() === currentView.getMonth() &&
@@ -37,9 +36,11 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 			>
 				{selectedDate !== 0 && !selectedEvent && <EventsListEmpty />}
 				{selectedDate > 0 && selectedEvent && (
-					<EventsListItem event={selectedEvent} />
+					<Accordion>
+						<EventsListItem event={selectedEvent} />
+					</Accordion>
 				)}
-				{selectedDate === 0 && <Box>{eventsItems}</Box>}
+				{selectedDate === 0 && <Accordion>{eventsItems}</Accordion>}
 				{selectedDate === 0 && eventsItems.length === 0 && (
 					<EventsListEmpty />
 				)}
