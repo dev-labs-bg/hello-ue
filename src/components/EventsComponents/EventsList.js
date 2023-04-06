@@ -13,7 +13,7 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 		<EventsListItem event={event} />
 	))
 
-	const selectedEvent = events.filter(
+	const selectedEvents = events.filter(
 		(event) =>
 			new Date(selectedDate).getDate() ===
 				new Date(event.start).getDate() &&
@@ -22,7 +22,7 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 			new Date(selectedDate).getYear() === new Date(event.start).getYear()
 	)
 
-	const selectedEventItems = selectedEvent.map((event) => (
+	const selectedEventItems = selectedEvents.map((event) => (
 		<EventsListItem event={event} />
 	))
 
@@ -37,8 +37,10 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 					alignItems: 'center',
 				}}
 			>
-				{selectedDate !== 0 && !selectedEvent && <EventsListEmpty />}
-				{selectedDate > 0 && selectedEvent && (
+				{selectedDate !== 0 && selectedEventItems.length === 0 && (
+					<EventsListEmpty />
+				)}
+				{selectedDate > 0 && selectedEvents && (
 					<Accordion>{selectedEventItems}</Accordion>
 				)}
 				{selectedDate === 0 && <Accordion>{eventsItems}</Accordion>}

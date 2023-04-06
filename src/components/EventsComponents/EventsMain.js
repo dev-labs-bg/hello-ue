@@ -12,6 +12,11 @@ const EventsMain = () => {
 	const [currentView, setCurrentView] = useState(new Date())
 	const [selectedDate, setSelectedDate] = useState(0)
 
+	const startDate = new Date().setMonth(new Date().getMonth() - 2)
+	const formatStartDate = new Date(startDate).toISOString().slice(0, -5)
+	const endDate = new Date().setMonth(new Date().getMonth() + 5)
+	const formatEndDate = new Date(endDate).toISOString().slice(0, -5)
+
 	useEffect(() => {
 		fetchEvents()
 	}, [])
@@ -57,7 +62,7 @@ const EventsMain = () => {
 		let response = null
 		try {
 			let request = await fetch(
-				'https://ue-varna.bg/bg/eventsfeed?start=2023-02-27T00:00:00+02:00&end=2023-04-10T00:00:00+03:00',
+				`https://ue-varna.bg/bg/eventsfeed?start=${formatStartDate}+02:00&end=${formatEndDate}+03:00`,
 				{
 					method: 'GET',
 				}
