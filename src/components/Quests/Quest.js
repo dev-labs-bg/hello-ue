@@ -1,14 +1,7 @@
-import { useState, createContext } from 'react'
-import {
-	Flex,
-	Box,
-	Text,
-	IconButton,
-	Image,
-	Stack,
-	Heading,
-} from '@chakra-ui/react'
+import { Flex, Box, Text, IconButton, Image, Stack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
+import { useQuests } from './useQuests'
+
 import {
 	IconCurrent,
 	IconDone,
@@ -18,40 +11,33 @@ import {
 	IconLockedSmall,
 } from './Icons'
 import PathImage from './icons/path.png'
-import { questStatus } from './GlobalQuest'
-
-export const CurrentQuest = createContext()
 
 export default function QuestList() {
-	const [quests, setQuests] = useState([
-		{
-			id: 1,
-			name: 'quest1',
-			isComplete: false,
-			isUnlocked: true,
-		},
-		{ id: 2, name: 'quest2', isComplete: false, isUnlocked: false },
-	])
+	// const [quests, setQuests] = useState(() => {
+	// 	const storedQuests = JSON.parse(localStorage.getItem('quests'))
+	// 	return storedQuests !== null
+	// 		? storedQuests
+	// 		: [
+	// 				{
+	// 					id: 1,
+	// 					name: 'quest1',
+	// 					isComplete: false,
+	// 					isUnlocked: true,
+	// 				},
+	// 				{
+	// 					id: 2,
+	// 					name: 'quest2',
+	// 					isComplete: false,
+	// 					isUnlocked: false,
+	// 				},
+	// 		  ]
+	// })
 
-	function completeQuest(questId) {
-		const updatedQuests = quests.map((quest) => {
-			if (quest.id === questId) {
-				return {
-					...quest,
-					isComplete: true,
-				}
-			} else if (quest.id === questId + 1) {
-				questStatus[`quest${questId + 1}`] = true
-				return { ...quest, isUnlocked: true }
-			} else {
-				return quest
-			}
-		})
-		setQuests(updatedQuests)
+	// useEffect(() => {
+	// 	localStorage.setItem('quests', JSON.stringify(quests))
+	// }, [quests])
 
-		localStorage.setItem(`quest-${questId}`, true)
-
-	}
+	const [quests, completeQuest] = useQuests()
 
 	return (
 		<Flex direction="column" mr={100} mt={5}>
@@ -68,7 +54,7 @@ export default function QuestList() {
 							<IconButton
 								bg="#FFFFFF"
 								_hover="#FFFFFF"
-								to={"/questTwo"}
+								to={'/questTwo'}
 								icon={<IconDone />}
 								mt={8}
 							/>
@@ -86,10 +72,11 @@ export default function QuestList() {
 								_hover="#FFFFFF"
 								icon={<IconCurrent />}
 								mt={8}
-								to={"/questTwo"} //it has to be one
-								onClick={() => {
-									completeQuest(quest.id)
-								}}
+								//to={'/questTwo'} //it has to be one
+								// onClick={() => {
+								// 	completeQuest(quests, quest.id, setQuests)
+								// 	unlockQuest(quests, quest.id, setQuests)
+								// }}
 								as={Link}
 							></IconButton>
 							<Image
@@ -115,14 +102,18 @@ export default function QuestList() {
 							/>
 						</Box>
 					)}
-
 				</Box>
-
 			))}
 
 			{/* Locked Quests */}
-			<Flex direction="column" mr={100} mt={5} alignItems="center" maxW="250px"
-					mx="auto" >
+			<Flex
+				direction="column"
+				mr={100}
+				mt={5}
+				alignItems="center"
+				maxW="250px"
+				mx="auto"
+			>
 				<Box maxWidth={100}>
 					<IconButton
 						bg="#FFFFFF"
@@ -130,12 +121,7 @@ export default function QuestList() {
 						icon={<IconLocked />}
 						mt={8}
 					/>
-						<Image
-							src={PathImage}
-							height="90px"
-							m={41}
-							mt={70}
-						/>
+					<Image src={PathImage} height="90px" m={41} mt={70} />
 				</Box>
 				<Box maxWidth={100}>
 					<IconButton
@@ -144,12 +130,7 @@ export default function QuestList() {
 						icon={<IconLocked />}
 						mt={8}
 					/>
-						<Image
-							src={PathImage}
-							height="90px"
-							m={41}
-							mt={70}
-						/>
+					<Image src={PathImage} height="90px" m={41} mt={70} />
 				</Box>
 				<Box maxWidth={100}>
 					<IconButton
@@ -158,12 +139,7 @@ export default function QuestList() {
 						icon={<IconLocked />}
 						mt={8}
 					/>
-						<Image
-							src={PathImage}
-							height="90px"
-							m={41}
-							mt={70}
-						/>
+					<Image src={PathImage} height="90px" m={41} mt={70} />
 				</Box>
 			</Flex>
 
@@ -192,8 +168,6 @@ export default function QuestList() {
 					</Flex>
 				</Stack>
 			</Box>
-
-			<Heading title="Куестове"></Heading>
 		</Flex>
 	)
 }
