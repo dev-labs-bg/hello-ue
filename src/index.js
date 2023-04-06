@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext'
 import { ProdavalnikAuthProvider } from './context/ProdavalnikAuthContext'
 import { ScheduleProvider } from './context/ScheduleContext'
 
+import { QuestProvider } from './context/QuestsContext'
 import { ChakraProvider } from '@chakra-ui/react'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
@@ -14,20 +15,22 @@ root.render(
 	<React.StrictMode>
 		<ScheduleProvider>
 			<AuthProvider>
-				<ProdavalnikAuthProvider>
-					<BrowserRouter>
-						<Routes>
-							<Route
-								path="/*"
-								element={
-									<ChakraProvider>
-										<App />
-									</ChakraProvider>
-								}
-							/>
-						</Routes>
-					</BrowserRouter>
-				</ProdavalnikAuthProvider>
+				<QuestProvider>
+					<ProdavalnikAuthProvider>
+						<BrowserRouter>
+							<Routes>
+								<Route
+									path="/*"
+									element={
+										<ChakraProvider>
+											<App />
+										</ChakraProvider>
+									}
+								/>
+							</Routes>
+						</BrowserRouter>
+					</ProdavalnikAuthProvider>
+				</QuestProvider>
 			</AuthProvider>
 		</ScheduleProvider>
 	</React.StrictMode>

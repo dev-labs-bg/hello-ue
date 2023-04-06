@@ -1,6 +1,6 @@
 import { Flex, Box, Text, IconButton, Image, Stack } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
-import { useQuests } from './useQuests'
+import useQuests from '../../hooks/useQuests'
 
 import {
 	IconCurrent,
@@ -13,7 +13,7 @@ import {
 import PathImage from './icons/path.png'
 
 export default function QuestList() {
-	const [quests, completeQuest] = useQuests()
+	const { quests } = useQuests()
 
 	return (
 		<Flex direction="column" mr={100} mt={5}>
