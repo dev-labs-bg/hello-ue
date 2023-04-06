@@ -3,7 +3,6 @@ import EventsListItem from './EventsListItem'
 import EventsListEmpty from './EventsListEmpty'
 
 const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
-
 	const eventsPerMonth = events.filter(
 		(event) =>
 			new Date(event.start).getMonth() === currentView.getMonth() &&
@@ -14,7 +13,7 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 		<EventsListItem event={event} />
 	))
 
-	const selectedEvent = events.find(
+	const selectedEvent = events.filter(
 		(event) =>
 			new Date(selectedDate).getDate() ===
 				new Date(event.start).getDate() &&
@@ -22,6 +21,10 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 				new Date(event.start).getMonth() &&
 			new Date(selectedDate).getYear() === new Date(event.start).getYear()
 	)
+
+	const selectedEventItems = selectedEvent.map((event) => (
+		<EventsListItem event={event} />
+	))
 
 	if (!isLoading && events.length === 0) {
 		return <EventsListEmpty />
@@ -36,9 +39,7 @@ const EventsList = ({ events, isLoading, currentView, selectedDate }) => {
 			>
 				{selectedDate !== 0 && !selectedEvent && <EventsListEmpty />}
 				{selectedDate > 0 && selectedEvent && (
-					<Accordion>
-						<EventsListItem event={selectedEvent} />
-					</Accordion>
+					<Accordion>{selectedEventItems}</Accordion>
 				)}
 				{selectedDate === 0 && <Accordion>{eventsItems}</Accordion>}
 				{selectedDate === 0 && eventsItems.length === 0 && (
