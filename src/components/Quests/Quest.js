@@ -13,30 +13,6 @@ import {
 import PathImage from './icons/path.png'
 
 export default function QuestList() {
-	// const [quests, setQuests] = useState(() => {
-	// 	const storedQuests = JSON.parse(localStorage.getItem('quests'))
-	// 	return storedQuests !== null
-	// 		? storedQuests
-	// 		: [
-	// 				{
-	// 					id: 1,
-	// 					name: 'quest1',
-	// 					isComplete: false,
-	// 					isUnlocked: true,
-	// 				},
-	// 				{
-	// 					id: 2,
-	// 					name: 'quest2',
-	// 					isComplete: false,
-	// 					isUnlocked: false,
-	// 				},
-	// 		  ]
-	// })
-
-	// useEffect(() => {
-	// 	localStorage.setItem('quests', JSON.stringify(quests))
-	// }, [quests])
-
 	const [quests, completeQuest] = useQuests()
 
 	return (
