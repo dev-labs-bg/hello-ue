@@ -12,6 +12,7 @@ import {
 import React, { useState } from 'react'
 // import { unlockQuest } from './UnlockQuest'
 import { completeQuest } from './GlobalQuest'
+import useQuests from '../../hooks/useQuests'
 
 const SecondQuest = () => {
 	const [formData, setFormData] = useState({
