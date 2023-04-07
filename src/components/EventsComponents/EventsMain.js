@@ -62,7 +62,7 @@ const EventsMain = () => {
 		let response = null
 		try {
 			let request = await fetch(
-				`https://ue-varna.bg/bg/eventsfeed?start=${formatStartDate}+02:00&end=${formatEndDate}+03:00`,
+				`https://cryptic-wildwood-52177.herokuapp.com/https://ue-varna.bg/bg/eventsfeed?start=${formatStartDate}+02:00&end=${formatEndDate}+03:00`,
 				{
 					method: 'GET',
 				}
