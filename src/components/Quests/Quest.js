@@ -48,11 +48,7 @@ export default function QuestList() {
 								_hover="#FFFFFF"
 								icon={<IconCurrent />}
 								mt={8}
-								//to={'/questTwo'} //it has to be one
-								// onClick={() => {
-								// 	completeQuest(quests, quest.id, setQuests)
-								// 	unlockQuest(quests, quest.id, setQuests)
-								// }}
+								to={'/questTwo'} //it has to be one
 								as={Link}
 							></IconButton>
 							<Image

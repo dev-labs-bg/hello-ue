@@ -10,11 +10,14 @@ import {
 	AlertDescription,
 } from '@chakra-ui/react'
 import React, { useState } from 'react'
-// import { unlockQuest } from './UnlockQuest'
-import { completeQuest } from './GlobalQuest'
-import useQuests from '../../hooks/useQuests'
+//import { QuestProvider } from '../../context/QuestsContext'
+import UseQuests from '../../hooks/useQuests'
+//import { QuestContext } from './QuestProvider'
+//import { markQuestAsCompleted } from '../../context/QuestsContext'
 
 const SecondQuest = () => {
+	const { activateMarkQuestsAsCompleted, quests } = UseQuests()
+
 	const [formData, setFormData] = useState({
 		city: '',
 		school: '',
@@ -24,6 +27,11 @@ const SecondQuest = () => {
 	})
 
 	const [formSubmitted, setFormSubmitted] = useState(false)
+
+	// function btnSendsGreetings() {
+	// 	//return UseQuests()
+	// 	//return console.log('Hi, im a button')
+	// }
 
 	function handleSubmit(event) {
 		event.preventDefault()
@@ -39,8 +47,6 @@ const SecondQuest = () => {
 			...prevState,
 			[name]: value,
 		}))
-
-		console.log(formData)
 	}
 
 	return (
@@ -120,11 +126,6 @@ const SecondQuest = () => {
 				width="200px"
 				colorScheme="green"
 				variant="solid"
-				// onClick={() => {
-				// 	completeQuest(quests, quest.id, setQuests)
-				// 	unlockQuest(quests, quest.id, setQuests)
-				// }}
-				onClick={completeQuest(1)}
 			>
 				Готово
 			</Button>
@@ -135,6 +136,7 @@ const SecondQuest = () => {
 					<AlertDescription>
 						Благодарим ти, че попълни въпросника!
 					</AlertDescription>
+					{activateMarkQuestsAsCompleted}
 				</Alert>
 			) : null}
 		</VStack>
