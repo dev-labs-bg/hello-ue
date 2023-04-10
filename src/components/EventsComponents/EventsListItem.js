@@ -13,12 +13,8 @@ import {
 import { CheckCircleIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 
 const EventsListItem = ({ event }) => {
-	let src = 'https://ue-varna.bg/uploads/news/'
-		.concat(event.picture)
-		.replace(' ', '%20')
-
 	let link = 'https://www.ue-varna.bg/bg/'.concat(event.url)
-	console.log(src)
+
 	return (
 		<AccordionItem
 			style={{
@@ -104,13 +100,6 @@ const EventsListItem = ({ event }) => {
 						Край: {event.event_date_to} {event.event_hour_to}
 					</Text>
 
-					{/* <Image
-						style={{
-							marginTop: '10px',
-							borderRadius: '20px',
-						}}
-						src={src}
-					/> */}
 					<Box>
 						<Button
 							style={{

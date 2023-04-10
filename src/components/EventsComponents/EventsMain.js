@@ -30,6 +30,10 @@ const EventsMain = () => {
 		setSelectedDate(0)
 	}
 
+	if (isError) {
+		return <EventsError />
+	}
+
 	return (
 		<Box
 			display="flex"
@@ -38,14 +42,14 @@ const EventsMain = () => {
 			p="4"
 			minH="100vh"
 			bgColor="gray.100"
+			overflow="hidden"
 		>
 			<EventsCalendar
 				events={events}
 				onClickDate={onClickDate}
 				onChangeView={onChangeView}
 			/>
-			{isError && <EventsError />}
-			{!isError && isLoading ? (
+			{isLoading ? (
 				<EventsLoading />
 			) : (
 				<EventsList
