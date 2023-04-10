@@ -56,6 +56,28 @@ const Navbar = () => {
 		justifyContent: 'space-between',
 	}
 
+	function SubMenu() {
+		return (
+			<MenuList position="absolute" zIndex="1">
+				<MenuItem>
+					<Button
+						variant="ghost"
+						onClick={() => {
+							onToggle((prev) => {
+								prev && onToggle()
+							})
+						}}
+					>
+						<Link to="schedule">Програма</Link>
+					</Button>
+				</MenuItem>
+				<MenuItem>
+					<Button variant="ghost">Продавалник</Button>
+				</MenuItem>
+			</MenuList>
+		)
+	}
+
 	return (
 		<Flex sx={flex}>
 			<HStack
@@ -63,14 +85,23 @@ const Navbar = () => {
 			>
 				<Image src={logo} style={{ width: '40px' }} />
 				<Box sx={vr}></Box>
-				<Button variant="ghost">
-					<Link to="dashboard">Начало</Link>
-				</Button>
-				<Button variant="ghost">Куестове</Button>
-				<Button variant="ghost">Събития</Button>
-				<Button variant="ghost">Как да стигна?</Button>
-				<Button variant="ghost">Забавни спомени</Button>
-				<Button variant="ghost">Полезно</Button>
+				<Menu>
+					<Button variant="ghost">
+						<Link to="dashboard">Начало</Link>
+					</Button>
+					<Button variant="ghost">Куестове</Button>
+					<Button variant="ghost">Събития</Button>
+					<Button variant="ghost">Как да стигна?</Button>
+					<Button variant="ghost">Забавни спомени</Button>
+					<MenuButton
+						as={Button}
+						rightIcon={<ChevronDownIcon />}
+						bg="#96BFC6"
+					>
+						Полезно
+					</MenuButton>
+					<SubMenu />
+				</Menu>
 			</HStack>
 
 			<IconButton
@@ -88,27 +119,34 @@ const Navbar = () => {
 					display={{ sm: 'flex', md: 'flex', lg: 'none' }}
 				>
 					<Flex flexDir="column">
-						<Button variant="ghost" mb="5px">
-							<Link to="dashboard">Начало</Link>
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Куестове
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Събития
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Как да стигна?
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Забавни спомени
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Полезно
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Настройки
-						</Button>
+						<Menu>
+							<Button variant="ghost" mb="5px">
+								<Link to="dashboard">Начало</Link>
+							</Button>
+							<Button variant="ghost" mb="5px">
+								Куестове
+							</Button>
+							<Button variant="ghost" mb="5px">
+								Събития
+							</Button>
+							<Button variant="ghost" mb="5px">
+								Как да стигна?
+							</Button>
+							<Button variant="ghost" mb="5px">
+								Забавни спомени
+							</Button>
+							<MenuButton
+								as={Button}
+								rightIcon={<ChevronDownIcon />}
+								bg="#96BFC6"
+							>
+								Полезно
+							</MenuButton>
+							<SubMenu />
+							<Button variant="ghost" mb="5px">
+								Настройки
+							</Button>
+						</Menu>
 					</Flex>
 					<Flex justify="flex-end">
 						<IconButton
