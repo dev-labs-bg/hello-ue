@@ -22,7 +22,7 @@ const EventsError = () => {
 				}}
 				src={imgErrorPath}
 			/>
-			<Heading fontSize="10px">Ooops. Something went wrong...</Heading>
+			<Heading fontSize="10px">Упс! Нещо не е наред</Heading>
 		</Center>
 	)
 }

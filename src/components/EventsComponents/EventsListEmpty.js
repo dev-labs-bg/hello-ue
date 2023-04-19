@@ -22,7 +22,7 @@ const EventsListEmpty = () => {
 				}}
 				src={noDataImgPath}
 			/>
-			<Heading fontSize="10px">No events for this date.</Heading>
+			<Heading fontSize="10px">Няма събития за тази дата.</Heading>
 		</Center>
 	)
 }

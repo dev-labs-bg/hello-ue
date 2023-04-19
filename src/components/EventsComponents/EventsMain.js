@@ -76,7 +76,6 @@ const EventsMain = () => {
 				throw new Error(response ? response.error : request.statusText)
 			}
 		} catch (err) {
-			console.log(err)
 			setError(true)
 			setLoading(false)
 		}
