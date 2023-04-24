@@ -5,18 +5,26 @@ import useQuest from '../../hooks/useQuest'
 
 export default function QuestsMenu() {
 	let currentQuest = useQuest().currentQuest
+
+	const questsCount = 6
+
 	let output = []
-	for (let i = 1; i <= 6; i++) {
+	for (let i = 1; i <= questsCount; i++) {
 		if (currentQuest > i) {
-			output.push(<QuestStateDisplay id={i} state="done" />)
+			output.push(<QuestStateDisplay id={i} state="done" size="5" />)
 		} else if (currentQuest === i) {
 			output.push(
-				<QuestStateDisplay id={i} state="current" text={currentQuest} />
+				<QuestStateDisplay
+					id={i}
+					state="current"
+					size="5"
+					text={currentQuest}
+				/>
 			)
 		} else {
-			output.push(<QuestStateDisplay id={i} state="locked" />)
+			output.push(<QuestStateDisplay id={i} state="locked" size="5" />)
 		}
-		if (i !== 6) {
+		if (i !== questsCount) {
 			output.push(<Image src={PathImage} height="90px" m={41} mt={70} />)
 		}
 	}

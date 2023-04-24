@@ -32,7 +32,6 @@ function App() {
 			<Route path="/" element={<ProtectedRoute />}>
 				<Route index element={<Dashboard />} />
 				<Route path="dashboard" element={<Dashboard />} />
-				<Route path="quest" element={<Quest />} />
 				<Route path="questTwo" element={<Quest2 />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="logout" element={<Logout />} />
@@ -46,6 +45,7 @@ function App() {
 					<Route path="my" element={<SalesMyAds/>} />
 				</Route>
 				<Route path="quests-menu" element={<QuestsMenu />} />
+				<Route path="quest2" element={<Quest2 />} />
 			</Route>
 		</Routes>
 	)
