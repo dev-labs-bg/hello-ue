@@ -15,6 +15,7 @@ import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
 import Quest from './components/Quests/Quest'
 import Quest2 from './components/Quests/Quest2'
+import QuestsMenu from './components/Quests/QuestsMenu'
 
 function App() {
 	const user = useAuth().auth
@@ -44,6 +45,7 @@ function App() {
 					<Route path="list" element={<SalesAdsList/>} />
 					<Route path="my" element={<SalesMyAds/>} />
 				</Route>
+				<Route path="quests-menu" element={<QuestsMenu />} />
 			</Route>
 		</Routes>
 	)
