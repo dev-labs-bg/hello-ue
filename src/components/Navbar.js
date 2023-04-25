@@ -67,7 +67,7 @@ const Navbar = ({ title }) => {
 					<Link to="dashboard">Начало</Link>
 				</Button>
 				<Button variant="ghost">
-					<Link to="quest">Куестове</Link>
+					<Link to="quests-menu">Куестове</Link>
 				</Button>
 				<Button variant="ghost">
 					<Link to="events">Събития</Link>

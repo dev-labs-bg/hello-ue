@@ -1,6 +1,6 @@
 import { Center, Image, VStack } from '@chakra-ui/react'
 import QuestStateDisplay from './QuestStateDisplay'
-import PathImage from './icons/path2.png'
+import QuestConnectorImg from './connector.png'
 import useQuest from '../../hooks/useQuest'
 
 export default function QuestsMenu() {
@@ -25,7 +25,9 @@ export default function QuestsMenu() {
 			output.push(<QuestStateDisplay id={i} state="locked" size="5" />)
 		}
 		if (i !== questsCount) {
-			output.push(<Image src={PathImage} height="90px" m={41} mt={70} />)
+			output.push(
+				<Image src={QuestConnectorImg} height="90px" m={41} mt={70} />
+			)
 		}
 	}
 	return (
