@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
+import Navigation from './Navigation'
 
 const Corps = () => {
     const [selectedBuilding, setSelectedBuilding] = useState(null)
@@ -11,32 +11,7 @@ const Corps = () => {
             id="container"
             className="relative w-full min-h-screen bg-gradient-to-r flex items-center justify-center from-teal-200 to-indigo-200"
         >
-            <div className="absolute top-[5%] left-auto inset-x-[auto] flex gap-x-10 font-semibold sm:text-lg md:text-xl lg:text-2xl">
-                <Link to="/location">
-                    <button
-                        type="button"
-                        className="hover:text-gray-600 hover:underline underline-offset-8"
-                    >
-                        Корпуси
-                    </button>
-                </Link>
-                <Link to="/location/floors">
-                    <button
-                        type="button"
-                        className="hover:text-gray-600 hover:underline underline-offset-8"
-                    >
-                        Етажи-първи корпус
-                    </button>
-                </Link>
-                <Link to="/location/library">
-                    <button
-                        type="button"
-                        className="hover:text-gray-600 hover:underline underline-offset-8"
-                    >
-                        Библиотека
-                    </button>
-                </Link>
-            </div>
+            <Navigation />
             <div className="flex lg:flex-row flex-col  my-28  md:my-36 border-gray-800 rounded-xl border-4 bg-gray-100">
                 <div className=" w-[350px] md:w-[450px] lg:w-[325px] xl:w-[400px] h-fit flex flex-col items-center text-left justify-center focus:ring-4 focus:outline-none font-medium p-4 rounded-lg  bg-white">
                     <div className="flex gap-5 items-center border-b-4">
@@ -132,8 +107,8 @@ const Corps = () => {
                     className={selectedBuilding === 'mapOne' ? '' : 'hidden'}
                 >
                     <iframe
-                        className="w-full h-[380px] sm:w-[350px] md:w-[450px] lg:w-[700px]"
                         title="main-building"
+                        className="w-full h-[380px] sm:w-[350px] md:w-[450px] lg:w-[700px]"
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11631.854494743802!2d27.9199391!3d43.2102523!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a4540939dfa6d5%3A0x3d401ef3c09a59bf!2sUniversity%20of%20Economics%20%E2%80%93%20Varna!5e0!3m2!1sen!2sbg!4v1686816499276!5m2!1sen!2sbg"
                         allowFullScreen=""
                         loading="lazy"
@@ -148,6 +123,7 @@ const Corps = () => {
                 >
                     <iframe
                         title="second-building"
+                        className="w-full h-[380px] sm:w-[350px] md:w-[450px] lg:w-[700px]"
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2907.283437802055!2d27.9183736!3d43.2245167!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a45442727d276d%3A0xe726627002b45875!2sUniversity%20of%20Economics%2C%20Varna%20-%20Second%20Corps!5e0!3m2!1sen!2sbg!4v1686816735312!5m2!1sen!2sbg"
                         width="700"
                         height="380"
@@ -164,6 +140,7 @@ const Corps = () => {
                 >
                     <iframe
                         title="third-building"
+                        className="w-full h-[380px] sm:w-[350px] md:w-[450px] lg:w-[700px]"
                         src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2907.4922658941096!2d27.8956212!3d43.2201377!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a45409acb2c291%3A0x4569fa8c265fc71c!2sCollege%20of%20Tourism%E2%80%93%20Varna!5e0!3m2!1sen!2sbg!4v1686816882817!5m2!1sen!2sbg"
                         width="700"
                         height="380"
