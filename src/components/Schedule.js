@@ -1,8 +1,8 @@
+import Chart from './ChartComponents/Chart'
 const Schedule = () => {
 	return (
-		<div>
-			<h1>Test</h1>
-			<span>123</span>
+		<div className="chart-container">
+			<Chart />
 		</div>
 	)
 }
