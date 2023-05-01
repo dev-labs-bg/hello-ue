@@ -6,7 +6,7 @@ const EventsMain = () => {
 	return (
 		<section
 			id="container"
-			className="relative w-full min-h-screen bg-gradient-to-r flex items-center justify-center from-teal-200 to-indigo-200"
+			className="relative w-full min-h-screen bg-gradient-to-tr from-[#034687] to-[#00c379] flex items-center justify-center "
 		>
 			<Navigation />
 			<Outlet />

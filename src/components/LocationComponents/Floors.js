@@ -1,43 +1,55 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Navigation from './Navigation'
 import data from './Data'
-// import ImageMapper from 'reactjs-img-mapper'
+import ImageMapper from 'reactjs-img-mapper'
 
 export const Floors = () => {
-    const [building, setBuilding] = useState(null)
 
-    const buttonClickHandler = (id) => {
-        setBuilding(prevBuilding => (prevBuilding === id ? null : id))
-        //Toggle image
-    }
+    // const imgCoord = data.imgCoords.find(obj => obj.hasOwnProperty("floor6"));
+    // if (imgCoord) {
+    //     const floor6 = imgCoord.floor6[0];
+    //     console.log(floor6);
+    // } else {
+    //     console.log("floor6 not found.")
+    // }
+
+    // const floorsMap = data.imgCoords.map(obj => {
+    //     const key = Object.keys(obj)[0];
+    //     return { floor: key, areas: obj[key][0].areas };
+    // });
+    // console.log(floorsMap);
 
     return (
         <section
-            id="container"
-            className="relative w-full min-h-screen bg-gradient-to-r flex items-center justify-center from-teal-200 to-indigo-200"
+            className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-l from-[#034687] to-[#00c379]"
         >
             <Navigation />
-            <div className="w-full min-h-screen gap-8 flex flex-col items-center justify-center py-24 my-6 text-left text-black text-xl">
-                {data.staticData.map((item, index) => {
-                    return (
-                        <div key={index} className="flex flex-col lg:flex-row items-center gap-6 bg-gray-600 rounded-md">
-                            <div className=" w-[350px] md:w-[450px] lg:w-[325px] xl:w-[400px] h-fit flex flex-col lg:flex-row items-center
-                             text-left justify-center focus:ring-4 focus:outline-none font-medium p-4 rounded-lg bg-white">
-                                <span className="flex gap-5 items-center border-b-4 ">
-                                    <h3 className="text-xl py-4">{item.title}</h3>
-                                    <button onClick={() => buttonClickHandler(item.id)}>
-                                        &gt;{data.btnsId.find((btn) => btn.id === item.id).title}
-                                    </button>
-                                </span>
+            <div className="w-full min-h-screen grid place-content-center align-middle auto-cols-auto sm:py-8">
+                <div className="w-fit h-fit gap-4 lg:gap-8 grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 grid-flow-row justify-self-auto place-items-center mx-[20px] my-[120px] auto-cols-auto">
+                    {data.staticData.map((item, index) => {
+                        const imgUrl = data.schemeImages.find((img) => img.id === item.id).imgUrl;
+                        // const imgMap = data.imgCoords.find((coord) => coord[items.id])[items.id][0].areas;
+                        const imgCoords = data.imgCoords.find((coord) => coord.name === `floor-${item.id}`);
+                        const imgMap = imgCoords ? imgCoords.areas : [];
+
+                        return (
+                            <div key={index} className="mx-auto my-4">
+                                <h3 className="text-xl md:text-2xl text-black leading-7 font-medium font-serif mb-2">{item.title}</h3>
+                                <ImageMapper
+                                    src={imgUrl}
+                                    map={imgMap}
+                                    imgWidth={500}
+                                    width={500}
+                                    height={350}
+                                    className="w-full h-[350px] lg:w-[500px] shadow-2xl rounded-2xl 
+                                    transform-gpu transition-all duration-500 hover:hue-rotate-15 hover:rounded-3xl 
+                                    hover:drop-shadow-2xl hover:scale-110 hover:m-4
+                                    md:hover:scale-105 md:hover:m-3 sm:hover:m-0"
+                                />
                             </div>
-                            <div id="image-container" className={building === item.id ? "visible" : "hidden"}>
-                                <img src={data.schemeImages.find((img) => img.id === item.id).imgUrl}
-                                    alt={`Schema: ${item.id}`}
-                                    className="w-full h-[280px] sm:w-[350px] md:w-[450px] lg:w-[450px]" />
-                            </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
         </section>
     )
