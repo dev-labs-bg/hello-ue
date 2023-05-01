@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import { ResponsivePie } from '@nivo/pie'
 
-const Chart = ({ data /* see data tab */ }) => {
+const Chart = ({ data }) => {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+	const [clickedData, setClickedData] = useState(null)
 
-	const getLegendOrientation = () => {
+	const getLegendWidth = () => {
 		if (windowWidth < 490) {
 			return 'column'
 		} else {
 			return 'row'
 		}
 	}
-
 	useEffect(() => {
 		const handleResize = () => {
 			setWindowWidth(window.innerWidth)
@@ -22,42 +22,58 @@ const Chart = ({ data /* see data tab */ }) => {
 
 	const data2 = [
 		{
-			id: 'Ongoing',
-			label: 'Ongoing',
+			id: 'Math',
+			label: 'В момента',
 			value: 540,
 			color: 'hsl(334, 70%, 50%)',
 		},
 		{
-			id: 'erlang',
-			label: 'erlang',
+			id: 'Почиква',
+			label: 'Няма часове',
 			value: 255,
 			color: 'hsl(174, 70%, 50%)',
 		},
 		{
-			id: 'lisp',
-			label: 'lisp',
+			id: 'Икономика',
+			label: 'Предстои',
 			value: 380,
 			color: 'hsl(24, 70%, 50%)',
 		},
 		{
-			id: 'sass',
-			label: 'sass',
+			id: 'Почиква',
+			label: 'Няма часове',
 			value: 119,
 			color: 'hsl(274, 70%, 50%)',
 		},
 		{
-			id: 'rust',
-			label: 'rust',
+			id: 'Програмиране',
+			label: 'Приключил',
 			value: 424,
 			color: 'hsl(229, 70%, 50%)',
 		},
 	]
 
-	const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
-		let total = 0
-		dataWithArc.forEach((datum) => {
-			total += datum.value
+	const legendData = data2
+		.filter((item, index, self) => {
+			return index === self.findIndex((t) => t.id === item.id)
 		})
+		.slice(0, 4)
+		.map((item) => {
+			return {
+				id: item.id,
+				label: item.label,
+				color: item.color,
+			}
+		})
+
+	const onSliceClick = (data) => {
+		console.log(data)
+		setClickedData({ ...data, color: data.color })
+	}
+
+	const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
+		let displayed = clickedData ? clickedData['id'] : 'Изберете...'
+		let color = clickedData ? clickedData['color'] : '#0'
 
 		return (
 			<text
@@ -66,11 +82,12 @@ const Chart = ({ data /* see data tab */ }) => {
 				textAnchor="middle"
 				dominantBaseline="central"
 				style={{
-					color: '#FFFFFF',
-					fontSize: '24px',
+					color: '#FF0000',
+					fontSize: '14px',
+					fill: color,
 				}}
 			>
-				{total}
+				{displayed}
 			</text>
 		)
 	}
@@ -78,7 +95,8 @@ const Chart = ({ data /* see data tab */ }) => {
 	return (
 		<ResponsivePie
 			data={data2}
-			margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+			onClick={onSliceClick}
+			margin={{ top: 15, right: 80, bottom: 70, left: 80 }}
 			innerRadius={0.5}
 			padAngle={0.7}
 			cornerRadius={3}
@@ -89,10 +107,11 @@ const Chart = ({ data /* see data tab */ }) => {
 				from: 'color',
 				modifiers: [['darker', 0.2]],
 			}}
+			enableArcLabels={false}
 			arcLinkLabelsSkipAngle={10}
 			arcLinkLabelsTextOffset={8}
 			arcLinkLabelsTextColor="#333333"
-			arcLinkLabelsDiagonalLength={12}
+			arcLinkLabelsDiagonalLength={5}
 			arcLinkLabelsThickness={3}
 			arcLinkLabelsColor={{ from: 'color' }}
 			arcLabelsSkipAngle={20}
@@ -183,7 +202,7 @@ const Chart = ({ data /* see data tab */ }) => {
 			legends={[
 				{
 					anchor: 'bottom',
-					direction: getLegendOrientation(),
+					direction: getLegendWidth(),
 					justify: false,
 					translateX: 0,
 					translateY: 50,
@@ -203,6 +222,7 @@ const Chart = ({ data /* see data tab */ }) => {
 							},
 						},
 					],
+					data: legendData,
 				},
 			]}
 		/>
