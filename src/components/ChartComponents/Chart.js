@@ -5,6 +5,75 @@ const Chart = ({ data }) => {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 	const [clickedData, setClickedData] = useState(null)
 
+	//const fillColors = ['#3ABCE6', '#D96E26', '#DC143C', '#808080']
+
+	const legendColor = [
+		{
+			id: '1',
+			label: 'В момента',
+			color: '#D96E26',
+		},
+		{
+			id: '2',
+			label: 'Приключил',
+			color: '#3ABCE6',
+		},
+		{
+			id: '3',
+			label: 'Предстои',
+			color: '#DC143C',
+		},
+		{
+			id: '4',
+			label: 'Няма часове',
+			color: '#808080',
+		},
+	]
+	const data2 = [
+		{
+			id: 'Math',
+			label: 'В момента',
+			value: 540,
+			color: '#3ABCE6',
+		},
+		{
+			id: 'Почиква ',
+			label: 'Няма часове',
+			value: 255,
+			color: '#808080',
+		},
+		{
+			id: 'Икономика',
+			label: 'Предстои',
+			value: 380,
+			color: '#3ABCE6',
+		},
+		{
+			id: 'Почиква',
+			label: 'Няма часове',
+			value: 119,
+			color: '#808080',
+		},
+		{
+			id: 'Програмиране',
+			label: 'Приключил',
+			value: 424,
+			color: '#3ABCE6',
+		},
+	]
+
+	const newData2 = data2.map((item) => {
+		const found = legendColor.find(
+			(legendItem) => legendItem.label === item.label
+		)
+		return { ...item, color: found.color }
+	})
+
+	const labelColors = () => {
+		const colorArray = newData2.map((item) => item.color)
+		return colorArray
+	}
+
 	const getLegendWidth = () => {
 		if (windowWidth < 490) {
 			return 'column'
@@ -12,59 +81,6 @@ const Chart = ({ data }) => {
 			return 'row'
 		}
 	}
-	useEffect(() => {
-		const handleResize = () => {
-			setWindowWidth(window.innerWidth)
-		}
-		window.addEventListener('resize', handleResize)
-		return () => window.removeEventListener('resize', handleResize)
-	}, [])
-
-	const data2 = [
-		{
-			id: 'Math',
-			label: 'В момента',
-			value: 540,
-			color: 'hsl(334, 70%, 50%)',
-		},
-		{
-			id: 'Почиква',
-			label: 'Няма часове',
-			value: 255,
-			color: 'hsl(174, 70%, 50%)',
-		},
-		{
-			id: 'Икономика',
-			label: 'Предстои',
-			value: 380,
-			color: 'hsl(24, 70%, 50%)',
-		},
-		{
-			id: 'Почиква',
-			label: 'Няма часове',
-			value: 119,
-			color: 'hsl(274, 70%, 50%)',
-		},
-		{
-			id: 'Програмиране',
-			label: 'Приключил',
-			value: 424,
-			color: 'hsl(229, 70%, 50%)',
-		},
-	]
-
-	const legendData = data2
-		.filter((item, index, self) => {
-			return index === self.findIndex((t) => t.id === item.id)
-		})
-		.slice(0, 4)
-		.map((item) => {
-			return {
-				id: item.id,
-				label: item.label,
-				color: item.color,
-			}
-		})
 
 	const onSliceClick = (data) => {
 		console.log(data)
@@ -92,10 +108,19 @@ const Chart = ({ data }) => {
 		)
 	}
 
+	useEffect(() => {
+		const handleResize = () => {
+			setWindowWidth(window.innerWidth)
+		}
+		window.addEventListener('resize', handleResize)
+		return () => window.removeEventListener('resize', handleResize)
+	}, [])
+
 	return (
 		<ResponsivePie
-			data={data2}
+			data={newData2}
 			onClick={onSliceClick}
+			colors={labelColors()}
 			margin={{ top: 15, right: 80, bottom: 70, left: 80 }}
 			innerRadius={0.5}
 			padAngle={0.7}
@@ -149,31 +174,13 @@ const Chart = ({ data }) => {
 			fill={[
 				{
 					match: {
-						id: 'ruby',
+						id: 'Math',
 					},
 					id: 'dots',
 				},
 				{
 					match: {
-						id: 'c',
-					},
-					id: 'dots',
-				},
-				{
-					match: {
-						id: 'go',
-					},
-					id: 'dots',
-				},
-				{
-					match: {
-						id: 'python',
-					},
-					id: 'dots',
-				},
-				{
-					match: {
-						id: 'scala',
+						id: 'Програмиране',
 					},
 					id: 'lines',
 				},
@@ -222,7 +229,7 @@ const Chart = ({ data }) => {
 							},
 						},
 					],
-					data: legendData,
+					data: legendColor,
 				},
 			]}
 		/>
