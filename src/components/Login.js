@@ -70,7 +70,8 @@ const Login = () => {
 		if (response && !response.error) {
 			delete response.success
 			setAuth(response)
-			saveProfileData(getProfileData(response.token))
+			let data = await getProfileData(response.token)
+			saveProfileData(data)
 			navigate('/dashboard')
 		}
 	}
