@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
 
 const ScheduleContext = React.createContext(null)
 
@@ -27,14 +26,10 @@ const ScheduleProvider = ({ children }) => {
 
 	const saveProfileData = (profileData) => {
 		localStorage.setItem('profileData', JSON.stringify(profileData))
-		setProfileData(profileData)
 	}
-
-	const [profileData, setProfileData] = useState(getSavedProfileData())
 
 	const removeProfileData = () => {
 		localStorage.removeItem('profileData')
-		setProfileData(null)
 	}
 
 	return (
@@ -44,7 +39,6 @@ const ScheduleProvider = ({ children }) => {
 				getSavedProfileData,
 				saveProfileData,
 				removeProfileData,
-				profileData,
 			}}
 		>
 			{children}
