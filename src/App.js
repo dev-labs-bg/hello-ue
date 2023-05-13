@@ -44,6 +44,7 @@ function App() {
 					<Route path="my" element={<SalesMyAds/>} />
 				</Route>
 				<Route path="quests-menu" element={<QuestsMenu />} />
+				{/* TODO: The path for Quest2 should be changed after Quest1 is merged */}
 				<Route path="quest1" element={<Quest2 />} />
 			</Route>
 		</Routes>

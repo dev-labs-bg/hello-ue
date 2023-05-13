@@ -18,6 +18,7 @@ const Quest2 = () => {
 		interests: '',
 		hobby: '',
 	})
+	// TODO: Change questId to 2 when Quest1 is merged
 	const questId = 1
 	const updateQuest = useQuest().updateQuest
 	const currentQuest = useQuest().currentQuest
