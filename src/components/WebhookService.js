@@ -7,7 +7,7 @@ const WebhookService = () => {
 	const WebhookURL =
 		'https://discord.com/api/webhooks/1085559987394322464/lrpVJYrvaA_ZBrJCtmVIN_xetza8pQVVZeUb1OHIS8HubCmKItanZQxFyJF-ZhUmer5k'
 
-	//This data should be passed as a property
+	//TODO: This data should be passed as a property
 	const formData = {
 		'student-name': 'Aна Черкасова',
 		'student-city': 'Варна',
