@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom'
 const Login = () => {
 	const setAuth = useAuth().setAuth
 	const getProfileData = useSchedule().getProfileData
-	const saveProfileData = useSchedule().saveProfileData
+	const setProfileData = useSchedule().setProfileData
 	const navigate = useNavigate()
 	const [formData, setFormdata] = useState({
 		facultyNumber: '',
@@ -71,7 +71,7 @@ const Login = () => {
 			delete response.success
 			setAuth(response)
 			let data = await getProfileData(response.token)
-			saveProfileData(data)
+			setProfileData(data)
 			navigate('/dashboard')
 		}
 	}

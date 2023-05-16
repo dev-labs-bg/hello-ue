@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
-import useSchedule from '../hooks/useSchedule'
+import useSchedule from './useSchedule'
 const ical2json = require('ical2json')
 
-const Proxy = () => {
-	const { getSavedProfileData } = useSchedule()
+const useScheduleData = () => {
+	const { profileData } = useSchedule()
 	const [chartData, setChartData] = useState([])
+	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
-		let data = getSavedProfileData()
-		let schedule_url = data.schedule_url
+		let schedule_url = profileData.schedule_url
 		let myToken = () => {
 			const tokenString = localStorage.getItem('auth')
 			const token = JSON.parse(tokenString)
@@ -32,11 +32,12 @@ const Proxy = () => {
 			.then((result) => {
 				const jsonData = ical2json.convert(result)
 				setChartData(jsonData)
+				setIsLoading(false)
 			})
 			.catch((error) => console.log('error', error))
-	}, [getSavedProfileData])
+	}, [profileData])
 
-	return chartData
+	return { chartData, isLoading }
 }
 
-export default Proxy
+export default useScheduleData

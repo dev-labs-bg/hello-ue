@@ -24,8 +24,11 @@ const ScheduleProvider = ({ children }) => {
 		return profileData
 	}
 
+	const [profileData, setProfileData] = React.useState(getSavedProfileData())
+
 	const saveProfileData = (profileData) => {
 		localStorage.setItem('profileData', JSON.stringify(profileData))
+		setProfileData(profileData)
 	}
 
 	const removeProfileData = () => {
@@ -35,10 +38,10 @@ const ScheduleProvider = ({ children }) => {
 	return (
 		<ScheduleContext.Provider
 			value={{
+				setProfileData: saveProfileData,
 				getProfileData,
-				getSavedProfileData,
-				saveProfileData,
 				removeProfileData,
+				profileData,
 			}}
 		>
 			{children}

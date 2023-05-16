@@ -1,10 +1,16 @@
 import Chart from './ChartComponents/Chart'
-import Proxy from './Proxy'
+import useScheduleData from '../hooks/useScheduleData'
+
 const Schedule = () => {
-	const data = Proxy()
+	const { chartData, isLoading } = useScheduleData()
+
 	return (
 		<div className="chart-container">
-			<Chart data={data} />
+			{isLoading ? (
+				<div>Loading...</div> // Render a loading screen when isLoading is true
+			) : (
+				<Chart data={chartData} /> // Render the chart component when isLoading is false
+			)}
 		</div>
 	)
 }
