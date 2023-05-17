@@ -7,6 +7,7 @@ import Login from './components/Login'
 import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
+import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
 
 function App() {
 	const user = useAuth().auth
@@ -26,6 +27,7 @@ function App() {
 				<Route path="profile" element={<Profile />} />
 				<Route path="logout" element={<Logout />} />
 				<Route path="events" element={<EventsMain />} />
+				<Route path="qrscanner" element={<QrCodeScanner />} />
 			</Route>
 		</Routes>
 	)
