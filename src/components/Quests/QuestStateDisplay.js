@@ -12,7 +12,7 @@ export default function QuestStateDisplay(props) {
 	}
 
 	return (
-		<Link href={linkTo} class="questLink">
+		<Link href={linkTo} class="link-decoration">
 			<Box
 				bgSize="contain"
 				bgImage={iconPath}

@@ -15,7 +15,10 @@ import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
 import Quest from './components/Quests/Quest'
 import Quest2 from './components/Quests/Quest2'
+import Quiz from './components/Quests/Quiz'
+import Quest1 from './components/Quests/Quest1'
 import QuestsMenu from './components/Quests/QuestsMenu'
+import CompletedQuest from './components/Quests/CompletedQuest'
 
 function App() {
 	const user = useAuth().auth
@@ -36,7 +39,7 @@ function App() {
 				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
-				<Route path="qrscanner" element={<QrCodeScanner />} />
+				<Route path="qr-scanner" element={<QrCodeScanner />} />
 				<Route path='dashboard-news' element={<DashboardNews />} />
 
 				<Route path="sales" element={<SalesMain />}>
@@ -44,8 +47,10 @@ function App() {
 					<Route path="my" element={<SalesMyAds/>} />
 				</Route>
 				<Route path="quests-menu" element={<QuestsMenu />} />
-				{/* TODO: The path for Quest2 should be changed after Quest1 is merged */}
-				<Route path="quest1" element={<Quest2 />} />
+				<Route path="quest1" element={<Quest1 />} />
+				<Route path="quest2" element={<Quest2 />} />
+				<Route path="quiz" element={<Quiz />} />
+				<Route path="successful-quest" element={<CompletedQuest />} />
 			</Route>
 		</Routes>
 	)

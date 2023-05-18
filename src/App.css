@@ -103,6 +103,6 @@
 	border: unset !important;
 }
 
-.questLink:hover {
+.link-decoration:hover {
 	text-decoration: none;
 }

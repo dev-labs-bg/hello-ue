@@ -1,130 +1,136 @@
 import {
-	VStack,
-	Input,
-	FormControl,
-	FormLabel,
-	Button,
 	Box,
+	Heading,
+	Button,
+	Image,
+	Link,
+	AlertTitle,
+	Alert,
 } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Center, VStack } from '@chakra-ui/react'
+import BistroImg from './res/clock.png'
 import useQuest from '../../hooks/useQuest'
+import CompletedQuest from './CompletedQuest'
 
 const Quest2 = () => {
-	const [isSubmitted, setIsSubmitted] = useState(false)
-	const [formData, setFormData] = useState({
-		city: '',
-		school: '',
-		specialty: '',
-		interests: '',
-		hobby: '',
-	})
-	// TODO: Change questId to 2 when Quest1 is merged
-	const questId = 1
-	const updateQuest = useQuest().updateQuest
+	const questId = 2
 	const currentQuest = useQuest().currentQuest
-
-	function handleSubmit(event) {
-		updateQuest()
-		setIsSubmitted(true)
-	}
-
-	function handleChange(event) {
-		const { name, value } = event.target
-
-		setFormData((prevState) => ({
-			...prevState,
-			[name]: value,
-		}))
-	}
+	const discordChannelLink =
+		'https://discord.com/channels/1052677967496622182/1085559956935286896'
+	const feedbackMessage = (
+		<Center>
+			<Alert
+				status="success"
+				variant="subtle"
+				flexDirection="column"
+				alignItems="center"
+				alignSelf="center"
+				justifyContent="center"
+				textAlign="center"
+				height="auto"
+				w={['90%', '90%', '90%', '90%']}
+				mt={['10%', '8%', '5%', '3%']}
+			>
+				<AlertTitle mt={4} mb={1} fontSize="m">
+					Благодарим ти за споделената информация. Можеш да видиш
+					своето резюме в{' '}
+					<Link href={discordChannelLink}>Discord</Link> канала ни.
+				</AlertTitle>
+			</Alert>
+		</Center>
+	)
 
 	return (
 		<>
-			{!isSubmitted && questId === currentQuest ? (
-				<VStack
-					as="form"
-					onSubmit={handleSubmit}
-					mx="auto"
-					w={{ base: '90%', md: 580 }}
-					h="700px"
-					justifyContent="center"
+			{questId === currentQuest ? (
+				<Box
+					bgColor={'gray.100'}
+					p={['3em', '3em', '3em', '4em']}
+					flexGrow={1}
 				>
-					<FormControl isRequired>
-						<FormLabel>От кой град си?</FormLabel>
-						<Input
-							name="city"
-							type="text"
-							value={formData.city}
-							onChange={handleChange}
-							placeholder="Твоят отговор"
-							focusBorderColor="#818F73"
-							borderRadius="3px"
-						></Input>
-					</FormControl>
-					<FormControl isRequired>
-						<FormLabel>От коя гимназия идваш?</FormLabel>
-						<Input
-							name="school"
-							type="text"
-							value={formData.school}
-							onChange={handleChange}
-							placeholder="Твоят отговор"
-							focusBorderColor="#818F73"
-							borderRadius="3px"
-						></Input>
-					</FormControl>
-					<FormControl isRequired>
-						<FormLabel>Коя специалност изучаваш?</FormLabel>
-						<Input
-							name="specialty"
-							type="text"
-							value={formData.specialty}
-							onChange={handleChange}
-							placeholder="Твоят отговор"
-							focusBorderColor="#818F73"
-							borderRadius="3px"
-						></Input>
-					</FormControl>
-					<FormControl isRequired>
-						<FormLabel>Какви са твоите интереси?</FormLabel>
-						<Input
-							name="interests"
-							type="text"
-							value={formData.interests}
-							onChange={handleChange}
-							placeholder="Твоят отговор"
-							focusBorderColor="#818F73"
-							borderRadius="3px"
-						></Input>
-					</FormControl>
-					<FormControl isRequired>
-						<FormLabel>Любимо хоби?</FormLabel>
-						<Input
-							name="hobby"
-							type="text"
-							value={formData.hobby}
-							onChange={handleChange}
-							placeholder="Твоят отговор"
-							errorBorderColor="#008140"
-							focusBorderColor="#818F73"
-							borderRadius="3px"
-						></Input>
-					</FormControl>
-					<Button
-						type="submit"
-						size="md"
-						height="48px"
-						width="200px"
-						colorScheme="green"
-						variant="solid"
-					>
-						Готово
-					</Button>
-				</VStack>
+					<Center>
+						<VStack
+							bgColor="white"
+							width={['90%', '60%', '45%', '35%']}
+							position="relative"
+						>
+							<Image src={BistroImg} alt={'Coffee'} />
+							<Box p={5}>
+								<Box
+									bgSize="cover"
+									bgPosition="top center"
+									top={0}
+									left={0}
+									right={0}
+									bottom={0}
+									zIndex={-1}
+								/>
+								<Box textAlign="center">
+									<Heading
+										fontSize={{
+											base: '1.3em',
+											md: '1.8em',
+											lg: '2.2em',
+										}}
+										fontWeight="bold"
+										mt={3}
+									>
+										Кой си ти?
+									</Heading>
+									<Box
+										fontSize={{
+											base: '1em',
+											md: '1em',
+											lg: '1.1em',
+										}}
+										mt={5}
+									>
+										В този куест трябва да разкриеш кой си
+										ти - ще отговориш на няколко въпроса, а
+										след тях се крие изненада!
+									</Box>
+								</Box>
+								<Button
+									mt={10}
+									mb={10}
+									bgColor="#44818B"
+									color="white"
+									borderRadius="lg"
+									fontSize={{
+										base: '1em',
+										md: '1.2em',
+										lg: '1.5em',
+									}}
+									fontWeight="bold"
+									p={8}
+									_hover={{ bgColor: '#2E6269' }}
+								>
+									<Link href="quiz" class="link-decoration">
+										Започни Quiz
+									</Link>
+								</Button>
+								<Box
+									bgColor="#44818B"
+									color="white"
+									w="1.75em"
+									h="1.75em"
+									position="absolute"
+									left="-0.85em"
+									top="-0.85em"
+									fontSize="2.5em"
+									borderRadius="100%"
+									p="0.1em"
+								>
+									{questId}
+								</Box>
+							</Box>
+						</VStack>
+					</Center>
+				</Box>
 			) : (
-				<Box>Добави discord webhook</Box>
+				<CompletedQuest id={questId} message={feedbackMessage} />
 			)}
 		</>
 	)
 }
-
 export default Quest2

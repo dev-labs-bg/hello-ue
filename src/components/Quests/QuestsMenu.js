@@ -1,6 +1,6 @@
 import { Center, Image, VStack, Box, Flex, Card } from '@chakra-ui/react'
 import QuestStateDisplay from './QuestStateDisplay'
-import QuestConnectorImg from './connector.png'
+import QuestConnectorImg from './res/connector.png'
 import useQuest from '../../hooks/useQuest'
 
 export default function QuestsMenu() {
