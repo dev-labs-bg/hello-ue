@@ -1,11 +1,81 @@
 import { useState, useEffect } from 'react'
 import { ResponsivePie } from '@nivo/pie'
+import { format, parseISO, differenceInMinutes } from 'date-fns'
 
 const Chart = ({ data }) => {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 	const [clickedData, setClickedData] = useState(null)
 
-	//const fillColors = ['#3ABCE6', '#D96E26', '#DC143C', '#808080']
+	const eventData = data.VCALENDAR[0].VEVENT
+
+	const currentDayOfWeek = new Date().getDay()
+	const uniqueIds = new Set()
+
+	const currentHour = new Date().getHours()
+	const classHours = {}
+
+	let displayedObjectCount = 0
+	const data3 = eventData.reduce((result, event, index, array) => {
+		const { SUMMARY, DTSTART, DTEND } = event
+
+		// Check if the event ID is already in the set
+		if (uniqueIds.has(SUMMARY)) {
+			return result // Skip this event
+		}
+
+		uniqueIds.add(SUMMARY)
+
+		const cleanedId = SUMMARY.replace('(Изборна дисциплина)', '').trim()
+
+		const startDate = parseISO(DTSTART)
+		const endDate = parseISO(DTEND)
+
+		const startHour = startDate.getHours()
+
+		let label
+		if (startHour <= currentHour) {
+			label = 'В момента'
+		} else {
+			label = 'Предстои'
+		}
+
+		const duration = differenceInMinutes(endDate, startDate)
+
+		// Get the day of the week for the event start date (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+		const eventDayOfWeek = startDate.getDay()
+
+		if (eventDayOfWeek === currentDayOfWeek) {
+			classHours[cleanedId] = `${format(startDate, 'HH:mm')} - ${format(
+				endDate,
+				'HH:mm'
+			)}`
+
+			result.push({
+				id: cleanedId,
+				label,
+				value: duration,
+			})
+
+			displayedObjectCount++
+
+			// Add additional object with label 'Няма часове' and duration based on previous and next events
+			if (displayedObjectCount % 2 !== 0 && index < array.length - 1) {
+				const nextEvent = array[index + 1]
+				const nextStartDate = parseISO(nextEvent.DTSTART)
+				const nextDuration = differenceInMinutes(nextStartDate, endDate)
+
+				if (nextDuration >= 0) {
+					result.push({
+						id: `Почиква ${displayedObjectCount}`,
+						label: 'Няма часове',
+						value: nextDuration,
+					})
+				}
+			}
+		}
+
+		return result
+	}, [])
 
 	const legendColor = [
 		{
@@ -29,40 +99,8 @@ const Chart = ({ data }) => {
 			color: '#808080',
 		},
 	]
-	const data2 = [
-		{
-			id: 'Math',
-			label: 'В момента',
-			value: 540,
-			color: '#3ABCE6',
-		},
-		{
-			id: 'Почиква ',
-			label: 'Няма часове',
-			value: 255,
-			color: '#808080',
-		},
-		{
-			id: 'Икономика',
-			label: 'Предстои',
-			value: 380,
-			color: '#3ABCE6',
-		},
-		{
-			id: 'Почиква',
-			label: 'Няма часове',
-			value: 119,
-			color: '#808080',
-		},
-		{
-			id: 'Програмиране',
-			label: 'Приключил',
-			value: 424,
-			color: '#3ABCE6',
-		},
-	]
 
-	const newData2 = data2.map((item) => {
+	const readyData = data3.map((item) => {
 		const found = legendColor.find(
 			(legendItem) => legendItem.label === item.label
 		)
@@ -70,7 +108,7 @@ const Chart = ({ data }) => {
 	})
 
 	const labelColors = () => {
-		const colorArray = newData2.map((item) => item.color)
+		const colorArray = readyData.map((item) => item.color)
 		return colorArray
 	}
 
@@ -118,7 +156,7 @@ const Chart = ({ data }) => {
 
 	return (
 		<ResponsivePie
-			data={newData2}
+			data={readyData}
 			onClick={onSliceClick}
 			colors={labelColors()}
 			margin={{ top: 15, right: 80, bottom: 70, left: 80 }}
@@ -132,7 +170,8 @@ const Chart = ({ data }) => {
 				from: 'color',
 				modifiers: [['darker', 0.2]],
 			}}
-			enableArcLabels={false}
+			enableArcLabels={true}
+			arcLabel={(data) => `${classHours[data.id]}`}
 			arcLinkLabelsSkipAngle={10}
 			arcLinkLabelsTextOffset={8}
 			arcLinkLabelsTextColor="#333333"
