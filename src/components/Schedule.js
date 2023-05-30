@@ -2,14 +2,16 @@ import Chart from './ChartComponents/Chart'
 import useScheduleData from '../hooks/useScheduleData'
 
 const Schedule = () => {
-	const { chartData, isLoading } = useScheduleData()
+	const { chartData, isLoading, error } = useScheduleData()
 
 	return (
 		<div className="chart-container">
 			{isLoading ? (
-				<div>Loading...</div> // Render a loading screen when isLoading is true
+				<div>Loading...</div>
+			) : error ? (
+				<div>Error: {error}</div>
 			) : (
-				<Chart data={chartData} /> // Render the chart component when isLoading is false
+				<Chart data={chartData} />
 			)}
 		</div>
 	)

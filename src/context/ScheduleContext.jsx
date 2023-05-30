@@ -15,6 +15,7 @@ const ScheduleProvider = ({ children }) => {
 			return data
 		} catch (err) {
 			console.log(err.message)
+			return null
 		}
 	}
 

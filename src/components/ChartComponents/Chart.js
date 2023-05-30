@@ -7,16 +7,17 @@ const Chart = ({ data }) => {
 	const [clickedData, setClickedData] = useState(null)
 
 	const eventData = data.VCALENDAR[0].VEVENT
+	//console.log(eventData)
 
 	const currentDayOfWeek = new Date().getDay()
 	const uniqueIds = new Set()
 
 	const currentHour = new Date().getHours()
 	const classHours = {}
-
 	let displayedObjectCount = 0
+
 	const data3 = eventData.reduce((result, event, index, array) => {
-		const { SUMMARY, DTSTART, DTEND } = event
+		const { SUMMARY, DTSTART, DTEND, DESCRIPTION, LOCATION } = event
 
 		// Check if the event ID is already in the set
 		if (uniqueIds.has(SUMMARY)) {
@@ -45,16 +46,21 @@ const Chart = ({ data }) => {
 		const eventDayOfWeek = startDate.getDay()
 
 		if (eventDayOfWeek === currentDayOfWeek) {
-			classHours[cleanedId] = `${format(startDate, 'HH:mm')} - ${format(
+			const classId = cleanedId
+			const classHoursString = `${format(startDate, 'HH:mm')} - ${format(
 				endDate,
 				'HH:mm'
 			)}`
 
 			result.push({
-				id: cleanedId,
+				id: classId,
 				label,
 				value: duration,
+				description: DESCRIPTION,
+				location: LOCATION,
 			})
+
+			classHours[classId] = classHoursString
 
 			displayedObjectCount++
 
@@ -65,15 +71,29 @@ const Chart = ({ data }) => {
 				const nextDuration = differenceInMinutes(nextStartDate, endDate)
 
 				if (nextDuration >= 0) {
+					const nextCleanedId = nextEvent.SUMMARY.replace(
+						'(Изборна дисциплина)',
+						''
+					).trim()
+					const nextClassId = `Почиква ${displayedObjectCount}`
+					const nextClassHoursString = `${format(
+						endDate,
+						'HH:mm'
+					)} - ${format(nextStartDate, 'HH:mm')}`
+
 					result.push({
-						id: `Почиква ${displayedObjectCount}`,
+						id: nextClassId,
 						label: 'Няма часове',
 						value: nextDuration,
+						description: '',
+						location: '',
 					})
+
+					classHours[nextCleanedId] = nextClassHoursString
+					classHours[nextClassId] = nextClassHoursString
 				}
 			}
 		}
-
 		return result
 	}, [])
 
@@ -120,9 +140,24 @@ const Chart = ({ data }) => {
 		}
 	}
 
+	//
+
 	const onSliceClick = (data) => {
 		console.log(data)
-		setClickedData({ ...data, color: data.color })
+		setClickedData({
+			id: `${
+				data.id +
+				'\n' +
+				data.data.description +
+				'\n' +
+				data.data.location
+			}`,
+			label: data.label,
+			value: data.value,
+			description: data.description,
+			location: data.location,
+			color: data.color,
+		})
 	}
 
 	const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
