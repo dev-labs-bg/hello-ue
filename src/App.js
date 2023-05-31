@@ -8,6 +8,8 @@ import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
 import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
+import DashboardNews from './components/DashboardComponents/DashboardNews'
+import SalesMain from './components/SalesComponent/SalesMainDash'
 
 function App() {
 	const user = useAuth().auth
@@ -28,6 +30,8 @@ function App() {
 				<Route path="logout" element={<Logout />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qrscanner" element={<QrCodeScanner />} />
+				<Route path='dashboard-news' element={<DashboardNews />} />
+				<Route path="sales" element={<SalesMain />} />
 			</Route>
 		</Routes>
 	)
