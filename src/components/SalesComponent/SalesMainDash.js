@@ -1,39 +1,24 @@
 import React, { useEffect, useState } from "react";
 import useAuth from '../../hooks/useAuth'
-import Navbar from "../Navbar";
+import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { Flex, Button } from '@chakra-ui/react';
-import HeaderLogin from "../loginUI/HeaderLogin";
-import AuthContext from '../../context/AuthContext';
 import SalesAdsList from "./SalesAdsList";
 
 const SalesMain = () => {
+    //we need to pull fn, name and email
     const user = useAuth().auth;
-    const [userId, setUserId] = useState(
-        () => {
-            return JSON.parse(localStorage.getItem("userId")) || []
-        }
-    );
 
-    React.useEffect(() => {
-        localStorage.setItem("userId", JSON.stringify(userId));
-    }, [userId]);
-
-    const storedUserId = localStorage.getItem("userId");
-    useEffect(() => {
-        if (storedUserId) {
-            setUserId(storedUserId)
-        }
-    }, [storedUserId]);
-
-    localStorage.setItem("userID", userId);
+    const setProdavalnikAuth = useProdavalnikAuth().setProdavalnikAuth;
+    const prodavalnikAuth = useProdavalnikAuth().prodavalnikAuth;
 
     async function userPayload() {
         try {
             const url = "https://prodavalnik-api.devlabs-projects.info/auth";
             const payload = {
-                fn: 1234,
-                name: "Gogo",
-                email: "asd@asd.com",
+                //due to BE constraints FN should be a number but some FNs have leading zeros so we parse the FN to int
+                fn: parseInt(user.data.faculty_number),
+                name: user.data.firstName + user.data.lastName,
+                email: user.data.email,
             };
             const response = await fetch(url, {
                 method: "POST",
@@ -42,8 +27,11 @@ const SalesMain = () => {
                 },
                 body: JSON.stringify(payload),
             });
+
             if (response.ok) {
                 console.log("Успешно свързване");
+                const result = await response.json();
+                setProdavalnikAuth(result.user);
             } else {
                 throw new Error("Неуспешно свързване");
             }
@@ -53,8 +41,9 @@ const SalesMain = () => {
     }
 
     React.useEffect(() => {
-        userPayload();
-    }, [])
+        if(!prodavalnikAuth && user)
+            userPayload();
+    }, [user])
 
     return (
         <Flex
@@ -63,9 +52,6 @@ const SalesMain = () => {
             flexDir="column"
             backgroundColor="blue.100"
         >
-            <>
-                {!user ? <HeaderLogin /> : <Navbar />}
-            </>
             <Flex
                 justifyContent="center"
                 alignItems="center"

@@ -54,7 +54,6 @@ export default function SalesAdsList() {
 
     return (
         <main>
-            <Navbar />
             <Flex flexDir="column" justifyContent="center" alignItems="center">
                 {ads.length === 0 ? (
                     <h2>Няма активни обяви</h2>
