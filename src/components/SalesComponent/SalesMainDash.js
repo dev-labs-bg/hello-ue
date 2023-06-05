@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useAuth from '../../hooks/useAuth'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { Flex, Button } from '@chakra-ui/react';
-import SalesAdsList from "./SalesAdsList";
+import { Link, Outlet } from 'react-router-dom'
 
 const SalesMain = () => {
     //we need to pull fn, name and email
@@ -29,7 +29,6 @@ const SalesMain = () => {
             });
 
             if (response.ok) {
-                console.log("Успешно свързване");
                 const result = await response.json();
                 setProdavalnikAuth(result.user);
             } else {
@@ -52,18 +51,12 @@ const SalesMain = () => {
             flexDir="column"
             backgroundColor="blue.100"
         >
-            <Flex
-                justifyContent="center"
-                alignItems="center"
-                marginBlock="2.5"
-                gap="20"
-            >
-                {<Button width="20"> Обяви
-                    <SalesAdsList />
-                </Button>}
-                <Button>Съобщения</Button>
-                <Button>Моите обяви</Button>
-            </Flex>
+                <div>
+                <Button width="20"><Link to="/sales/list">Обяви</Link></Button>
+                    <Button>Съобщения</Button>
+                    <Button><Link to="/sales/my">Моите обяви</Link></Button>
+                </div>
+                <Outlet />
         </Flex >
     )
 }

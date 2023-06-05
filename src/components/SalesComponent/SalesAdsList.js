@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import useAuth from '../../hooks/useAuth';
-import Navbar from '../Navbar';
+import useProdavalnikAuth from '../../hooks/useProdavalnikAuth';
 import { Flex } from '@chakra-ui/react';
 
 export default function SalesAdsList() {
-    const { auth } = useAuth();
+    const { prodavalnikAuth } = useProdavalnikAuth();
     const [ads, setAds] = useState([]);
 
     const fetchAds = async () => {
         try {
-            const response = await fetch('https://prodavalnik-api.devlabs-projects.info/ads/');
+            const response = await fetch('https://prodavalnik-api.devlabs-projects.info/ads', {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "user": prodavalnikAuth,
+                }
+            });
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
             const data = await response.json();
-            const filteredAds = data.filter((ad) => !ad.bought);
+            const filteredAds = data.ads.filter((ad) => !ad.bought);
             setAds(filteredAds);
         } catch (err) {
             console.error(err);
@@ -22,8 +27,9 @@ export default function SalesAdsList() {
     };
 
     useEffect(() => {
-        fetchAds();
-    }, []);
+        if(prodavalnikAuth)
+            fetchAds();
+    }, [prodavalnikAuth]);
 
     const calExpirationDay = (createdAt, expiration) => {
         const today = new Date();
@@ -53,7 +59,6 @@ export default function SalesAdsList() {
     }
 
     return (
-        <main>
             <Flex flexDir="column" justifyContent="center" alignItems="center">
                 {ads.length === 0 ? (
                     <h2>Няма активни обяви</h2>
@@ -68,6 +73,5 @@ export default function SalesAdsList() {
                     ))
                 )}
             </Flex>
-        </main>
     );
 }
