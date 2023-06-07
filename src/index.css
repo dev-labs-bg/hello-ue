@@ -1,38 +1,61 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 header {
-  width: 100%;
-  color: #fff;
-  background-color: darkslategray;
-  padding: 1rem 2rem;
+	width: 100%;
+	color: #fff;
+	background-color: darkslategray;
+	padding: 1rem 2rem;
 }
 
 #begin-button {
-  border: 0px;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  border: 0px solid #000000;
-  background-color: transparent;
-  color: black;
-  padding: 25px;
-  margin-left: 20px;
-  padding-bottom: 20px;
+	border: 0px;
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	border: 0px solid #000000;
+	background-color: transparent;
+	color: black;
+	padding: 25px;
+	margin-left: 20px;
+	padding-bottom: 20px;
 }
 #begin-button::after {
-  content: "'";
-  color: transparent;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-  border-radius: 40px;
-  background-color: #FBB0A9;
-  transform: skew(30deg);
+	content: "'";
+	color: transparent;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0px;
+	top: 0px;
+	z-index: -1;
+	border-radius: 40px;
+	background-color: #fbb0a9;
+	transform: skew(30deg);
+}
+
+.buble {
+	position: absolute;
+	z-index: -1;
+	right: -30%;
+	width: 150px;
+	height: 150px;
+	border-radius: 100%;
+	background-color: #96bfc6;
+}
+
+.buble2 {
+	position: absolute;
+	z-index: -1;
+	left: -35%;
+	top: 20%;
+	width: 0px;
+	height: 0px;
+	border-top: 140px solid transparent;
+	border-right: 140px solid #96bfc6;
+	border-bottom: 80px solid transparent;
+	transform: rotate(70deg);
 }
