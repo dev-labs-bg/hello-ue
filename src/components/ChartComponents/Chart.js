@@ -209,6 +209,7 @@ const Chart = ({ data }) => {
 			}}
 			enableArcLabels={true}
 			arcLabel={(data) => `${classHours[data.id]}`}
+			enableArcLinkLabels={false}
 			arcLinkLabelsSkipAngle={10}
 			arcLinkLabelsTextOffset={8}
 			arcLinkLabelsTextColor="#333333"
