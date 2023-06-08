@@ -33,15 +33,33 @@ export default function Create() {
 		}))
 	}
 
-	const handleImageUpload = (acceptedFiles) => {
-		const file = acceptedFiles[0]
-		const imageURL = URL.createObjectURL(file)
-		setImagePreview(imageURL)
+	const handleImageUpload = async (acceptedFiles) => {
+		try {
+			const file = acceptedFiles[0]
+			const imageURL = URL.createObjectURL(file)
+			setImagePreview(imageURL)
 
-		console.log(URL.createObjectURL(file))
+			const data = new FormData()
+			data.append('image', file)
 
-		const data = new FormData()
-		data.append('image', file)
+			const response = await fetch(
+				'https://prodavalnik-api.devlabs-projects.info/upload',
+				{
+					method: 'POST',
+					body: data,
+					headers: {
+						'Content-Type': 'application/json',
+						user: prodavalnikAuth,
+					},
+				}
+			)
+
+			if (!response.ok) {
+				throw new Error(response.statusText)
+			}
+		} catch (err) {
+			console.error(err)
+		}
 	}
 
 	const fetchCategory = async () => {
