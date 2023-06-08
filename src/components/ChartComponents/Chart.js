@@ -146,11 +146,7 @@ const Chart = ({ data }) => {
 		console.log(data)
 		setClickedData({
 			id: `${
-				data.id +
-				'\n' +
-				data.data.description +
-				'\n' +
-				data.data.location
+				data.id + '-' + data.data.description + '-' + data.data.location
 			}`,
 			label: data.label,
 			value: data.value,
@@ -164,10 +160,12 @@ const Chart = ({ data }) => {
 		let displayed = clickedData ? clickedData['id'] : 'Изберете...'
 		let color = clickedData ? clickedData['color'] : '#0'
 
+		const textLines = displayed.split('-')
+
 		return (
 			<text
 				x={centerX}
-				y={centerY}
+				y={centerY - 30}
 				textAnchor="middle"
 				dominantBaseline="central"
 				style={{
@@ -176,7 +174,11 @@ const Chart = ({ data }) => {
 					fill: color,
 				}}
 			>
-				{displayed}
+				{textLines.map((line, index) => (
+					<tspan key={index} x={centerX} dy="1.2em">
+						{line}
+					</tspan>
+				))}
 			</text>
 		)
 	}
