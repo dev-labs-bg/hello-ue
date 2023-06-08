@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Box, Flex } from '@chakra-ui/react'
 import DashboardInfoNum from './DashboardInfoNum'
 import DashboardInfoText from './DashboardInfoText'
@@ -7,22 +8,31 @@ const DashboardNews = () => {
 		{
 			nameOfprop: 'човека на 2ри куест',
 			num: 50,
+			path: '',
+			//Need to add path
 		},
 		{
 			nameOfprop: 'снимките, качени от колеги са',
 			num: 36,
+			path: '',
+			//Need to add path
 		},
 		{
 			nameOfprop: 'нови обяви в продавалника',
 			num: 3,
+			path: 'sales',
 		},
 		{
 			nameOfprop: 'новите членове са',
 			num: 28,
+			path: '',
+			//Need to add path
 		},
 		{
 			nameOfprop: 'събития тази седмица',
 			num: 2,
+			path: '',
+			//Need to add path
 		},
 	]
 
@@ -38,13 +48,17 @@ const DashboardNews = () => {
 				<Flex sx={stack}>
 					<DashboardInfoNum num={el.num} />
 					<Box w="2em" />
-					<DashboardInfoText text={el.nameOfprop} />
+					<Link to={el.path}>
+						<DashboardInfoText text={el.nameOfprop} />
+					</Link>
 				</Flex>
 			)
 		} else {
 			return (
 				<Flex sx={stack}>
-					<DashboardInfoText text={el.nameOfprop} />
+					<Link to={el.path}>
+						<DashboardInfoText text={el.nameOfprop} />
+					</Link>
 					<Box w="2em" />
 					<DashboardInfoNum num={el.num} />
 				</Flex>
