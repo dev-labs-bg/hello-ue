@@ -12,6 +12,7 @@ import DashboardNews from './components/DashboardComponents/DashboardNews'
 import SalesMain from './components/SalesComponent/SalesMainDash'
 import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
+import AdvertisementCreate from './components/Аdvertisement/Create'
 
 function App() {
 	const user = useAuth().auth
@@ -32,11 +33,16 @@ function App() {
 				<Route path="logout" element={<Logout />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qrscanner" element={<QrCodeScanner />} />
-				<Route path='dashboard-news' element={<DashboardNews />} />
+				<Route path="dashboard-news" element={<DashboardNews />} />
 
 				<Route path="sales" element={<SalesMain />}>
-					<Route path="list" element={<SalesAdsList/>} />
-					<Route path="my" element={<SalesMyAds/>} />
+					<Route path="list" element={<SalesAdsList />} />
+					<Route path="my" element={<SalesMyAds />} />
+				</Route>
+
+				<Route path="advertisement" element={<AdvertisementCreate />}>
+					<Route path="list" element={<SalesAdsList />} />
+					<Route path="my" element={<SalesMyAds />} />
 				</Route>
 			</Route>
 		</Routes>
