@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Flex, Box } from '@chakra-ui/react'
+import { Button, Box, Flex, Alert, AlertIcon } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
+import { validateForm } from '../Validation/АdvertisementValidation'
 import Input from '../HTML/Input'
 import Select from '../HTML/Select'
 import Textarea from '../HTML/Textarea'
@@ -8,29 +9,72 @@ import Dropzone from 'react-dropzone'
 
 export default function Create() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
+	const [isSaving, setIsSaving] = useState(false)
 	const [imagePreview, setImagePreview] = useState(null)
+	const [imageUrl, setImageUrl] = useState(null)
+	const [errorBag, setErrorBag] = useState(null)
 	const [category, setCategory] = useState([])
 	const [formData, setFormData] = useState({
-		book_name: '',
+		title: '',
 		category: '',
 		description: '',
 		price: '',
 	})
-
-	useEffect(() => {
-		setFormData({
-			book_name: '',
-			category: '',
-			description: '',
-			price: '',
-		})
-	}, [])
 
 	const handleInputChange = (name, value) => {
 		setFormData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}))
+	}
+
+	const saveAdvertisement = async () => {
+		try {
+			setIsSaving(true)
+			const errors = validateForm(formData, imageUrl)
+
+			if (Object.keys(errors).length > 0) {
+				setErrorBag(errors)
+				return
+			}
+
+			const data = new FormData()
+			data.append('title', formData.title)
+			data.append('description', formData.description)
+			data.append('category', formData.category)
+			data.append('imageUrl', imageUrl)
+			data.append('price', Number(formData.price))
+
+			const response = await fetch(
+				'https://prodavalnik-api.devlabs-projects.info/ads/create',
+				{
+					method: 'POST',
+					body: data,
+					headers: {
+						user: prodavalnikAuth,
+					},
+				}
+			)
+
+			if (!response.ok) {
+				throw new Error(response.statusText)
+			}
+
+			setFormData({
+				title: '',
+				category: '',
+				description: '',
+				price: '',
+			})
+			setImagePreview(null)
+			setImageUrl(null)
+			setErrorBag({ success: 'Обявата е добавена успешно!' })
+			setIsSaving(false)
+		} catch (err) {
+			setErrorBag({
+				error: 'Възникна грешка при добавянето на обявата.',
+			})
+		}
 	}
 
 	const handleImageUpload = async (acceptedFiles) => {
@@ -40,7 +84,7 @@ export default function Create() {
 			setImagePreview(imageURL)
 
 			const data = new FormData()
-			data.append('image', file)
+			data.append('file', file)
 
 			const response = await fetch(
 				'https://prodavalnik-api.devlabs-projects.info/upload',
@@ -48,7 +92,6 @@ export default function Create() {
 					method: 'POST',
 					body: data,
 					headers: {
-						'Content-Type': 'application/json',
 						user: prodavalnikAuth,
 					},
 				}
@@ -57,8 +100,13 @@ export default function Create() {
 			if (!response.ok) {
 				throw new Error(response.statusText)
 			}
+
+			const responseData = await response.json()
+			setImageUrl(responseData.imageUrl)
 		} catch (err) {
-			console.error(err)
+			setErrorBag({
+				error: 'Възникна грешка при добавянето на снимката.',
+			})
 		}
 	}
 
@@ -69,7 +117,6 @@ export default function Create() {
 				{
 					method: 'GET',
 					headers: {
-						'Content-Type': 'application/json',
 						user: prodavalnikAuth,
 					},
 				}
@@ -92,15 +139,23 @@ export default function Create() {
 
 	return (
 		<div>
+			{errorBag &&
+				Object.keys(errorBag).map((key) => (
+					<Alert status="error" key={key}>
+						<AlertIcon />
+						{errorBag[key]}
+					</Alert>
+				))}
+
 			<Box m="6px">
 				<Input
 					label="Име на книгата"
-					value={formData.name}
+					value={formData.title}
 					type="text"
-					id="book-name"
-					name="bookName"
+					id="title"
+					name="title"
 					placeholder="Име"
-					onChange={(value) => handleInputChange('book_name', value)}
+					onChange={(value) => handleInputChange('title', value)}
 				/>
 			</Box>
 
@@ -167,6 +222,19 @@ export default function Create() {
 					/>
 				</Flex>
 			)}
+
+			<Flex direction="column" align="center">
+				<Button
+					disabled={isSaving}
+					width="470px"
+					colorScheme="green"
+					size="md"
+					marginTop="4rem"
+					onClick={saveAdvertisement}
+				>
+					Добави
+				</Button>
+			</Flex>
 		</div>
 	)
 }
