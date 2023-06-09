@@ -1,51 +1,56 @@
 {
-  "name": "hello-ue",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@chakra-ui/icons": "^2.0.17",
-    "@chakra-ui/react": "^2.5.1",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "framer-motion": "^9.0.7",
-    "html5-qrcode": "^2.3.7",
-    "react": "^18.2.0",
-    "react-calendar": "^4.2.1",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.1",
-    "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "prettier"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "eslint-config-prettier": "^8.6.0",
-    "prettier": "2.8.3"
-  }
+	"name": "hello-ue",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@chakra-ui/icons": "^2.0.17",
+		"@chakra-ui/react": "^2.5.1",
+		"@emotion/react": "^11.10.6",
+		"@emotion/styled": "^11.10.6",
+		"@nivo/core": "^0.80.0",
+		"@nivo/pie": "^0.80.0",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^13.5.0",
+		"date-fns": "^2.30.0",
+		"framer-motion": "^9.0.7",
+		"html5-qrcode": "^2.3.7",
+		"ical2json": "^3.1.2",
+		"react": "^18.2.0",
+		"react-calendar": "^4.2.1",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.8.1",
+		"react-scripts": "5.0.1",
+		"web-vitals": "^2.1.4"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"dev": "nodemon server.js"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest",
+			"prettier"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"eslint-config-prettier": "^8.6.0",
+		"prettier": "2.8.3"
+	}
 }
