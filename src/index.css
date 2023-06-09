@@ -36,7 +36,6 @@ header {
 	background-color: #fbb0a9;
 	transform: skew(30deg);
 }
-
 .buble {
 	position: absolute;
 	z-index: -1;
@@ -58,4 +57,35 @@ header {
 	border-right: 140px solid #96bfc6;
 	border-bottom: 80px solid transparent;
 	transform: rotate(70deg);
+}
+
+.chart-container {
+	height: 85vh;
+}
+
+.loading-container,
+.error-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.loading-image,
+.error-image {
+	max-width: 4000px;
+	margin-bottom: 20px;
+}
+
+.loading-image {
+	max-width: 3000px;
+	margin-bottom: 15px;
+	margin-top: 10px;
+}
+
+.loading-text,
+.error-message {
+	font-size: 20px;
+	text-align: center;
 }

@@ -72,7 +72,7 @@ const Navbar = () => {
 				</Button>
 				<Button variant="ghost">Как да стигна?</Button>
 				<Button variant="ghost">Забавни спомени</Button>
-				<Button variant="ghost">Полезно</Button>
+				<Button variant="ghost"><Link to="schedule">Програма</Link></Button>
 				<Button variant="ghost"><Link to="sales">Продавалник</Link></Button>
 			</HStack>
 
@@ -107,7 +107,7 @@ const Navbar = () => {
 							Забавни спомени
 						</Button>
 						<Button variant="ghost" mb="5px">
-							Полезно
+							<Link to="schedule">Програма</Link>
 						</Button>
 						<Button variant="ghost" mb="5px"><Link to="sales">Продавалник</Link></Button>
 						<Button variant="ghost" mb="5px">

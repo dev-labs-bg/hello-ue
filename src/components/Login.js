@@ -16,10 +16,13 @@ import {
 import HeaderLogin from './loginUI/HeaderLogin'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
+import useSchedule from '../hooks/useSchedule'
 import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 	const setAuth = useAuth().setAuth
+	const getProfileData = useSchedule().getProfileData
+	const setProfileData = useSchedule().setProfileData
 	const navigate = useNavigate()
 	const [formData, setFormdata] = useState({
 		facultyNumber: '',
@@ -67,6 +70,8 @@ const Login = () => {
 		if (response && !response.error) {
 			delete response.success
 			setAuth(response)
+			let data = await getProfileData(response.token)
+			setProfileData(data)
 			navigate('/dashboard')
 		}
 	}
