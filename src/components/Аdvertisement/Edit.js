@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { Alert, AlertIcon, Button, Box, Flex, Spinner } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
@@ -61,6 +62,7 @@ export default function Edit() {
 
 			if (Object.keys(errors).length > 0) {
 				setMessageBag(errors)
+				setIsSaving(false)
 				return
 			}
 
@@ -86,6 +88,7 @@ export default function Edit() {
 			setMessageBag({ success: 'Обявата е обновена успешно!' })
 			setIsSaving(false)
 		} catch (err) {
+			setIsSaving(false)
 			setMessageBag({
 				error: 'Възникна грешка при обновяването на обявата.',
 			})
@@ -163,6 +166,10 @@ export default function Edit() {
 				</Flex>
 			) : (
 				<>
+					<Link to="/sales/list">
+						<Button marginTop="1rem">Обратно към списъка</Button>
+					</Link>
+
 					<Box m="6px">
 						<Input
 							label="Име на книгата"
@@ -247,7 +254,7 @@ export default function Edit() {
 
 					<Flex direction="column" align="center">
 						<Button
-							disabled={isSaving}
+							isLoading={isSaving}
 							width="470px"
 							colorScheme="green"
 							size="md"

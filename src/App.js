@@ -14,6 +14,7 @@ import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
 import AdvertisementCreate from './components/Аdvertisement/Create'
 import AdvertisementEdit from './components/Аdvertisement/Edit'
+import AdvertisementShow from './components/Аdvertisement/Show'
 
 function App() {
 	const user = useAuth().auth
@@ -44,6 +45,7 @@ function App() {
 				<Route path="advertisement">
 					<Route path="create" element={<AdvertisementCreate />} />
 					<Route path="edit/:id" element={<AdvertisementEdit />} />
+					<Route path="show/:id" element={<AdvertisementShow />} />
 				</Route>
 			</Route>
 		</Routes>

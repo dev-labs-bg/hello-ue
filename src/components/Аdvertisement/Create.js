@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Alert, AlertIcon, Button, Box, Flex } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { validateForm } from '../Validation/АdvertisementValidation'
@@ -43,6 +44,7 @@ export default function Create() {
 
 			if (Object.keys(errors).length > 0) {
 				setMessageBag(errors)
+				setIsSaving(false)
 				return
 			}
 
@@ -76,6 +78,7 @@ export default function Create() {
 			setMessageBag({ success: 'Обявата е добавена успешно!' })
 			setIsSaving(false)
 		} catch (err) {
+			setIsSaving(false)
 			setMessageBag({
 				error: 'Възникна грешка при добавянето на обявата.',
 			})
@@ -138,6 +141,10 @@ export default function Create() {
 						{messageBag[key]}
 					</Alert>
 				))}
+
+			<Link to="/sales/list">
+				<Button marginTop="1rem">Обратно към списъка</Button>
+			</Link>
 
 			<Box m="6px">
 				<Input
@@ -217,7 +224,7 @@ export default function Create() {
 
 			<Flex direction="column" align="center">
 				<Button
-					disabled={isSaving}
+					isLoading={isSaving}
 					width="470px"
 					colorScheme="green"
 					size="md"

@@ -133,41 +133,50 @@ export default function SalesAdsList({ ad }) {
 					Нямате активни обяви
 				</Heading>
 			) : (
-				ads.map((ad, index) => (
-					<Flex sx={container} key={index}>
-						<Box>
-							<Heading as="h3" size="lg" color="blue.500">
-								{ad.category}
-							</Heading>
-							<Text sx={text}>{ad.title}</Text>
-							<Text sx={text && detail}>{ad.description}</Text>
-							<Text sx={text && avatar}>
-								Публикувано от: <Avatar name={ad.author.name} />
-								{ad.author.name}
-							</Text>
-							<Text sx={text}>
-								Цена: {ad.price}лв.
-								<Button marginLeft="2rem" sx={button}>
+				<>
+					<Link to="/advertisement/create">
+						<Button marginTop="1rem">Създай обява</Button>
+					</Link>
+
+					{ads.map((ad, index) => (
+						<Flex sx={container} key={index}>
+							<Box>
+								<Heading as="h3" size="lg" color="blue.500">
+									{ad.category}
+								</Heading>
+								<Text sx={text}>{ad.title}</Text>
+								<Text sx={text && detail}>
+									{ad.description}
+								</Text>
+								<div sx={text && avatar}>
+									Публикувано от:{' '}
+									<Avatar name={ad.author.name} />
+									{ad.author.name}
+								</div>
+								<Text sx={text}>
+									Цена: {ad.price}лв.
 									<Link to={`/advertisement/edit/${ad._id}`}>
-										Редактирай
+										<Button marginLeft="2rem" sx={button}>
+											Редактирай
+										</Button>
 									</Link>
-								</Button>
-								<Button marginLeft="2rem" sx={button}>
 									<Link to={`/advertisement/show/${ad._id}`}>
-										Виж
+										<Button marginLeft="2rem" sx={button}>
+											Виж
+										</Button>
 									</Link>
-								</Button>
-							</Text>
-						</Box>
-						<Image
-							src={ad.imageUrl}
-							alt="textbook"
-							width="150px"
-							height="220px"
-							marginBottom="4"
-						/>
-					</Flex>
-				))
+								</Text>
+							</Box>
+							<Image
+								src={ad.imageUrl}
+								alt="textbook"
+								width="150px"
+								height="220px"
+								marginBottom="4"
+							/>
+						</Flex>
+					))}
+				</>
 			)}
 		</Box>
 	)
