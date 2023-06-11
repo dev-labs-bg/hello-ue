@@ -11,6 +11,7 @@ import { Center, VStack } from '@chakra-ui/react'
 import BistroImg from './res/clock.png'
 import useQuest from '../../hooks/useQuest'
 import CompletedQuest from './CompletedQuest'
+import { NavLink as RouterLink } from 'react-router-dom'
 
 const Quest2 = () => {
 	const questId = 2
@@ -34,7 +35,14 @@ const Quest2 = () => {
 				<AlertTitle mt={4} mb={1} fontSize="m">
 					Благодарим ти за споделената информация. Можеш да видиш
 					своето резюме в{' '}
-					<Link href={discordChannelLink}>Discord</Link> канала ни.
+					<Link
+						as={RouterLink}
+						to={discordChannelLink}
+						textDecoration="underline"
+					>
+						Discord
+					</Link>{' '}
+					канала ни.
 				</AlertTitle>
 			</Alert>
 		</Center>
@@ -105,7 +113,11 @@ const Quest2 = () => {
 									p={8}
 									_hover={{ bgColor: '#2E6269' }}
 								>
-									<Link href="quiz" class="link-decoration">
+									<Link
+										as={RouterLink}
+										to="/quiz"
+										className="link-decoration"
+									>
 										Започни Quiz
 									</Link>
 								</Button>

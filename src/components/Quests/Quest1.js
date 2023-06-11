@@ -3,6 +3,7 @@ import { Center, VStack } from '@chakra-ui/react'
 import BistroImg from './res/bistro.jpg'
 import useQuest from '../../hooks/useQuest'
 import CompletedQuest from './CompletedQuest'
+import { NavLink as RouterLink } from 'react-router-dom'
 
 const Quest1 = () => {
 	const questId = 1
@@ -74,8 +75,9 @@ const Quest1 = () => {
 									_hover={{ bgColor: '#2E6269' }}
 								>
 									<Link
-										href="qr-scanner"
-										class="link-decoration"
+										as={RouterLink}
+										to="/qr-scanner"
+										className="link-decoration"
 									>
 										Сканирай QR
 									</Link>

@@ -15,6 +15,7 @@ import React, { useState } from 'react'
 import useQuest from '../../hooks/useQuest'
 import DiscordWebhook from '../WebhookService'
 import CompletedQuest from './CompletedQuest'
+import { NavLink as RouterLink } from 'react-router-dom'
 
 const Quest2 = () => {
 	const [isSubmitted, setIsSubmitted] = useState(false)
@@ -47,7 +48,14 @@ const Quest2 = () => {
 				<AlertTitle mt={4} mb={1} fontSize="m">
 					Благодарим ти за споделената информация. Можеш да видиш
 					своето резюме в{' '}
-					<Link href={discordChannelLink}>Discord</Link> канала ни.
+					<Link
+						as={RouterLink}
+						to={discordChannelLink}
+						textDecoration="underline"
+					>
+						Discord
+					</Link>{' '}
+					канала ни.
 				</AlertTitle>
 			</Alert>
 		</Center>
@@ -197,7 +205,7 @@ const Quest2 = () => {
 												Направихме кратко резюме за теб.
 												За да преминеш куеста трябва да
 												го споделиш в Дискорд канала на
-												университета! Разгледай
+												университета. Разгледай
 												отговорите на другите студенти и
 												открий приятели!
 												<DiscordWebhook

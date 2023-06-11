@@ -1,5 +1,6 @@
 import { Box, Center, VStack, Link } from '@chakra-ui/react'
 import { CheckCircleIcon } from '@chakra-ui/icons'
+import { NavLink as RouterLink } from 'react-router-dom'
 
 const CompletedQuest = (props) => {
 	return (
@@ -39,7 +40,11 @@ const CompletedQuest = (props) => {
 						</Box>
 						{props.message}
 						<Box size="xl" pt="3em" pb="2em" color="#44818B">
-							<Link href="quests-menu" class="link-decoration">
+							<Link
+								as={RouterLink}
+								to="/quests-menu"
+								className="link-decoration"
+							>
 								Върни се обратно
 							</Link>
 						</Box>

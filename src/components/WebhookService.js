@@ -10,6 +10,7 @@ import {
 	Box,
 } from '@chakra-ui/react'
 import useQuest from '../hooks/useQuest'
+import { NavLink as RouterLink } from 'react-router-dom'
 
 const WebhookService = (props) => {
 	const [successfulPost, setSuccessfulPost] = useState(false)
@@ -28,7 +29,6 @@ const WebhookService = (props) => {
 			formData['interests'] &&
 			formData['fav-hobby']
 		) {
-			console.log(formData['student-city'])
 			const content = {
 				content: null,
 				embeds: [
@@ -92,7 +92,13 @@ const WebhookService = (props) => {
 						<AlertTitle mt={4} mb={1} fontSize="m">
 							Благодарим ти за споделената информация. Можеш да
 							видиш своето резюме в{' '}
-							<Link href={discordChannelLink}>Discord</Link>{' '}
+							<Link
+								as={RouterLink}
+								to={discordChannelLink}
+								textDecoration="underline"
+							>
+								Discord
+							</Link>{' '}
 							канала ни.
 						</AlertTitle>
 					</Alert>
