@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
+import { performFetch } from '../utils.js'
 import {
 	Button,
 	Flex,
@@ -12,27 +13,22 @@ import {
 	Avatar,
 } from '@chakra-ui/react'
 
-export default function SalesAdsList({ ad }) {
+export default function SalesAdsList() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
 	const [ads, setAds] = useState([])
 	const [isLoading, setIsLoading] = useState(true)
+	const headersJSON = {
+		'Content-Type': 'application/json',
+		user: prodavalnikAuth,
+	}
 
 	const fetchAds = async () => {
 		try {
-			const response = await fetch(
+			const response = await performFetch(
 				'https://prodavalnik-api.devlabs-projects.info/ads',
-				{
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-						user: prodavalnikAuth,
-					},
-				}
+				'GET',
+				headersJSON
 			)
-
-			if (!response.ok) {
-				throw new Error(response.statusText)
-			}
 
 			const data = await response.json()
 			const filteredAds = data.ads.filter((ad) => !ad.bought)
@@ -48,7 +44,7 @@ export default function SalesAdsList({ ad }) {
 		if (prodavalnikAuth) fetchAds()
 	}, [prodavalnikAuth])
 
-	const calExpirationDay = (createdAt, expiration) => {
+	const calculateExpiration = (createdAt, expiration) => {
 		const today = new Date()
 		const createdDate = new Date(createdAt)
 		const expiredDate = new Date(
@@ -61,11 +57,11 @@ export default function SalesAdsList({ ad }) {
 		const minutes = Math.floor((timeDifference / (60 * 1000)) % 60)
 
 		if (days > 0) {
-			return `Изтича след ${days} дни`
+			return `Обявата изтича след ${days} дни`
 		} else if (hours > 0) {
-			return `Изтича след ${hours} часа`
+			return `Обявата изтича след ${hours} часа`
 		} else {
-			return `Изтича след ${minutes} минути`
+			return `Обявата изтича след ${minutes} минути`
 		}
 	}
 
@@ -122,11 +118,13 @@ export default function SalesAdsList({ ad }) {
 			<div className="buble"></div>
 			<div className="buble2"></div>
 			{isLoading ? (
-				<Flex justify="center" align="center" height="100vh">
-					<Spinner size="xl" color="blue.500" />
-					<Heading as="h3" size="lg" marginLeft="2">
-						Зареждане на данните...
-					</Heading>
+				<Flex
+					height="100vh"
+					alignItems="center"
+					justifyContent="center"
+				>
+					<Spinner size="xl" />
+					<Box ml={4}>Зареждане на данните...</Box>
 				</Flex>
 			) : ads.length === 0 ? (
 				<Heading as="h3" size="xl">
@@ -141,18 +139,29 @@ export default function SalesAdsList({ ad }) {
 					{ads.map((ad, index) => (
 						<Flex sx={container} key={index}>
 							<Box>
+								<Text sx={text}>
+									{calculateExpiration(
+										ad.createdAt,
+										ad.expiration
+									)}
+								</Text>
+
 								<Heading as="h3" size="lg" color="blue.500">
 									{ad.category}
 								</Heading>
+
 								<Text sx={text}>{ad.title}</Text>
+
 								<Text sx={text && detail}>
 									{ad.description}
 								</Text>
+
 								<div sx={text && avatar}>
-									Публикувано от:{' '}
+									Публикувано от:
 									<Avatar name={ad.author.name} />
 									{ad.author.name}
 								</div>
+
 								<Text sx={text}>
 									Цена: {ad.price}лв.
 									<Link to={`/advertisement/edit/${ad._id}`}>

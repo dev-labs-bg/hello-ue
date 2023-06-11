@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Alert, AlertIcon, Button, Box, Flex, Spinner } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { validateForm } from '../Validation/АdvertisementValidation'
@@ -110,10 +109,6 @@ export default function Edit() {
 				headers,
 				data
 			)
-
-			if (!response.ok) {
-				throw new Error(response.statusText)
-			}
 
 			const responseData = await response.json()
 			setImageUrl(responseData.imageUrl)

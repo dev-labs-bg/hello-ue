@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import {
 	Alert,
 	AlertIcon,
@@ -46,10 +45,6 @@ export default function Show() {
 				'POST',
 				headers
 			)
-
-			if (!response.ok) {
-				throw new Error(response.statusText)
-			}
 
 			setMessageBag({ success: 'Успешно закупихте учебника!' })
 			setIsBought(true)

@@ -87,27 +87,18 @@ export default function Create() {
 
 	const handleImageUpload = async (acceptedFiles) => {
 		try {
-			const file = acceptedFiles[0]
-			const imageURL = URL.createObjectURL(file)
+			const imageURL = URL.createObjectURL(acceptedFiles[0])
 			setImagePreview(imageURL)
 
 			const data = new FormData()
-			data.append('file', file)
+			data.append('file', acceptedFiles[0])
 
-			const response = await fetch(
+			const response = await performFetch(
 				'https://prodavalnik-api.devlabs-projects.info/upload',
-				{
-					method: 'POST',
-					body: data,
-					headers: {
-						user: prodavalnikAuth,
-					},
-				}
+				'POST',
+				headers,
+				data
 			)
-
-			if (!response.ok) {
-				throw new Error(response.statusText)
-			}
 
 			const responseData = await response.json()
 			setImageUrl(responseData.imageUrl)
@@ -125,12 +116,12 @@ export default function Create() {
 				await fetchData(categoriesUrl, headers, setCategory)
 			}
 
-			Promise.all([fetchCategories()])
+			fetchCategories()
 		}
 	}, [prodavalnikAuth])
 
 	return (
-		<div>
+		<Box>
 			{messageBag &&
 				Object.keys(messageBag).map((key) => (
 					<Alert
@@ -234,6 +225,6 @@ export default function Create() {
 					Добави
 				</Button>
 			</Flex>
-		</div>
+		</Box>
 	)
 }
