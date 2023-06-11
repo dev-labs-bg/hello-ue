@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Box, Flex, Alert, AlertIcon } from '@chakra-ui/react'
+import { Alert, AlertIcon, Button, Box, Flex } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { validateForm } from '../Validation/АdvertisementValidation'
+import { fetchData, performFetch } from '../utils.js'
 import Input from '../HTML/Input'
 import Select from '../HTML/Select'
 import Textarea from '../HTML/Textarea'
@@ -9,10 +10,17 @@ import Dropzone from 'react-dropzone'
 
 export default function Create() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
+	const headers = {
+		user: prodavalnikAuth,
+	}
+	const headersJSON = {
+		'Content-Type': 'application/json',
+		user: prodavalnikAuth,
+	}
 	const [isSaving, setIsSaving] = useState(false)
 	const [imagePreview, setImagePreview] = useState(null)
 	const [imageUrl, setImageUrl] = useState(null)
-	const [errorBag, setErrorBag] = useState(null)
+	const [messageBag, setMessageBag] = useState(null)
 	const [category, setCategory] = useState([])
 	const [formData, setFormData] = useState({
 		title: '',
@@ -34,26 +42,23 @@ export default function Create() {
 			const errors = validateForm(formData, imageUrl)
 
 			if (Object.keys(errors).length > 0) {
-				setErrorBag(errors)
+				setMessageBag(errors)
 				return
 			}
 
-			const data = new FormData()
-			data.append('title', formData.title)
-			data.append('description', formData.description)
-			data.append('category', formData.category)
-			data.append('imageUrl', imageUrl)
-			data.append('price', Number(formData.price))
+			const payload = {
+				title: formData.title,
+				description: formData.description,
+				category: formData.category,
+				imageUrl: imageUrl,
+				price: Number(formData.price),
+			}
 
-			const response = await fetch(
+			const response = await performFetch(
 				'https://prodavalnik-api.devlabs-projects.info/ads/create',
-				{
-					method: 'POST',
-					body: data,
-					headers: {
-						user: prodavalnikAuth,
-					},
-				}
+				'POST',
+				headersJSON,
+				JSON.stringify(payload)
 			)
 
 			if (!response.ok) {
@@ -68,10 +73,10 @@ export default function Create() {
 			})
 			setImagePreview(null)
 			setImageUrl(null)
-			setErrorBag({ success: 'Обявата е добавена успешно!' })
+			setMessageBag({ success: 'Обявата е добавена успешно!' })
 			setIsSaving(false)
 		} catch (err) {
-			setErrorBag({
+			setMessageBag({
 				error: 'Възникна грешка при добавянето на обявата.',
 			})
 		}
@@ -104,46 +109,33 @@ export default function Create() {
 			const responseData = await response.json()
 			setImageUrl(responseData.imageUrl)
 		} catch (err) {
-			setErrorBag({
+			setMessageBag({
 				error: 'Възникна грешка при добавянето на снимката.',
 			})
 		}
 	}
 
-	const fetchCategory = async () => {
-		try {
-			const response = await fetch(
-				'https://prodavalnik-api.devlabs-projects.info/ads/categories',
-				{
-					method: 'GET',
-					headers: {
-						user: prodavalnikAuth,
-					},
-				}
-			)
-
-			if (!response.ok) {
-				throw new Error(response.statusText)
+	useEffect(() => {
+		if (prodavalnikAuth) {
+			const fetchCategories = async () => {
+				const categoriesUrl = `https://prodavalnik-api.devlabs-projects.info/ads/categories`
+				await fetchData(categoriesUrl, headers, setCategory)
 			}
 
-			const data = await response.json()
-			setCategory(data)
-		} catch (err) {
-			console.error(err)
+			Promise.all([fetchCategories()])
 		}
-	}
-
-	useEffect(() => {
-		if (prodavalnikAuth) fetchCategory()
 	}, [prodavalnikAuth])
 
 	return (
 		<div>
-			{errorBag &&
-				Object.keys(errorBag).map((key) => (
-					<Alert status="error" key={key}>
+			{messageBag &&
+				Object.keys(messageBag).map((key) => (
+					<Alert
+						status={key === 'success' ? 'success' : 'error'}
+						key={key}
+					>
 						<AlertIcon />
-						{errorBag[key]}
+						{messageBag[key]}
 					</Alert>
 				))}
 
@@ -229,7 +221,7 @@ export default function Create() {
 					width="470px"
 					colorScheme="green"
 					size="md"
-					marginTop="4rem"
+					marginTop="3rem"
 					onClick={saveAdvertisement}
 				>
 					Добави

@@ -13,6 +13,7 @@ import SalesMain from './components/SalesComponent/SalesMainDash'
 import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
 import AdvertisementCreate from './components/Аdvertisement/Create'
+import AdvertisementEdit from './components/Аdvertisement/Edit'
 
 function App() {
 	const user = useAuth().auth
@@ -40,9 +41,9 @@ function App() {
 					<Route path="my" element={<SalesMyAds />} />
 				</Route>
 
-				<Route path="advertisement" element={<AdvertisementCreate />}>
-					<Route path="list" element={<SalesAdsList />} />
-					<Route path="my" element={<SalesMyAds />} />
+				<Route path="advertisement">
+					<Route path="create" element={<AdvertisementCreate />} />
+					<Route path="edit/:id" element={<AdvertisementEdit />} />
 				</Route>
 			</Route>
 		</Routes>

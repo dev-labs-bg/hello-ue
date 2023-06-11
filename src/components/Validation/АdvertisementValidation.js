@@ -13,7 +13,7 @@ export function validateForm(formData, imageUrl) {
 		errors.description = 'Моля, въведете описание'
 	}
 
-	if (formData.price.trim() === '') {
+	if (formData.price.toString().trim() === '') {
 		errors.price = 'Моля, въведете цена'
 	} else if (isNaN(Number(formData.price))) {
 		errors.price = 'Моля, въведете валидна цена'
