@@ -73,16 +73,12 @@ export default function Edit() {
 				price: Number(formData.price),
 			}
 
-			const response = await performFetch(
+			await performFetch(
 				`https://prodavalnik-api.devlabs-projects.info/ads/${_id}`,
 				'PATCH',
 				headersJSON,
 				JSON.stringify(payload)
 			)
-
-			if (!response.ok) {
-				throw new Error(response.statusText)
-			}
 
 			setMessageBag({ success: 'Обявата е обновена успешно!' })
 			setIsSaving(false)
