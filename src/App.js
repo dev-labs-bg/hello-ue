@@ -9,9 +9,9 @@ import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
 import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
 import DashboardNews from './components/DashboardComponents/DashboardNews'
-import SalesMain from './components/SalesComponent/SalesMainDash'
-import SalesAdsList from './components/SalesComponent/SalesAdsList'
-import SalesMyAds from './components/SalesComponent/SalesMyAds'
+import SalesMain from './components/SalesComponent/MainDash'
+import AdsList from './components/SalesComponent/AdsList'
+import MyAds from './components/SalesComponent/MyAds'
 import AdvertisementCreate from './components/Аdvertisement/Create'
 import AdvertisementEdit from './components/Аdvertisement/Edit'
 import AdvertisementShow from './components/Аdvertisement/Show'
@@ -38,8 +38,8 @@ function App() {
 				<Route path="dashboard-news" element={<DashboardNews />} />
 
 				<Route path="sales" element={<SalesMain />}>
-					<Route path="list" element={<SalesAdsList />} />
-					<Route path="my" element={<SalesMyAds />} />
+					<Route path="list" element={<AdsList />} />
+					<Route path="my" element={<MyAds />} />
 				</Route>
 
 				<Route path="advertisement">

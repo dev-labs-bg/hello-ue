@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { performFetch } from '../utils.js'
+import Pagination from '../Components/Pagination'
 import {
 	Button,
 	Flex,
@@ -16,23 +17,37 @@ import {
 export default function SalesAdsList() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
 	const [ads, setAds] = useState([])
+	const [totalAds, setTotalAds] = useState(0)
 	const [isLoading, setIsLoading] = useState(true)
+	const [currentPage, setCurrentPage] = useState(1)
+	const [totalPages, setTotalPages] = useState(0)
 	const headersJSON = {
 		'Content-Type': 'application/json',
 		user: prodavalnikAuth,
 	}
 
-	const fetchAds = async () => {
+	const fetchAds = async (page) => {
 		try {
+			setIsLoading(true)
+
 			const response = await performFetch(
-				'https://prodavalnik-api.devlabs-projects.info/ads',
+				`https://prodavalnik-api.devlabs-projects.info/ads?page=${page}`,
 				'GET',
 				headersJSON
 			)
 
 			const data = await response.json()
-			const filteredAds = data.ads.filter((ad) => !ad.bought)
-			setAds(filteredAds)
+
+			setAds(
+				data.ads.filter(
+					(ad) =>
+						!ad.bought &&
+						calculateExpiration(ad.createdAt, ad.expiration, true) >
+							0
+				)
+			)
+			setTotalAds(data.totalCount)
+			setTotalPages(Math.ceil(data.totalCount / 10))
 			setIsLoading(false)
 		} catch (err) {
 			console.error(err)
@@ -40,11 +55,31 @@ export default function SalesAdsList() {
 		}
 	}
 
-	useEffect(() => {
-		if (prodavalnikAuth) fetchAds()
-	}, [prodavalnikAuth])
+	const handlePageChange = (page) => {
+		sessionStorage.setItem('currentPage', page)
+		setCurrentPage(page)
+		fetchAds(page)
+	}
 
-	const calculateExpiration = (createdAt, expiration) => {
+	useEffect(() => {
+		const storedPage = sessionStorage.getItem('currentPage')
+
+		if (storedPage && currentPage !== parseInt(storedPage)) {
+			setCurrentPage(parseInt(storedPage))
+			fetchAds(parseInt(storedPage))
+		}
+	}, [])
+	useEffect(() => {
+		if (prodavalnikAuth) {
+			fetchAds(currentPage)
+		}
+	}, [prodavalnikAuth, currentPage])
+
+	useEffect(() => {
+		setTotalPages(Math.ceil(totalAds / 10))
+	}, [totalAds])
+
+	const calculateExpiration = (createdAt, expiration, kind) => {
 		const today = new Date()
 		const createdDate = new Date(createdAt)
 		const expiredDate = new Date(
@@ -57,11 +92,11 @@ export default function SalesAdsList() {
 		const minutes = Math.floor((timeDifference / (60 * 1000)) % 60)
 
 		if (days > 0) {
-			return `Обявата изтича след ${days} дни`
+			return kind ? days : `Обявата изтича след ${days} дни`
 		} else if (hours > 0) {
-			return `Обявата изтича след ${hours} часа`
+			return kind ? hours : `Обявата изтича след ${hours} часа`
 		} else {
-			return `Обявата изтича след ${minutes} минути`
+			return kind ? hours : `Обявата изтича след ${minutes} минути`
 		}
 	}
 
@@ -114,6 +149,7 @@ export default function SalesAdsList() {
 			marginInline="auto"
 			position="relative"
 			zIndex="1"
+			mb={5}
 		>
 			<div className="buble"></div>
 			<div className="buble2"></div>
@@ -142,7 +178,8 @@ export default function SalesAdsList() {
 								<Text sx={text}>
 									{calculateExpiration(
 										ad.createdAt,
-										ad.expiration
+										ad.expiration,
+										false
 									)}
 								</Text>
 
@@ -162,29 +199,69 @@ export default function SalesAdsList() {
 									{ad.author.name}
 								</div>
 
-								<Text sx={text}>
-									Цена: {ad.price}лв.
-									<Link to={`/advertisement/edit/${ad._id}`}>
-										<Button marginLeft="2rem" sx={button}>
-											Редактирай
-										</Button>
-									</Link>
-									<Link to={`/advertisement/show/${ad._id}`}>
-										<Button marginLeft="2rem" sx={button}>
-											Виж
-										</Button>
-									</Link>
-								</Text>
+								<Text sx={text}>Цена: {ad.price}лв.</Text>
+
+								<Flex>
+									<Text sx={text}>
+										Цена: {ad.price}лв.
+										<Link
+											to={`/advertisement/edit/${ad._id}`}
+										>
+											<Button
+												marginLeft="2rem"
+												sx={button}
+											>
+												Редактирай
+											</Button>
+										</Link>
+										<Link
+											to={`/advertisement/show/${ad._id}`}
+										>
+											<Button
+												marginLeft="2rem"
+												sx={button}
+											>
+												Виж
+											</Button>
+										</Link>
+									</Text>
+								</Flex>
 							</Box>
-							<Image
-								src={ad.imageUrl}
-								alt="textbook"
-								width="150px"
-								height="220px"
-								marginBottom="4"
-							/>
+
+							<Flex
+								sx={{
+									display: 'flex',
+									alignItems: 'center',
+									justifyContent: 'center',
+								}}
+							>
+								<Image
+									src={ad.imageUrl}
+									alt={ad.title}
+									width="200px"
+									height="200px"
+									objectFit="contain"
+									borderRadius="md"
+								/>
+							</Flex>
 						</Flex>
 					))}
+
+					<Flex justifyContent="center" alignItems="center" my={4}>
+						<Text fontSize="xl">
+							Заредени обвяви от {currentPage * 10 - 9} до{' '}
+							{totalAds < currentPage * 10
+								? totalAds
+								: currentPage * 10}{' '}
+							от общо {totalAds} резултата
+						</Text>
+					</Flex>
+
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						handlePageClick={handlePageChange}
+					/>
 				</>
 			)}
 		</Box>
