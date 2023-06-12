@@ -40,11 +40,17 @@ function App() {
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qr-scanner" element={<QrCodeScanner />} />
-				<Route path='dashboard-news' element={<DashboardNews />} />
+				<Route path="qr-scanner" element={<QrCodeScanner />} />
+				<Route path="quests-menu" element={<QuestsMenu />} />
+				<Route path="quest1" element={<Quest1 />} />
+				<Route path="quest2" element={<Quest2 />} />
+				<Route path="quiz" element={<Quiz />} />
+				<Route path="successful-quest" element={<CompletedQuest />} />
+				<Route path="dashboard-news" element={<DashboardNews />} />
 
 				<Route path="sales" element={<SalesMain />}>
-					<Route path="list" element={<SalesAdsList/>} />
-					<Route path="my" element={<SalesMyAds/>} />
+					<Route path="list" element={<SalesAdsList />} />
+					<Route path="my" element={<SalesMyAds />} />
 				</Route>
 				<Route path="quests-menu" element={<QuestsMenu />} />
 				<Route path="quest1" element={<Quest1 />} />

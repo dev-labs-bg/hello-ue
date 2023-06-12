@@ -5,6 +5,8 @@ import App from './App'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { ProdavalnikAuthProvider } from './context/ProdavalnikAuthContext'
+import { QuestProvider } from './context/QuestContext'
+import { ProdavalnikAuthProvider } from './context/ProdavalnikAuthContext'
 import { ScheduleProvider } from './context/ScheduleContext'
 
 import { ChakraProvider } from '@chakra-ui/react'
@@ -14,8 +16,8 @@ root.render(
 	<React.StrictMode>
 		<ScheduleProvider>
 			<AuthProvider>
-				<QuestProvider>
-					<ProdavalnikAuthProvider>
+				<ProdavalnikAuthProvider>
+					<QuestProvider>
 						<BrowserRouter>
 							<Routes>
 								<Route
@@ -28,10 +30,9 @@ root.render(
 								/>
 							</Routes>
 						</BrowserRouter>
-					</ProdavalnikAuthProvider>
-				</QuestProvider>
+					</QuestProvider>
+				</ProdavalnikAuthProvider>
 			</AuthProvider>
 		</ScheduleProvider>
 	</React.StrictMode>
 )
-

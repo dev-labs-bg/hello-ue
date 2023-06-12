@@ -171,126 +171,122 @@ const Quest2 = () => {
 						</Button>
 					</VStack>
 				) : (
-					<Box>
-						<Box
-							bgColor={'gray.100'}
-							p={['3em', '3em', '3em', '4em']}
-							flexGrow={1}
-						>
-							<Center>
-								<VStack
-									spacing="24px"
-									width={['90%', '60%', '45%', '35%']}
-									position="relative"
-								>
-									<Box p={5} bgColor="white">
+					<Box
+						bgColor={'gray.100'}
+						p={['3em', '3em', '3em', '4em']}
+						flexGrow={1}
+					>
+						<Center>
+							<VStack
+								spacing="24px"
+								width={['90%', '60%', '45%', '35%']}
+								position="relative"
+							>
+								<Box p={5} bgColor="white">
+									<Box
+										bgSize="cover"
+										bgPosition="top center"
+										top={0}
+										left={0}
+										right={0}
+										bottom={0}
+										zIndex={-1}
+									/>
+									<Box textAlign="center">
 										<Box
-											bgSize="cover"
-											bgPosition="top center"
-											top={0}
-											left={0}
-											right={0}
-											bottom={0}
-											zIndex={-1}
-										/>
-										<Box textAlign="center">
-											<Box
-												fontSize={{
-													base: '1em',
-													md: '1em',
-													lg: '1.1em',
-												}}
-												mt={5}
-											>
-												Направихме кратко резюме за теб.
-												За да преминеш куеста трябва да
-												го споделиш в Дискорд канала на
-												университета. Разгледай
-												отговорите на другите студенти и
-												открий приятели!
-												<DiscordWebhook
-													formData={formData}
-												/>
-											</Box>
-										</Box>
-
-										<Box
-											bgColor="#44818B"
-											color="white"
-											w="1.75em"
-											h="1.75em"
-											position="absolute"
-											left="-0.85em"
-											top="-0.85em"
-											fontSize="2.5em"
-											borderRadius="100%"
-											p="0.1em"
+											fontSize={{
+												base: '1em',
+												md: '1em',
+												lg: '1.1em',
+											}}
+											mt={5}
 										>
-											{questId}
+											Направихме кратко резюме за теб. За
+											да преминеш куеста трябва да го
+											споделиш в Дискорд канала на
+											университета. Разгледай отговорите
+											на другите студенти и открий
+											приятели!
+											<DiscordWebhook
+												formData={formData}
+											/>
 										</Box>
 									</Box>
-									<Box p={5} bgColor="white">
-										<Box
-											bgSize="cover"
-											bgPosition="top center"
-											top={0}
-											left={0}
-											right={0}
-											bottom={0}
-											zIndex={-1}
-										/>
-										<Box textAlign="center">
-											<Heading
-												fontSize={{
-													base: '1.3em',
-													md: '1.8em',
-													lg: '2.2em',
-												}}
-												fontWeight="bold"
-												mt={3}
-											>
-												Аз съм{' '}
-												{formData['student-name']}
-											</Heading>
-											<Box
-												fontSize={{
-													base: '1em',
-													md: '1em',
-													lg: '1.1em',
-												}}
-												mt={5}
-											>
-												Роден/а съм в град{' '}
-												{formData['student-city']}.
-												Завърших{' '}
-												{formData['high-school']}. В ИУ
-												Варна съм записал/а специалност
-												"{formData['university-major']}
-												". Mоите интереси включват{' '}
-												{formData['interests']}. Моето
-												любимо хоби е{' '}
-												{formData['fav-hobby']}!
-											</Box>
-										</Box>
 
-										<Box
-											bgColor="#44818B"
-											color="white"
-											w="1.75em"
-											h="1.75em"
-											position="absolute"
-											left="-0.85em"
-											top="-0.85em"
-											fontSize="2.5em"
-											borderRadius="100%"
-											p="0.1em"
+									<Box
+										bgColor="#44818B"
+										color="white"
+										w="1.75em"
+										h="1.75em"
+										position="absolute"
+										left="-0.85em"
+										top="-0.85em"
+										fontSize="2.5em"
+										borderRadius="100%"
+										p="0.1em"
+									>
+										{questId}
+									</Box>
+								</Box>
+								<Box p={5} bgColor="white">
+									<Box
+										bgSize="cover"
+										bgPosition="top center"
+										top={0}
+										left={0}
+										right={0}
+										bottom={0}
+										zIndex={-1}
+									/>
+									<Box textAlign="center">
+										<Heading
+											fontSize={{
+												base: '1.3em',
+												md: '1.8em',
+												lg: '2.2em',
+											}}
+											fontWeight="bold"
+											mt={3}
 										>
-											{questId}
+											Аз съм {formData['student-name']}
+										</Heading>
+										<Box
+											fontSize={{
+												base: '1em',
+												md: '1em',
+												lg: '1.1em',
+											}}
+											mt={5}
+										>
+											Роден/а съм в град{' '}
+											{formData['student-city']}. Завърших{' '}
+											{formData['high-school']}. В ИУ
+											Варна съм записал/а специалност "
+											{formData['university-major']}
+											". Mоите интереси включват{' '}
+											{formData['interests']}. Моето
+											любимо хоби е{' '}
+											{formData['fav-hobby']}!
 										</Box>
 									</Box>
-								</VStack>
-							</Center>
-						</Box>
+
+									<Box
+										bgColor="#44818B"
+										color="white"
+										w="1.75em"
+										h="1.75em"
+										position="absolute"
+										left="-0.85em"
+										top="-0.85em"
+										fontSize="2.5em"
+										borderRadius="100%"
+										p="0.1em"
+									>
+										{questId}
+									</Box>
+								</Box>
+							</VStack>
+						</Center>
 					</Box>
 				)
 			) : (
