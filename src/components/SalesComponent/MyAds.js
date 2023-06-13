@@ -22,7 +22,6 @@ export default function MyAds() {
 	const [totalPages, setTotalPages] = useState(0)
 	const [totalAds, setTotalAds] = useState(0)
 	const [ads, setAds] = useState([])
-	// const [advertisementId, setAdvertisementId] = useState('');
 
 	const fetchMyAds = async (page) => {
 		try {
@@ -105,7 +104,10 @@ export default function MyAds() {
 				`https://prodavalnik-api.devlabs-projects.info/ads/${id}`,
 				{
 					method: 'DELETE',
-					user: prodavalnikAuth,
+					headers: {
+						'Content-Type': 'application/json',
+						user: prodavalnikAuth,
+					},
 				}
 			)
 
@@ -177,74 +179,93 @@ export default function MyAds() {
 	}
 
 	return (
-		<Box
-			w="-moz-fit-content"
-			marginInline="auto"
-			position="relative"
-			zIndex="1"
-			mb={5}
-		>
-			<div className="buble"></div>
-			<div className="buble2"></div>
-			<>
-				<Link to="/advertisement/create">
-					<Button marginTop="1rem">Добави нова обява</Button>
-				</Link>
-				{ads.map((ad, index) => (
-					<Flex sx={container} key={index}>
-						<Box>
-							<Heading as="h3" size="lg" color="blue.500">
-								{ad.category}
-							</Heading>
-							<Text sx={text}>{ad.title}</Text>
-							<Text sx={text && detail}>{ad.description}</Text>
-							<div sx={text && avatar}>
-								Публикувано от:{' '}
-								<Avatar
-									name={ad.author.name}
-									verticalAlign="middle"
-								/>
-								{ad.author.name}
-							</div>
-							<Text sx={text}>Цена: {ad.price} лв.</Text>
-
-							<Flex>
-								<Text sx={text} marginInline="auto">
-									<Link to={`/advertisement/edit${ad._id}`}>
-										<Button sx={button}>Редактирай</Button>
-									</Link>
-									<Button
-										onClick={() =>
-											deleteAdvertisement(ad.id)
-										}
-										sx={button}
-									>
-										Изтрий ме
-									</Button>
-								</Text>
-							</Flex>
-						</Box>
-
-						<Image src={ad.imageUrl} alt={ad.title} sx={image} />
-					</Flex>
+		<div>
+			{messageBag &&
+				Object.keys(messageBag).map((key) => (
+					<Alert status="success" key={key}>
+						<AlertIcon />
+						{messageBag[key]}
+					</Alert>
 				))}
+			<Box
+				w="-moz-fit-content"
+				marginInline="auto"
+				position="relative"
+				zIndex="1"
+				mb={5}
+			>
+				<div className="buble"></div>
+				<div className="buble2"></div>
+				<>
+					<Link to="/advertisement/create">
+						<Button marginTop="1rem">Добави нова обява</Button>
+					</Link>
+					{ads.map((ad, index) => (
+						<Flex sx={container} key={index}>
+							<Box>
+								<Heading as="h3" size="lg" color="blue.500">
+									{ad.category}
+								</Heading>
+								<Text sx={text}>{ad.title}</Text>
+								<Text sx={text && detail}>
+									{ad.description}
+								</Text>
+								<div sx={text && avatar}>
+									Публикувано от:{' '}
+									<Avatar
+										name={ad.author.name}
+										verticalAlign="middle"
+									/>
+									{ad.author.name}
+								</div>
+								<Text sx={text}>Цена: {ad.price} лв.</Text>
 
-				<Flex justifyContent="center" my={4}>
-					<Text fontSize="xl">
-						Заредени обвяви от {currentPage * 10 - 9} до{' '}
-						{totalAds < currentPage * 10
-							? totalAds
-							: currentPage * 10}{' '}
-						от общо {totalAds} резултата
-					</Text>
-				</Flex>
+								<Flex>
+									<Text sx={text} marginInline="auto">
+										<Link
+											to={`/advertisement/edit${ad._id}`}
+										>
+											<Button sx={button}>
+												Редактирай
+											</Button>
+										</Link>
+										<Button
+											onClick={() =>
+												deleteAdvertisement(ad._id)
+											}
+											sx={button}
+										>
+											Изтрий ме
+										</Button>
+									</Text>
+								</Flex>
+							</Box>
 
-				<Pagination
-					currentPage={currentPage}
-					totalPages={totalPages}
-					handlePageClick={handlePageChange}
-				/>
-			</>
-		</Box>
+							<Image
+								src={ad.imageUrl}
+								alt={ad.title}
+								sx={image}
+							/>
+						</Flex>
+					))}
+
+					<Flex justifyContent="center" my={4}>
+						<Text fontSize="xl">
+							Заредени обвяви от {currentPage * 10 - 9} до{' '}
+							{totalAds < currentPage * 10
+								? totalAds
+								: currentPage * 10}{' '}
+							от общо {totalAds} резултата
+						</Text>
+					</Flex>
+
+					<Pagination
+						currentPage={currentPage}
+						totalPages={totalPages}
+						handlePageClick={handlePageChange}
+					/>
+				</>
+			</Box>
+		</div>
 	)
 }
