@@ -15,6 +15,8 @@ import MyAds from './components/SalesComponent/MyAds'
 import AdvertisementCreate from './components/Аdvertisement/Create'
 import AdvertisementEdit from './components/Аdvertisement/Edit'
 import AdvertisementShow from './components/Аdvertisement/Show'
+import LocationDash from './components/LocationComponents/MainDash'
+import Corps from './components/LocationComponents/Corps'
 
 function App() {
 	const user = useAuth().auth
@@ -36,6 +38,14 @@ function App() {
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qrscanner" element={<QrCodeScanner />} />
 				<Route path="dashboard-news" element={<DashboardNews />} />
+
+				<Route path="location" element={<LocationDash />}>
+					<Route path="corps" element={<Corps />} />
+					{/* <Route path="floors" element={}/> */}
+					{/* <Route path="library" element={}/> */}
+
+				</Route>
+
 
 				<Route path="sales" element={<SalesMain />}>
 					<Route path="list" element={<AdsList />} />
