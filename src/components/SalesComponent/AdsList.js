@@ -69,6 +69,7 @@ export default function SalesAdsList() {
 			fetchAds(parseInt(storedPage))
 		}
 	}, [])
+
 	useEffect(() => {
 		if (prodavalnikAuth) {
 			fetchAds(currentPage)
