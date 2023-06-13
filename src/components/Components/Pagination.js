@@ -35,7 +35,7 @@ export default function Pagination(props) {
 		handlePageClick(page)
 	}
 
-	return (
+	return totalPages > 1 ? (
 		<div className="pagination">
 			<Button
 				isDisabled={currentPage < 4}
@@ -81,5 +81,5 @@ export default function Pagination(props) {
 				Последна
 			</Button>
 		</div>
-	)
+	) : null
 }
