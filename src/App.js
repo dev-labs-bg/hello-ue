@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import Schedule from './components/Schedule'
 import Dashboard from './components/DashboardComponents/Dashboard'
 import Profile from './components/Profile'
 import Logout from './components/Logout'
@@ -35,6 +36,7 @@ function App() {
 				<Route path="dashboard" element={<Dashboard />} />
 				<Route path="profile" element={<Profile />} />
 				<Route path="logout" element={<Logout />} />
+				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qrscanner" element={<QrCodeScanner />} />
 				<Route path="dashboard-news" element={<DashboardNews />} />
