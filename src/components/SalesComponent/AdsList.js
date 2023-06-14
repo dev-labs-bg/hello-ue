@@ -28,6 +28,7 @@ export default function SalesAdsList() {
 		}),
 		[prodavalnikAuth]
 	)
+
 	const fetchAds = useCallback(
 		async (page) => {
 			try {
