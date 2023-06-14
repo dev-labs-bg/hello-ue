@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Alert, AlertIcon, Button, Box, Flex } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { validateForm } from '../Validation/АdvertisementValidation'
-import { fetchData, performFetch } from '../utils.js'
+import { fetchData, performFetch } from '../utils'
 import Input from '../HTML/Input'
 import Select from '../HTML/Select'
 import Textarea from '../HTML/Textarea'
@@ -11,13 +11,6 @@ import Dropzone from 'react-dropzone'
 
 export default function Create() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
-	const headers = {
-		user: prodavalnikAuth,
-	}
-	const headersJSON = {
-		'Content-Type': 'application/json',
-		user: prodavalnikAuth,
-	}
 	const [isSaving, setIsSaving] = useState(false)
 	const [imagePreview, setImagePreview] = useState(null)
 	const [imageUrl, setImageUrl] = useState(null)
@@ -29,6 +22,21 @@ export default function Create() {
 		description: '',
 		price: '',
 	})
+
+	const headers = useMemo(
+		() => ({
+			user: prodavalnikAuth,
+		}),
+		[prodavalnikAuth]
+	)
+
+	const headersJSON = useMemo(
+		() => ({
+			'Content-Type': 'application/json',
+			user: prodavalnikAuth,
+		}),
+		[prodavalnikAuth]
+	)
 
 	const handleInputChange = (name, value) => {
 		setFormData((prevData) => ({
@@ -114,7 +122,7 @@ export default function Create() {
 
 			fetchCategories()
 		}
-	}, [prodavalnikAuth])
+	}, [prodavalnikAuth, headers])
 
 	return (
 		<Box>

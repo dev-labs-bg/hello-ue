@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
 	Alert,
@@ -22,30 +22,31 @@ import {
 	ModalCloseButton,
 } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
-import { fetchData, performFetch } from '../utils.js'
+import { fetchData, performFetch } from '../utils'
 
 export default function Show() {
 	const _id = useParams().id
 	const { prodavalnikAuth } = useProdavalnikAuth()
-	const headers = {
-		user: prodavalnikAuth,
-	}
 	const [isLoading, setIsLoading] = useState(true)
 	const [isBought, setIsBought] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
 	const [advertisement, setAdvertisement] = useState(null)
 	const [messageBag, setMessageBag] = useState(null)
 	const { isOpen, onOpen, onClose } = useDisclosure()
+	const headers = useMemo(() => {
+		return {
+			user: prodavalnikAuth,
+		}
+	}, [prodavalnikAuth])
 
 	const buyBook = async () => {
 		try {
 			setIsSaving(true)
-			const response = await performFetch(
+			performFetch(
 				`https://prodavalnik-api.devlabs-projects.info/ads/${_id}/buy`,
 				'POST',
 				headers
 			)
-
 			setMessageBag({ success: 'Успешно закупихте учебника!' })
 			setIsBought(true)
 			onClose()
@@ -66,7 +67,7 @@ export default function Show() {
 
 			fetchAdvertisement()
 		}
-	}, [prodavalnikAuth])
+	}, [prodavalnikAuth, _id, headers])
 
 	return (
 		<div>
