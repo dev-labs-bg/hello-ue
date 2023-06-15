@@ -1,218 +1,58 @@
-import {
-	BellIcon,
-	SettingsIcon,
-	HamburgerIcon,
-	ChevronDownIcon,
-} from '@chakra-ui/icons'
-import {
-	Avatar,
-	AvatarBadge,
-	AvatarGroup,
-	Box,
-	Button,
-	Flex,
-	HStack,
-	Text,
-	IconButton,
-	useDisclosure,
-	Slide,
-	Heading,
-	Image,
-	Menu,
-	MenuButton,
-	MenuItem,
-	MenuList,
-} from '@chakra-ui/react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import useAuth from '../hooks/useAuth'
+
 import logo from '../logo.png'
-import Logout from './Logout'
+// import Logout from './Logout'
+import NavBarIcon from './Components/Navbar/ProfileIcon'
+import NavBarLinks from './Components/Navbar/Links'
+import IconBars from './Icons/Bars'
+import IconXmark from './Icons/Xmark'
 
-const Navbar = () => {
-	const { isOpen, onToggle } = useDisclosure()
-	const { auth } = useAuth()
+export default function NavBar() {
+	const [menuOpen, setMenuOpen] = useState(false)
 
-	const flex = {
-		bg: '#96BFC6',
-		justifyContent: 'space-between',
-		p: '10px',
-		alignItems: 'center',
-		h: '10vh',
-	}
-
-	const vr = {
-		height: '40px',
-		borderColor: '#44818B',
-		borderWidth: '2px',
-		p: '0px',
-		borderRadius: '4px',
-	}
-
-	const burger = {
-		w: { sm: '40vw', md: '25vw', lg: '25vw' },
-		bg: '#96BFC6',
-		h: '100vh',
-		flexDir: 'row',
-		justifyContent: 'space-between',
+	const handleMenuToggle = () => {
+		setMenuOpen(!menuOpen)
 	}
 
 	return (
-		<Flex sx={flex}>
-			<HStack
-				display={{ base: 'none', sm: 'none', md: 'none', lg: 'flex' }}
-			>
-				<Image src={logo} style={{ width: '40px' }} />
-				<Box sx={vr}></Box>
-				<Link to="dashboard">
-					<Button variant="ghost">Начало</Button>
-				</Link>
-				<Button variant="ghost">Куестове</Button>
-				<Link to="events">
-					<Button variant="ghost">Събития</Button>
-				</Link>
-				<Button variant="ghost">Как да стигна?</Button>
-				<Button variant="ghost">Забавни спомени</Button>
-				<Button variant="ghost">
-					<Link to="schedule">Програма</Link>
-				</Button>
-				<Link to="sales/list">
-					<Button variant="ghost">Продавалник</Button>
-				</Link>
-			</HStack>
+		<>
+			<nav className="fixed md:static w-full md:flex justify-between items-center px-5 md:px-8 bg-[#96bfc6] py-2.5 z-50">
+				<Link to="/" className="w-fit items-center flex gap-1 md:gap-3">
+					<img alt="App Logo" className="h-9 mt-1" src={logo} />
 
-			<IconButton
-				display={{ base: 'flex', sm: 'flex', md: 'flex', lg: 'none' }}
-				color="blue.400"
-				aria-label="Options"
-				icon={<HamburgerIcon />}
-				variant="ghost"
-				onClick={onToggle}
-			/>
+					<span className="self-center text-gary-800 whitespace-nowrap text-xl font-semibold">
+						Hello UE
+					</span>
+				</Link>
 
-			<Slide direction="left" in={isOpen} style={{ zIndex: 10 }}>
-				<Flex
-					sx={burger}
-					display={{ sm: 'flex', md: 'flex', lg: 'none' }}
+				<button
+					onClick={handleMenuToggle}
+					className="md:hidden absolute top-3.5 right-5 bg-teal-500 text-white md:hover:bg-gray-300 p-1.5 rounded transition"
 				>
-					<Flex flexDir="column">
-						<Link to="dashboard">
-							<Button variant="ghost" mb="5px">
-								Начало
-							</Button>
-						</Link>
-						<Button variant="ghost" mb="5px">
-							Куестове
-						</Button>
-						<Link to="events">
-							<Button variant="ghost">Събития</Button>
-						</Link>
-						<Button variant="ghost" mb="5px">
-							Как да стигна?
-						</Button>
-						<Button variant="ghost" mb="5px">
-							Забавни спомени
-						</Button>
-						<Link to="schedule">
-							<Button variant="ghost" mb="5px">
-								Програма
-							</Button>
-						</Link>
-						<Link to="sales/list">
-							<Button variant="ghost" mb="5px">
-								Продавалник
-							</Button>
-						</Link>
-						<Button variant="ghost" mb="5px">
-							Настройки
-						</Button>
-					</Flex>
-					<Flex justify="flex-end">
-						<IconButton
-							color="blue.400"
-							aria-label="Options"
-							icon={<HamburgerIcon />}
-							variant="ghost"
-							onClick={onToggle}
-						/>
-					</Flex>
-				</Flex>
-			</Slide>
+					{menuOpen ? (
+						<IconXmark stroke="2.1" className="w-5 h-5" />
+					) : (
+						<IconBars stroke="2.1" className="w-5 h-5" />
+					)}
+				</button>
 
-			<Heading
-				fontSize="18px"
-				display={{ sm: 'flex', md: 'flex', lg: 'none' }}
-			>
-				Начало
-			</Heading>
+				<div className="flex items-center">
+					<div className="hidden md:flex w-full items-center gap-4 xl:gap-6 text-[15px]">
+						<NavBarLinks />
+					</div>
+				</div>
 
-			<HStack>
-				<AvatarGroup spacing="1em">
-					<Avatar
-						bg="none"
-						border="none"
-						icon={<BellIcon boxSize="6" />}
-					>
-						<AvatarBadge
-							boxSize="1em"
-							bg="#44818B"
-							borderColor="#44818B"
-						>
-							<Text fontSize="xs" color="white">
-								3
-							</Text>
-						</AvatarBadge>
-					</Avatar>
-					<Menu>
-						<MenuButton
-							as={Button}
-							rightIcon={<ChevronDownIcon />}
-							bg="#96BFC6"
-						>
-							<HStack>
-								<Avatar
-									size="sm"
-									border="none"
-									name={auth.data.firstName}
-									bg="#44818B"
-								/>
-								<Text
-									display={{
-										base: 'none',
-										sm: 'none',
-										md: 'none',
-										lg: 'flex',
-									}}
-								>
-									{auth.data.firstName}{' '}
-									{auth.data.lastName[0]}
-								</Text>
-							</HStack>
-						</MenuButton>
-						<MenuList>
-							<MenuItem>
-								<Link to="../profile">Profile</Link>
-							</MenuItem>
-							<MenuItem>
-								<Logout />
-							</MenuItem>
-						</MenuList>
-					</Menu>
+				<span className="block md:hidden absolute right-16 top-3.5">
+					<NavBarIcon />
+				</span>
 
-					<Avatar
-						bg="none"
-						border="none"
-						icon={<SettingsIcon />}
-						display={{
-							base: 'none',
-							sm: 'none',
-							md: 'none',
-							lg: 'flex',
-						}}
-					/>
-				</AvatarGroup>
-			</HStack>
-		</Flex>
+				{menuOpen && (
+					<div className="md:hidden w-full py-2 bg-[#96bfc6] rounded mt-1 shadow-md border border-[#85adb3]">
+						<NavBarLinks />
+					</div>
+				)}
+			</nav>
+		</>
 	)
 }
-
-export default Navbar

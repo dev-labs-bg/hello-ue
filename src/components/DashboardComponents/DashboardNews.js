@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { Box, Flex } from '@chakra-ui/react'
 import DashboardInfoNum from './DashboardInfoNum'
 import DashboardInfoText from './DashboardInfoText'
@@ -45,7 +45,7 @@ const DashboardNews = () => {
 	const info = infoArray.map((el, index) => {
 		if (index % 2 === 0) {
 			return (
-				<Flex sx={stack}>
+				<Flex key={index} sx={stack}>
 					<DashboardInfoNum num={el.num} />
 					<Box w="2em" />
 					<Link to={el.path}>
@@ -55,7 +55,7 @@ const DashboardNews = () => {
 			)
 		} else {
 			return (
-				<Flex sx={stack}>
+				<Flex key={index} sx={stack}>
 					<Link to={el.path}>
 						<DashboardInfoText text={el.nameOfprop} />
 					</Link>
