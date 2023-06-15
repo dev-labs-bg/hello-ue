@@ -13,7 +13,6 @@ import DashboardNews from './components/DashboardComponents/DashboardNews'
 import SalesMain from './components/SalesComponent/SalesMainDash'
 import SalesAdsList from './components/SalesComponent/SalesAdsList'
 import SalesMyAds from './components/SalesComponent/SalesMyAds'
-import Quest from './components/Quests/Quest'
 import Quest2 from './components/Quests/Quest2'
 import Quiz from './components/Quests/Quiz'
 import Quest1 from './components/Quests/Quest1'
@@ -40,7 +39,6 @@ function App() {
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qr-scanner" element={<QrCodeScanner />} />
-				<Route path="qr-scanner" element={<QrCodeScanner />} />
 				<Route path="quests-menu" element={<QuestsMenu />} />
 				<Route path="quest1" element={<Quest1 />} />
 				<Route path="quest2" element={<Quest2 />} />
@@ -52,11 +50,6 @@ function App() {
 					<Route path="list" element={<SalesAdsList />} />
 					<Route path="my" element={<SalesMyAds />} />
 				</Route>
-				<Route path="quests-menu" element={<QuestsMenu />} />
-				<Route path="quest1" element={<Quest1 />} />
-				<Route path="quest2" element={<Quest2 />} />
-				<Route path="quiz" element={<Quiz />} />
-				<Route path="successful-quest" element={<CompletedQuest />} />
 			</Route>
 		</Routes>
 	)
