@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import EventsError from './EventsError'
 import EventsList from './EventsList'
 import EventsLoading from './EventsLoading'
@@ -17,9 +17,35 @@ const EventsMain = () => {
 	const endDate = new Date().setMonth(new Date().getMonth() + 5)
 	const formatEndDate = new Date(endDate).toISOString().slice(0, -5)
 
+	const fetchEvents = useCallback(async () => {
+		let response = null
+		try {
+			let request = await fetch(
+				`https://cryptic-wildwood-52177.herokuapp.com/https://ue-varna.bg/bg/eventsfeed?start=${formatStartDate}+02:00&end=${formatEndDate}+03:00`,
+				{
+					method: 'GET',
+				}
+			)
+			response = await request.json()
+			if (!request.ok) {
+				throw new Error(response ? response.error : request.statusText)
+			}
+		} catch (err) {
+			setError(true)
+			setLoading(false)
+		}
+
+		if (response && !response.error) {
+			delete response.success
+			setEvents(response)
+			setError(false)
+			setLoading(false)
+		}
+	}, [formatStartDate, formatEndDate])
+
 	useEffect(() => {
 		fetchEvents()
-	}, [])
+	}, [fetchEvents])
 
 	function onClickDate(value) {
 		setSelectedDate(value)
@@ -61,32 +87,6 @@ const EventsMain = () => {
 			)}
 		</Box>
 	)
-
-	async function fetchEvents() {
-		let response = null
-		try {
-			let request = await fetch(
-				`https://cryptic-wildwood-52177.herokuapp.com/https://ue-varna.bg/bg/eventsfeed?start=${formatStartDate}+02:00&end=${formatEndDate}+03:00`,
-				{
-					method: 'GET',
-				}
-			)
-			response = await request.json()
-			if (!request.ok) {
-				throw new Error(response ? response.error : request.statusText)
-			}
-		} catch (err) {
-			setError(true)
-			setLoading(false)
-		}
-
-		if (response && !response.error) {
-			delete response.success
-			setEvents(response)
-			setError(false)
-			setLoading(false)
-		}
-	}
 }
 
 export default EventsMain

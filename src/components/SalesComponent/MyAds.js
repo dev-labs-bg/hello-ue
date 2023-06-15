@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import {
 	Alert,
@@ -17,16 +17,13 @@ import Pagination from '../Components/Pagination'
 export default function MyAds() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
 	const [currentPage, setCurrentPage] = useState(1)
-	const [isLoading, setIsLoading] = useState(true)
 	const [messageBag, setMessageBag] = useState(null)
 	const [totalPages, setTotalPages] = useState(0)
 	const [totalAds, setTotalAds] = useState(0)
 	const [ads, setAds] = useState([])
 
-	const fetchMyAds = async (page) => {
+	const fetchMyAds = useCallback(async () => {
 		try {
-			setIsLoading(true)
-
 			const response = await fetch(
 				`https://prodavalnik-api.devlabs-projects.info/ads?current`,
 				{
@@ -53,11 +50,10 @@ export default function MyAds() {
 			)
 			setTotalAds(data.totalCount)
 			setTotalPages(Math.ceil(data.totalCount / 10))
-			setIsLoading(false)
 		} catch (error) {
 			console.error(error)
 		}
-	}
+	}, [prodavalnikAuth])
 
 	const handlePageChange = (page) => {
 		sessionStorage.setItem('currentPage', page)
@@ -72,7 +68,7 @@ export default function MyAds() {
 			setCurrentPage(parseInt(storedPage))
 			fetchMyAds(parseInt(storedPage))
 		}
-	}, [])
+	}, [currentPage, fetchMyAds])
 
 	const calculateExpiration = (createdAt, expiration, kind) => {
 		const today = new Date()
@@ -126,7 +122,7 @@ export default function MyAds() {
 		if (prodavalnikAuth) {
 			fetchMyAds(currentPage)
 		}
-	}, [prodavalnikAuth, currentPage])
+	}, [prodavalnikAuth, currentPage, fetchMyAds])
 
 	const container = {
 		gap: { base: '0.8rem', md: '1rem', lg: '1.5rem' },

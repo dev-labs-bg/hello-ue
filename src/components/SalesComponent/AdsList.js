@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
-import { performFetch } from '../utils.js'
+import { performFetch } from '../utils'
 import Pagination from '../Components/Pagination'
 import {
 	Button,
@@ -21,39 +21,48 @@ export default function SalesAdsList() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [currentPage, setCurrentPage] = useState(1)
 	const [totalPages, setTotalPages] = useState(0)
-	const headersJSON = {
-		'Content-Type': 'application/json',
-		user: prodavalnikAuth,
-	}
+	const headersJSON = useMemo(
+		() => ({
+			'Content-Type': 'application/json',
+			user: prodavalnikAuth,
+		}),
+		[prodavalnikAuth]
+	)
 
-	const fetchAds = async (page) => {
-		try {
-			setIsLoading(true)
+	const fetchAds = useCallback(
+		async (page) => {
+			try {
+				setIsLoading(true)
 
-			const response = await performFetch(
-				`https://prodavalnik-api.devlabs-projects.info/ads?page=${page}`,
-				'GET',
-				headersJSON
-			)
-
-			const data = await response.json()
-
-			setAds(
-				data.ads.filter(
-					(ad) =>
-						!ad.bought &&
-						calculateExpiration(ad.createdAt, ad.expiration, true) >
-							0
+				const response = await performFetch(
+					`https://prodavalnik-api.devlabs-projects.info/ads?page=${page}`,
+					'GET',
+					headersJSON
 				)
-			)
-			setTotalAds(data.totalCount)
-			setTotalPages(Math.ceil(data.totalCount / 10))
-			setIsLoading(false)
-		} catch (err) {
-			console.error(err)
-			setIsLoading(false)
-		}
-	}
+
+				const data = await response.json()
+
+				setAds(
+					data.ads.filter(
+						(ad) =>
+							!ad.bought &&
+							calculateExpiration(
+								ad.createdAt,
+								ad.expiration,
+								true
+							) > 0
+					)
+				)
+				setTotalAds(data.totalCount)
+				setTotalPages(Math.ceil(data.totalCount / 10))
+				setIsLoading(false)
+			} catch (err) {
+				console.error(err)
+				setIsLoading(false)
+			}
+		},
+		[headersJSON]
+	)
 
 	const handlePageChange = (page) => {
 		sessionStorage.setItem('currentPage', page)
@@ -68,13 +77,13 @@ export default function SalesAdsList() {
 			setCurrentPage(parseInt(storedPage))
 			fetchAds(parseInt(storedPage))
 		}
-	}, [])
+	}, [currentPage, fetchAds])
 
 	useEffect(() => {
 		if (prodavalnikAuth) {
 			fetchAds(currentPage)
 		}
-	}, [prodavalnikAuth, currentPage])
+	}, [prodavalnikAuth, currentPage, fetchAds])
 
 	useEffect(() => {
 		setTotalPages(Math.ceil(totalAds / 10))
@@ -97,7 +106,7 @@ export default function SalesAdsList() {
 		} else if (hours > 0) {
 			return kind ? hours : `Обявата изтича след ${hours} часа`
 		} else {
-			return kind ? hours : `Обявата изтича след ${minutes} минути`
+			return kind ? minutes : `Обявата изтича след ${minutes} минути`
 		}
 	}
 

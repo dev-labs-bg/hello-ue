@@ -63,17 +63,21 @@ const Navbar = () => {
 			>
 				<Image src={logo} style={{ width: '40px' }} />
 				<Box sx={vr}></Box>
-				<Button variant="ghost">
-					<Link to="dashboard">Начало</Link>
-				</Button>
+				<Link to="dashboard">
+					<Button variant="ghost">Начало</Button>
+				</Link>
 				<Button variant="ghost">Куестове</Button>
-				<Button variant="ghost">
-					<Link to="events">Събития</Link>
-				</Button>
+				<Link to="events">
+					<Button variant="ghost">Събития</Button>
+				</Link>
 				<Button variant="ghost">Как да стигна?</Button>
 				<Button variant="ghost">Забавни спомени</Button>
-				<Button variant="ghost"><Link to="schedule">Програма</Link></Button>
-				<Button variant="ghost"><Link to="sales">Продавалник</Link></Button>
+				<Button variant="ghost">
+					<Link to="schedule">Програма</Link>
+				</Button>
+				<Link to="sales/list">
+					<Button variant="ghost">Продавалник</Button>
+				</Link>
 			</HStack>
 
 			<IconButton
@@ -91,25 +95,33 @@ const Navbar = () => {
 					display={{ sm: 'flex', md: 'flex', lg: 'none' }}
 				>
 					<Flex flexDir="column">
-						<Button variant="ghost" mb="5px">
-							<Link to="dashboard">Начало</Link>
-						</Button>
+						<Link to="dashboard">
+							<Button variant="ghost" mb="5px">
+								Начало
+							</Button>
+						</Link>
 						<Button variant="ghost" mb="5px">
 							Куестове
 						</Button>
-						<Button variant="ghost">
-							<Link to="events">Събития</Link>
-						</Button>
+						<Link to="events">
+							<Button variant="ghost">Събития</Button>
+						</Link>
 						<Button variant="ghost" mb="5px">
 							Как да стигна?
 						</Button>
 						<Button variant="ghost" mb="5px">
 							Забавни спомени
 						</Button>
-						<Button variant="ghost" mb="5px">
-							<Link to="schedule">Програма</Link>
-						</Button>
-						<Button variant="ghost" mb="5px"><Link to="sales">Продавалник</Link></Button>
+						<Link to="schedule">
+							<Button variant="ghost" mb="5px">
+								Програма
+							</Button>
+						</Link>
+						<Link to="sales/list">
+							<Button variant="ghost" mb="5px">
+								Продавалник
+							</Button>
+						</Link>
 						<Button variant="ghost" mb="5px">
 							Настройки
 						</Button>
@@ -204,4 +216,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Alert, AlertIcon, Button, Box, Flex, Spinner } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { validateForm } from '../Validation/АdvertisementValidation'
-import { fetchData, performFetch } from '../utils.js'
+import { fetchData, performFetch } from '../utils'
 import Input from '../HTML/Input'
 import Select from '../HTML/Select'
 import Textarea from '../HTML/Textarea'
@@ -12,13 +12,6 @@ import Dropzone from 'react-dropzone'
 export default function Edit() {
 	const _id = useParams().id
 	const { prodavalnikAuth } = useProdavalnikAuth()
-	const headers = {
-		user: prodavalnikAuth,
-	}
-	const headersJSON = {
-		'Content-Type': 'application/json',
-		user: prodavalnikAuth,
-	}
 	const [isLoading, setIsLoading] = useState(true)
 	const [isSaving, setIsSaving] = useState(false)
 	const [imagePreview, setImagePreview] = useState(null)
@@ -32,6 +25,21 @@ export default function Edit() {
 		description: '',
 		price: '',
 	})
+
+	const headers = useMemo(
+		() => ({
+			user: prodavalnikAuth,
+		}),
+		[prodavalnikAuth]
+	)
+
+	const headersJSON = useMemo(
+		() => ({
+			'Content-Type': 'application/json',
+			user: prodavalnikAuth,
+		}),
+		[prodavalnikAuth]
+	)
 
 	useEffect(() => {
 		if (advertisement !== null) {
@@ -131,7 +139,7 @@ export default function Edit() {
 				setIsLoading(false)
 			})
 		}
-	}, [prodavalnikAuth])
+	}, [prodavalnikAuth, _id, headers])
 
 	return (
 		<div>
