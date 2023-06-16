@@ -43,7 +43,6 @@ function App() {
 				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
-
 				<Route path="qr-scanner" element={<QrCodeScanner />} />
 				<Route path="quests-menu" element={<QuestsMenu />} />
 				<Route path="quest1" element={<Quest1 />} />
@@ -56,14 +55,9 @@ function App() {
 					<Route path="corps" element={<Corps />} />
 					{/* <Route path="floors" element={}/> */}
 					{/* <Route path="library" element={}/> */}
-
 				</Route>
 
-
 				<Route path="sales" element={<SalesMain />}>
-
-					<Route path="list" element={<SalesAdsList />} />
-					<Route path="my" element={<SalesMyAds />} />
 					<Route path="list" element={<AdsList />} />
 					<Route path="my" element={<MyAds />} />
 				</Route>
