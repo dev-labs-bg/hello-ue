@@ -10,9 +10,14 @@ import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
 import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
 import DashboardNews from './components/DashboardComponents/DashboardNews'
-import SalesMain from './components/SalesComponent/SalesMainDash'
-import SalesAdsList from './components/SalesComponent/SalesAdsList'
-import SalesMyAds from './components/SalesComponent/SalesMyAds'
+import SalesMain from './components/SalesComponent/MainDash'
+import AdsList from './components/SalesComponent/AdsList'
+import MyAds from './components/SalesComponent/MyAds'
+import AdvertisementCreate from './components/Аdvertisement/Create'
+import AdvertisementEdit from './components/Аdvertisement/Edit'
+import AdvertisementShow from './components/Аdvertisement/Show'
+import LocationDash from './components/LocationComponents/MainDash'
+import Corps from './components/LocationComponents/Corps'
 import Quest2 from './components/Quests/Quest2'
 import Quiz from './components/Quests/Quiz'
 import Quest1 from './components/Quests/Quest1'
@@ -38,6 +43,7 @@ function App() {
 				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
+
 				<Route path="qr-scanner" element={<QrCodeScanner />} />
 				<Route path="quests-menu" element={<QuestsMenu />} />
 				<Route path="quest1" element={<Quest1 />} />
@@ -46,9 +52,26 @@ function App() {
 				<Route path="successful-quest" element={<CompletedQuest />} />
 				<Route path="dashboard-news" element={<DashboardNews />} />
 
+				<Route path="location" element={<LocationDash />}>
+					<Route path="corps" element={<Corps />} />
+					{/* <Route path="floors" element={}/> */}
+					{/* <Route path="library" element={}/> */}
+
+				</Route>
+
+
 				<Route path="sales" element={<SalesMain />}>
+
 					<Route path="list" element={<SalesAdsList />} />
 					<Route path="my" element={<SalesMyAds />} />
+					<Route path="list" element={<AdsList />} />
+					<Route path="my" element={<MyAds />} />
+				</Route>
+
+				<Route path="advertisement">
+					<Route path="create" element={<AdvertisementCreate />} />
+					<Route path="edit/:id" element={<AdvertisementEdit />} />
+					<Route path="show/:id" element={<AdvertisementShow />} />
 				</Route>
 			</Route>
 		</Routes>
