@@ -70,7 +70,9 @@ const Navbar = () => {
 				<Link to="events">
 					<Button variant="ghost">Събития</Button>
 				</Link>
-				<Button variant="ghost">Как да стигна?</Button>
+				<Link to="location">
+					<Button variant="ghost">Как да стигна?</Button>
+				</Link>
 				<Button variant="ghost">Забавни спомени</Button>
 				<Button variant="ghost">
 					<Link to="schedule">Програма</Link>
@@ -106,9 +108,11 @@ const Navbar = () => {
 						<Link to="events">
 							<Button variant="ghost">Събития</Button>
 						</Link>
-						<Button variant="ghost" mb="5px">
-							Как да стигна?
-						</Button>
+						<Link to="location">
+							<Button variant="ghost" mb="5px">
+								Как да стигна?
+							</Button>
+						</Link>
 						<Button variant="ghost" mb="5px">
 							Забавни спомени
 						</Button>

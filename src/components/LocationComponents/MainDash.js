@@ -1,91 +1,42 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import EventsError from '../EventsComponents/EventsError'
-import EventsList from '../EventsComponents/EventsList'
-import EventsLoading from '../EventsComponents/EventsLoading'
-import EventsCalendar from '../EventsComponents/EventsCalendar'
-import { Box } from '@chakra-ui/react'
+import { Link, Outlet } from 'react-router-dom'
+import React from 'react'
+import Corps from './Corps'
 
 const EventsMain = () => {
-	const [events, setEvents] = useState([])
-	const [isError, setError] = useState(false)
-	const [isLoading, setLoading] = useState(true)
-	const [currentView, setCurrentView] = useState(new Date())
-	const [selectedDate, setSelectedDate] = useState(0)
-
-	const startDate = new Date().setMonth(new Date().getMonth() - 2)
-	const formatStartDate = new Date(startDate).toISOString().slice(0, -5)
-	const endDate = new Date().setMonth(new Date().getMonth() + 5)
-	const formatEndDate = new Date(endDate).toISOString().slice(0, -5)
-
-	const fetchEvents = useCallback(async () => {
-		let response = null
-		try {
-			let request = await fetch(
-				`https://cryptic-wildwood-52177.herokuapp.com/https://ue-varna.bg/bg/eventsfeed?start=${formatStartDate}+02:00&end=${formatEndDate}+03:00`,
-				{
-					method: 'GET',
-				}
-			)
-			response = await request.json()
-			if (!request.ok) {
-				throw new Error(response ? response.error : request.statusText)
-			}
-		} catch (err) {
-			setError(true)
-			setLoading(false)
-		}
-
-		if (response && !response.error) {
-			delete response.success
-			setEvents(response)
-			setError(false)
-			setLoading(false)
-		}
-	}, [formatStartDate, formatEndDate])
-
-	useEffect(() => {
-		fetchEvents()
-	}, [fetchEvents])
-
-	function onClickDate(value) {
-		setSelectedDate(value)
-	}
-
-	function onChangeView(activeStartDate) {
-		setCurrentView(activeStartDate)
-		setSelectedDate(0)
-	}
-
-	if (isError) {
-		return <EventsError />
-	}
-
 	return (
-		<Box
-			display="flex"
-			alignItems="center"
-			flexDirection="column"
-			p="4"
-			minH="100vh"
-			bgColor="gray.100"
-			overflow="hidden"
+		<section
+			id="container"
+			className="relative w-full min-h-screen bg-gradient-to-r flex items-center justify-center from-teal-200 to-indigo-200"
 		>
-			<EventsCalendar
-				events={events}
-				onClickDate={onClickDate}
-				onChangeView={onChangeView}
-			/>
-			{isLoading ? (
-				<EventsLoading />
-			) : (
-				<EventsList
-					events={events}
-					isLoading={isLoading}
-					currentView={currentView}
-					selectedDate={selectedDate}
-				/>
-			)}
-		</Box>
+			<div className="absolute top-[5%] left-auto inset-x-[auto] flex gap-x-10 font-semibold sm:text-lg md:text-xl lg:text-2xl">
+				<Link to="/location/corps">
+					<button
+						type="button"
+						className="hover:text-gray-600 hover:underline underline-offset-8"
+					>
+						Корпуси
+					</button>
+				</Link>
+				<Link to="/location/floors">
+					<button
+						type="button"
+						className="hover:text-gray-600 hover:underline underline-offset-8"
+					>
+						Етажи-първи корпус
+					</button>
+				</Link>
+				<Link to="/location/library">
+					<button
+						type="button"
+						className="hover:text-gray-600 hover:underline underline-offset-8"
+					>
+						Библиотека
+					</button>
+				</Link>
+			</div>
+			<Corps />
+			<Outlet />
+		</section>
 	)
 }
 
