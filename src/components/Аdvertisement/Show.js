@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import * as MyPOSEmbedded from 'mypos-embedded-checkout'
+
 import {
 	Alert,
 	AlertIcon,
@@ -28,6 +30,7 @@ export default function Show() {
 	const _id = useParams().id
 	const { prodavalnikAuth } = useProdavalnikAuth()
 	const [isLoading, setIsLoading] = useState(true)
+	const [isPaymentProcess, setIsPaymentProcess] = useState(false)
 	const [isBought, setIsBought] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
 	const [advertisement, setAdvertisement] = useState(null)
@@ -40,21 +43,58 @@ export default function Show() {
 	}, [prodavalnikAuth])
 
 	const buyBook = async () => {
-		try {
-			setIsSaving(true)
-			performFetch(
-				`https://prodavalnik-api.devlabs-projects.info/ads/${_id}/buy`,
-				'POST',
-				headers
-			)
-			setMessageBag({ success: 'Успешно закупихте учебника!' })
-			setIsBought(true)
-			onClose()
-		} catch (err) {
-			setMessageBag({
-				error: 'Възникна грешка при закупуването на учебника.',
-			})
+		setIsPaymentProcess(true)
+
+		console.log(advertisement)
+		var paymentParams = {
+			sid: '000000000000010',
+			walletNumber: '61938166610',
+			amount: advertisement.price,
+			currency: 'BGN',
+			orderID: `${advertisement.id}.${
+				advertisement.author.fn
+			}.${Math.random().toString(36).substr(2, 9)}`,
+			PaymentParametersRequired: 3,
+			PaymentMethod: 1,
+			urlNotify: 'https://prodavalnik-api.devlabs-projects.info/checkout',
+			keyIndex: 1,
+			cartItems: [
+				{
+					article: advertisement.title,
+					quantity: 1,
+					price: advertisement.price,
+					currency: 'BGN',
+				},
+			],
 		}
+
+		var callbackParams = {
+			isSandbox: true,
+			onSuccess: function (data) {
+				setIsPaymentProcess(false)
+				setIsSaving(true)
+				performFetch(
+					`https://prodavalnik-api.devlabs-projects.info/ads/${_id}/buy`,
+					'POST',
+					headers
+				)
+				setMessageBag({ success: 'Успешно закупихте учебника!' })
+				setIsBought(true)
+				onClose()
+			},
+			onError: function () {
+				setIsPaymentProcess(false)
+				setMessageBag({
+					error: 'Възникна грешка при закупуването на учебника.',
+				})
+			},
+		}
+
+		MyPOSEmbedded.createPayment(
+			'myPOSEmbeddedCheckout',
+			paymentParams,
+			callbackParams
+		)
 	}
 
 	useEffect(() => {
@@ -70,7 +110,7 @@ export default function Show() {
 	}, [prodavalnikAuth, _id, headers])
 
 	return (
-		<div>
+		<div id="myPOSEmbeddedCheckout">
 			{isLoading ? (
 				<Flex
 					height="100vh"
@@ -80,6 +120,8 @@ export default function Show() {
 					<Spinner size="xl" />
 					<Box ml={4}>Зареждане на данните...</Box>
 				</Flex>
+			) : isPaymentProcess ? (
+				<Flex /> // empty component to show checkout
 			) : (
 				<>
 					{messageBag &&
@@ -92,7 +134,6 @@ export default function Show() {
 								{messageBag[key]}
 							</Alert>
 						))}
-
 					<Link to="/sales/list">
 						<Button marginTop="1rem">Обратно към списъка</Button>
 					</Link>
