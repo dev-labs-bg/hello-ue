@@ -4,9 +4,9 @@ import { Alert, AlertIcon, Button, Box, Flex, Spinner } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import { validateForm } from '../Validation/АdvertisementValidation'
 import { fetchData, performFetch } from '../utils'
-import Input from '../HTML/Input'
-import Select from '../HTML/Select'
-import Textarea from '../HTML/Textarea'
+import Input from '../Components/HTML/Input'
+import Select from '../Components/HTML/Select'
+import Textarea from '../Components/HTML/Textarea'
 import Dropzone from 'react-dropzone'
 
 export default function Edit() {

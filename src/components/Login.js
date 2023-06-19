@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import useSchedule from '../hooks/useSchedule'
 import { Link, useNavigate } from 'react-router-dom'
-import Input from './HTML/Input'
+import Input from './Components/HTML/Input'
 import logo from '../logo.png'
 
 const Login = () => {
@@ -71,7 +71,7 @@ const Login = () => {
 
 	return (
 		<>
-			<section className="bg-gray-50">
+			<section className="bg-[#edf2f7]">
 				<div className="flex flex-col items-center justify-center px-2 md:px-6 py-8 mx-auto md:h-screen lg:py-0">
 					<img
 						src={logo}

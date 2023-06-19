@@ -17,7 +17,7 @@ export default function NavBar() {
 
 	return (
 		<>
-			<nav className="fixed md:static w-full md:flex justify-between items-center px-5 md:px-8 bg-[#96bfc6] py-2.5 z-50">
+			<nav className="fixed md:static w-full md:flex justify-between items-center px-5 md:px-8 bg-slate-50 py-2.5 z-50 border-b border-gray-200">
 				<Link to="/" className="w-fit items-center flex gap-1 md:gap-3">
 					<img alt="App Logo" className="h-9 mt-1" src={logo} />
 
@@ -28,7 +28,7 @@ export default function NavBar() {
 
 				<button
 					onClick={handleMenuToggle}
-					className="md:hidden absolute top-3.5 right-5 bg-teal-500 text-white md:hover:bg-gray-300 p-1.5 rounded transition"
+					className="md:hidden absolute top-3.5 right-5 bg-gray-200 text-slate-600 p-1.5 rounded transition"
 				>
 					{menuOpen ? (
 						<IconXmark stroke="2.1" className="w-5 h-5" />
@@ -48,7 +48,7 @@ export default function NavBar() {
 				</span>
 
 				{menuOpen && (
-					<div className="md:hidden w-full py-2 bg-[#96bfc6] rounded mt-1 shadow-md border border-[#85adb3]">
+					<div className="md:hidden w-full py-1.5 bg-gray-100 rounded-md mt-2 shadow-md border border-gray-200">
 						<NavBarLinks />
 					</div>
 				)}

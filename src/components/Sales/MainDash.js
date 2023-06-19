@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import { Flex, Tab, Tabs, TabList } from '@chakra-ui/react'
-import { Link, Outlet } from 'react-router-dom'
+
+import { Outlet } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
+import Tabs from '../Components/Tabs'
 
 const SalesMain = () => {
 	const { auth } = useAuth()
@@ -44,51 +45,28 @@ const SalesMain = () => {
 		}
 	}, [auth, prodavalnikAuth, setProdavalnikAuth])
 
-	const body = {
-		width: 'full',
-		minHeight: '100vh',
-		display: 'flex',
-		flexDir: 'column',
-		bgGradient: [
-			'linear(to-b,cyan.200, cyan.100)',
-			'linear(to-t,blue.200,teal.500)',
-			'linear(to-tr,cyan.300,green.100)',
-		],
-	}
-
-	const tabsContainer = {
-		display: 'flex',
-		flexWrap: 'nowrap',
-		alignItems: 'center',
-		justifyContent: 'center',
-		marginBlock: '14px',
-	}
-
-	const buttons = {
-		shadow: 'xl',
-		border: 'none',
-		textAlign: 'center',
-		paddingInline: '2rem',
-		fontSize: { sm: '14px', md: '16px', lg: '18px' },
-	}
+	const tabs = [
+		{
+			text: 'Обяви',
+			path: '/sales/list',
+		},
+		{
+			text: 'Съобщения',
+			path: '/sales/',
+		},
+		{
+			text: 'Моите обяви',
+			path: '/sales/my',
+		},
+	]
 
 	return (
-		<Flex sx={body}>
-			<Tabs>
-				<TabList sx={tabsContainer}>
-					<Link to="/sales/list">
-						<Tab sx={buttons}>Обяви</Tab>
-					</Link>
-					<Link to="/sales/">
-						<Tab sx={buttons}>Съобщения</Tab>
-					</Link>
-					<Link to="/sales/my">
-						<Tab sx={buttons}>Моите обяви</Tab>
-					</Link>
-				</TabList>
-			</Tabs>
-			<Outlet />
-		</Flex>
+		<div className="min-w-min min-h-screen bg-[#edf2f7]">
+			<div className="bg-white h-full rounded-lg border border-slate-100 w-fit mx-auto mt-6 p-5">
+				<Tabs tabs={tabs} />
+				<Outlet />
+			</div>
+		</div>
 	)
 }
 

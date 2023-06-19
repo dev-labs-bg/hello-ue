@@ -22,7 +22,7 @@ export default function Input(props) {
 				placeholder={props.placeholder}
 				required
 				onChange={handleChange}
-				className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg block w-full p-2.5 focus:border-gray-400 focus:outline-none"
+				className="border border-gray-200 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-0 focus:border-gray-300 block w-full p-2.5 placeholder-gray-400 peer transition hover:bg-gray-50 focus:bg-gray-50"
 			/>
 
 			{props.error && (

@@ -22,3 +22,11 @@ export async function performFetch(url, method, headers, data) {
 
 	return response
 }
+
+export function textSplit(text, charCount) {
+	if (text.length > charCount) {
+		return text.substring(0, charCount) + '...'
+	} else {
+		return text
+	}
+}

@@ -7,7 +7,7 @@ export default function NavLink(props) {
 		<div
 			className={`${
 				location.pathname === props.location
-					? 'bg-teal-200 bg-opacity-50 md:bg-transparent md:text-teal-500'
+					? 'bg-gray-200 bg-opacity-50 md:bg-transparent md:text-blue-500'
 					: 'text-gray-800'
 			} py-2 md:py-0 pl-3 font-semibold md:hover:opacity-70 transition rounded whitespace-nowrap`}
 		>

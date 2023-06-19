@@ -8,10 +8,9 @@ import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
 import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
-import DashboardNews from './components/DashboardComponents/DashboardNews'
-import SalesMain from './components/SalesComponent/MainDash'
-import AdsList from './components/SalesComponent/AdsList'
-import MyAds from './components/SalesComponent/MyAds'
+import SalesMain from './components/Sales/MainDash'
+import AdsList from './components/Sales/AdsList'
+import MyAds from './components/Sales/MyAds'
 import AdvertisementCreate from './components/Аdvertisement/Create'
 import AdvertisementEdit from './components/Аdvertisement/Edit'
 import AdvertisementShow from './components/Аdvertisement/Show'
@@ -36,7 +35,6 @@ function App() {
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qrscanner" element={<QrCodeScanner />} />
-				<Route path="dashboard-news" element={<DashboardNews />} />
 
 				<Route path="location" element={<LocationDash />}>
 					<Route path="corps" element={<Corps />} />

@@ -1,5 +1,5 @@
 const Profile = ({ className, outline, stroke }) => (
-	<span>
+	<>
 		{outline ? (
 			<svg
 				viewBox="0 0 24 24"
@@ -27,8 +27,7 @@ const Profile = ({ className, outline, stroke }) => (
 				/>
 			</svg>
 		)}
-	</span>
+	</>
 )
 
 export default Profile
-
