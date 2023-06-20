@@ -6,6 +6,7 @@ const Chart = ({ data }) => {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 	const [clickedData, setClickedData] = useState(null)
 
+<<<<<<< HEAD
 	const eventData = data.VCALENDAR[0].VEVENT
 	//console.log(eventData)
 
@@ -132,6 +133,8 @@ const Chart = ({ data }) => {
 		return colorArray
 	}
 
+=======
+>>>>>>> 8657f85 (Added onClick to display each label with its colored text and static legend)
 	const getLegendWidth = () => {
 		if (windowWidth < 490) {
 			return 'column'
@@ -139,15 +142,15 @@ const Chart = ({ data }) => {
 			return 'row'
 		}
 	}
+<<<<<<< HEAD
 
 	//
 
 	const onSliceClick = (data) => {
 		console.log(data)
 		setClickedData({
-			id: `${
-				data.id + '-' + data.data.description + '-' + data.data.location
-			}`,
+			id: `${data.id + '-' + data.data.description + '-' + data.data.location
+				}`,
 			label: data.label,
 			value: data.value,
 			description: data.description,
@@ -183,6 +186,8 @@ const Chart = ({ data }) => {
 		)
 	}
 
+=======
+>>>>>>> 8657f85 (Added onClick to display each label with its colored text and static legend)
 	useEffect(() => {
 		const handleResize = () => {
 			setWindowWidth(window.innerWidth)
@@ -191,11 +196,90 @@ const Chart = ({ data }) => {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
+<<<<<<< HEAD
 	return (
 		<ResponsivePie
 			data={readyData}
 			onClick={onSliceClick}
 			colors={labelColors()}
+=======
+	const data2 = [
+		{
+			id: 'Math',
+			label: 'В момента',
+			value: 540,
+			color: 'hsl(334, 70%, 50%)',
+		},
+		{
+			id: 'Почиква',
+			label: 'Няма часове',
+			value: 255,
+			color: 'hsl(174, 70%, 50%)',
+		},
+		{
+			id: 'Икономика',
+			label: 'Предстои',
+			value: 380,
+			color: 'hsl(24, 70%, 50%)',
+		},
+		{
+			id: 'Почиква',
+			label: 'Няма часове',
+			value: 119,
+			color: 'hsl(274, 70%, 50%)',
+		},
+		{
+			id: 'Програмиране',
+			label: 'Приключил',
+			value: 424,
+			color: 'hsl(229, 70%, 50%)',
+		},
+	]
+
+	const legendData = data2
+		.filter((item, index, self) => {
+			return index === self.findIndex((t) => t.id === item.id)
+		})
+		.slice(0, 4)
+		.map((item) => {
+			return {
+				id: item.id,
+				label: item.label,
+				color: item.color,
+			}
+		})
+
+	const onSliceClick = (data) => {
+		console.log(data)
+		setClickedData({ ...data, color: data.color })
+	}
+
+	const CenteredMetric = ({ dataWithArc, centerX, centerY }) => {
+		let displayed = clickedData ? clickedData['id'] : 'Изберете...'
+		let color = clickedData ? clickedData['color'] : '#0'
+
+		return (
+			<text
+				x={centerX}
+				y={centerY}
+				textAnchor="middle"
+				dominantBaseline="central"
+				style={{
+					color: '#FF0000',
+					fontSize: '14px',
+					fill: color,
+				}}
+			>
+				{displayed}
+			</text>
+		)
+	}
+
+	return (
+		<ResponsivePie
+			data={data2}
+			onClick={onSliceClick}
+>>>>>>> 8657f85 (Added onClick to display each label with its colored text and static legend)
 			margin={{ top: 15, right: 80, bottom: 70, left: 80 }}
 			innerRadius={0.5}
 			padAngle={0.7}
@@ -207,9 +291,13 @@ const Chart = ({ data }) => {
 				from: 'color',
 				modifiers: [['darker', 0.2]],
 			}}
+<<<<<<< HEAD
 			enableArcLabels={true}
 			arcLabel={(data) => `${classHours[data.id]}`}
 			enableArcLinkLabels={false}
+=======
+			enableArcLabels={false}
+>>>>>>> 8657f85 (Added onClick to display each label with its colored text and static legend)
 			arcLinkLabelsSkipAngle={10}
 			arcLinkLabelsTextOffset={8}
 			arcLinkLabelsTextColor="#333333"
@@ -306,7 +394,11 @@ const Chart = ({ data }) => {
 							},
 						},
 					],
+<<<<<<< HEAD
 					data: legendColor,
+=======
+					data: legendData,
+>>>>>>> 8657f85 (Added onClick to display each label with its colored text and static legend)
 				},
 			]}
 		/>

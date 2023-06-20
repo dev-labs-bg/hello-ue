@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Navigation from './Navigation'
-import data from './FloorsData'
+import data from './Data'
 // import ImageMapper from 'reactjs-img-mapper'
 
 export const Floors = () => {
