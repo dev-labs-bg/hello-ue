@@ -62,7 +62,7 @@ const SalesMain = () => {
 
 	return (
 		<div className="min-w-min min-h-screen bg-[#edf2f7]">
-			<div className="bg-white h-full rounded-lg border border-slate-100 w-fit mx-auto mt-6 p-5">
+			<div className="bg-white min-h-screen md:h-full rounded-lg border border-slate-100 mx-auto my-6 px-5 pt-5 pb-24 w-full sm:w-fit lg:w-[65rem]">
 				<Tabs tabs={tabs} />
 				<Outlet />
 			</div>

@@ -9,7 +9,7 @@ export default function Input(props) {
 		<>
 			<label
 				htmlFor={props.for}
-				className="block mb-1.5 text-sm font-medium text-gray-700"
+				className="block mb-1.5 text-sm font-semibold text-gray-700"
 			>
 				{props.label}
 			</label>
@@ -22,7 +22,7 @@ export default function Input(props) {
 				placeholder={props.placeholder}
 				required
 				onChange={handleChange}
-				className="border border-gray-200 text-gray-900 text-sm rounded-md focus:outline-none focus:ring-0 focus:border-gray-300 block w-full p-2.5 placeholder-gray-400 peer transition hover:bg-gray-50 focus:bg-gray-50"
+				className={`${props.classes} border border-gray-200 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-0 focus:border-gray-300 block w-full p-2.5 placeholder-gray-400 transition hover:bg-gray-50 focus:bg-gray-50`}
 			/>
 
 			{props.error && (
