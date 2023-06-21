@@ -24,11 +24,13 @@ import {
 	ModalCloseButton,
 } from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
+import useAuth from '../../hooks/useAuth'
 import { fetchData, performFetch } from '../utils'
 
 export default function Show() {
 	const _id = useParams().id
 	const { prodavalnikAuth } = useProdavalnikAuth()
+	const { auth } = useAuth()
 	const [isLoading, setIsLoading] = useState(true)
 	const [isPaymentProcess, setIsPaymentProcess] = useState(false)
 	const [isBought, setIsBought] = useState(false)
@@ -51,11 +53,7 @@ export default function Show() {
 			walletNumber: '61938166610',
 			amount: advertisement.price,
 			currency: 'BGN',
-			orderID: `${advertisement.id}.${
-				advertisement.author.fn
-			}.${Math.random().toString(36).substr(2, 9)}`,
-			PaymentParametersRequired: 3,
-			PaymentMethod: 1,
+			orderID: `${advertisement._id}.${auth.data.faculty_number}.${Math.random().toString(36).substr(2, 9)}`,
 			urlNotify: 'https://prodavalnik-api.devlabs-projects.info/checkout',
 			keyIndex: 1,
 			cartItems: [
@@ -73,11 +71,6 @@ export default function Show() {
 			onSuccess: function (data) {
 				setIsPaymentProcess(false)
 				setIsSaving(true)
-				performFetch(
-					`https://prodavalnik-api.devlabs-projects.info/ads/${_id}/buy`,
-					'POST',
-					headers
-				)
 				setMessageBag({ success: 'Успешно закупихте учебника!' })
 				setIsBought(true)
 				onClose()
