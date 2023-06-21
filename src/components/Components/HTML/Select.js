@@ -8,7 +8,7 @@ export default function Element(props) {
 	return (
 		<>
 			{props.label ? (
-				<label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+				<label className="block mb-1.5 text-sm font-semibold text-gray-700  text-left ml-0.5">
 					{props.label}
 				</label>
 			) : null}

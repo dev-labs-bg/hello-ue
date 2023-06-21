@@ -21,13 +21,13 @@ const Login = () => {
 		let response = null
 
 		if (formData.facultyNumber.trim() === '') {
-			setError('Моля, въведете име на факултетен номер')
+			setError('Моля, въведете факултетен номер')
 			return
 		} else if (!Number(formData.facultyNumber)) {
 			setError('Факултетния номер трябва да съдържа само цифри')
 			return
 		} else if (formData.password.trim() === '') {
-			setError('Моля, въведете име на парола')
+			setError('Моля, въведете парола')
 			return
 		}
 

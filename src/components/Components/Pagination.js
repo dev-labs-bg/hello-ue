@@ -89,7 +89,7 @@ export default function Pagination(props) {
 				<li>
 					<button
 						disabled={
-							currentPage === totalPages ||
+							(totalPages < 5 && currentPage === totalPages) ||
 							currentPage >= totalPages - 2
 						}
 						onClick={() => handleClick(totalPages)}

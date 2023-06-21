@@ -30,3 +30,32 @@ export function textSplit(text, charCount) {
 		return text
 	}
 }
+
+export function calculateExpiration(createdAt, expiration, kind) {
+	const today = new Date()
+	const createdDate = new Date(createdAt)
+	const expiredDate = new Date(
+		createdDate.getTime() + expiration * 24 * 60 * 60 * 1000
+	)
+	const timeDifference = expiredDate - today
+
+	const days = Math.floor(timeDifference / (24 * 60 * 60 * 1000))
+	const hours = Math.floor((timeDifference / (60 * 60 * 1000)) % 24)
+	const minutes = Math.floor((timeDifference / (60 * 1000)) % 60)
+
+	if (days > 0) {
+		return kind
+			? days
+			: `Обявата изтича след ${days}  ${days === 1 ? 'ден' : 'дни'}`
+	} else if (hours > 0) {
+		return kind
+			? hours
+			: `Обявата изтича след ${hours}  ${hours === 1 ? 'час' : 'часа'}`
+	} else {
+		return kind
+			? minutes
+			: `Обявата изтича след ${minutes}  ${
+					minutes === 1 ? 'минута' : 'минути'
+			  }`
+	}
+}

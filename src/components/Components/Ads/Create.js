@@ -1,19 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Alert, AlertIcon, Box, Flex } from '@chakra-ui/react'
+
 import useProdavalnikAuth from '../../../hooks/useProdavalnikAuth'
 import { validateForm } from '../../Validation/АdvertisementValidation'
 import { fetchData, performFetch } from '../../utils'
+import Alert from '../Alert'
 import Input from '../HTML/Input'
 import Select from '../HTML/Select'
 import Textarea from '../HTML/Textarea'
+import IconUpload from '../../Icons/Upload'
 import Dropzone from 'react-dropzone'
 
-export default function Create({ onSubmitSuccess }) {
+export default function Create() {
 	const { prodavalnikAuth } = useProdavalnikAuth()
 	const [isSaving, setIsSaving] = useState(false)
 	const [imagePreview, setImagePreview] = useState(null)
 	const [imageUrl, setImageUrl] = useState(null)
-	const [messageBag, setMessageBag] = useState(null)
+	const [messageBagError, setMessageBagError] = useState(null)
+	const [messageBagSuccess, setMessageBagSuccess] = useState(null)
 	const [category, setCategory] = useState([])
 	const [formData, setFormData] = useState({
 		title: '',
@@ -50,7 +53,7 @@ export default function Create({ onSubmitSuccess }) {
 			const errors = validateForm(formData, imageUrl)
 
 			if (Object.keys(errors).length > 0) {
-				setMessageBag(errors)
+				setMessageBagError(errors)
 				setIsSaving(false)
 				return
 			}
@@ -78,12 +81,12 @@ export default function Create({ onSubmitSuccess }) {
 			})
 			setImagePreview(null)
 			setImageUrl(null)
-			setMessageBag({ success: 'Обявата е добавена успешно!' })
+			setMessageBagError(null)
+			setMessageBagSuccess({ success: 'Обявата е добавена успешно!' })
 			setIsSaving(false)
-			onSubmitSuccess({ success: 'Обявата е добавена успешно!' })
 		} catch (err) {
 			setIsSaving(false)
-			setMessageBag({
+			setMessageBagError({
 				error: 'Възникна грешка при добавянето на обявата.',
 			})
 		}
@@ -107,7 +110,7 @@ export default function Create({ onSubmitSuccess }) {
 			const responseData = await response.json()
 			setImageUrl(responseData.imageUrl)
 		} catch (err) {
-			setMessageBag({
+			setMessageBagError({
 				error: 'Възникна грешка при добавянето на снимката.',
 			})
 		}
@@ -125,19 +128,10 @@ export default function Create({ onSubmitSuccess }) {
 	}, [prodavalnikAuth, headers])
 
 	return (
-		<Box>
-			{messageBag &&
-				Object.keys(messageBag).map((key) => (
-					<Alert
-						status={key === 'success' ? 'success' : 'error'}
-						key={key}
-					>
-						<AlertIcon />
-						{messageBag[key]}
-					</Alert>
-				))}
+		<>
+			<Alert error={messageBagError} success={messageBagSuccess} />
 
-			<Box m="6px">
+			<div className="grid grid-cols-2 gap-4 mb-2.5">
 				<Input
 					label="Име на книгата"
 					value={formData.title}
@@ -147,35 +141,7 @@ export default function Create({ onSubmitSuccess }) {
 					placeholder="Име"
 					onChange={(value) => handleInputChange('title', value)}
 				/>
-			</Box>
 
-			<Box m="6px">
-				<Select
-					label="Избери категория"
-					value={formData.category}
-					id="category"
-					name="category"
-					placeholder="Категория"
-					options={category}
-					onChange={(value) => handleInputChange('category', value)}
-				/>
-			</Box>
-
-			<Box m="6px">
-				<Textarea
-					label="Описание"
-					value={formData.description}
-					id="description"
-					name="description"
-					placeholder="Описание"
-					row="4"
-					onChange={(value) =>
-						handleInputChange('description', value)
-					}
-				/>
-			</Box>
-
-			<Box m="6px">
 				<Input
 					label="Въведете цена"
 					value={formData.price}
@@ -185,53 +151,82 @@ export default function Create({ onSubmitSuccess }) {
 					placeholder="Цена"
 					onChange={(value) => handleInputChange('price', value)}
 				/>
-			</Box>
+			</div>
 
-			<Box m="6px">
-				<Dropzone onDrop={handleImageUpload}>
-					{({ getRootProps, getInputProps }) => (
-						<div {...getRootProps()} className="dropzone">
-							<input {...getInputProps()} />
-							<p>Натиснете тук за да прикачете снимка</p>
-						</div>
-					)}
-				</Dropzone>
-			</Box>
+			<Select
+				label="Избери категория"
+				value={formData.category}
+				id="category"
+				name="category"
+				placeholder="Категория"
+				options={category}
+				onChange={(value) => handleInputChange('category', value)}
+				classes="mb-2.5"
+			/>
+
+			<Textarea
+				label="Описание"
+				value={formData.description}
+				id="description"
+				name="description"
+				placeholder="Описание"
+				row="5"
+				onChange={(value) => handleInputChange('description', value)}
+			/>
+
+			<div className="flex items-center justify-center w-full">
+				<label
+					htmlFor="dropzone-file"
+					className="flex flex-col items-center justify-center w-full h-40 border border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-50 mt-5"
+				>
+					<div className="flex flex-col items-center justify-center pt-5 pb-6">
+						<IconUpload
+							stroke="2"
+							className="w-10 h-10 mb-3 text-gray-400"
+						/>
+
+						<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+							<span className="font-semibold">
+								Натиснете тук за да прикачите снимка
+							</span>{' '}
+							или я провлачете
+						</p>
+
+						<p className="text-xs text-gray-500 dark:text-gray-400">
+							PNG, JPG или JPEG (MAX. 10MB)
+						</p>
+					</div>
+
+					<Dropzone onDrop={handleImageUpload}>
+						{({ getRootProps, getInputProps }) => (
+							<div {...getRootProps()} className="">
+								<input
+									id="dropzone-file"
+									type="file"
+									className="hidden"
+									{...getInputProps()}
+								/>
+							</div>
+						)}
+					</Dropzone>
+				</label>
+			</div>
 
 			{imagePreview && (
-				<Flex direction="column" align="center">
-					<img
-						src={imagePreview}
-						alt="Preview"
-						style={{
-							width: '200px',
-							height: '200px',
-							objectFit: 'cover',
-							borderRadius: '5px',
-						}}
-					/>
-				</Flex>
+				<img
+					src={imagePreview}
+					alt="Preview"
+					className="w-40 h-40 mt-3 object-cover rounded-md mx-auto"
+				/>
 			)}
 
-			<Flex direction="column" align="center">
-				{/* <Button
-					isLoading={isSaving}
-					width="470px"
-					colorScheme="green"
-					size="md"
-					marginTop="3rem"
-				>
-					Добави
-				</Button> */}
-
-				<button
-					onClick={saveAdvertisement}
-					type="button"
-					className="absolute bottom-4 left-6 text-white bg-blue-500 hover:opacity-80 font-semibold rounded-lg text-sm px-5 py-2.5 text-center transition active:scale-95"
-				>
-					Добави
-				</button>
-			</Flex>
-		</Box>
+			<button
+				onClick={saveAdvertisement}
+				type="button"
+				className="absolute bottom-4 left-4 text-white bg-blue-500 hover:opacity-80 font-semibold rounded-lg text-sm px-5 py-2.5 text-center transition active:scale-95"
+			>
+				Добави
+			</button>
+		</>
 	)
 }
