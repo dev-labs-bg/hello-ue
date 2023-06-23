@@ -1,10 +1,30 @@
 import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
 import { textSplit, calculateExpiration } from '../../utils'
 import IconCart from '../../Icons/Cart'
-import IconEye from '../../Icons/Eye'
 import IconTrash from '../../Icons/Trash'
+import Edit from './Edit'
+import Modal from '../Modal'
 
 export default function Card(props) {
+	const [isOpen, setIsOpen] = useState()
+	const [adId, setAdId] = useState(null)
+	const [adTitle, setAdTitle] = useState(null)
+
+	const toggleModal = () => {
+		setIsOpen(!isOpen)
+	}
+
+	const handleUpdateSuccess = () => {
+		props.onUpdateSuccess()
+	}
+
+	const handleDelete = (adId, adTitle) => {
+		setAdId(adId)
+		setAdTitle(adTitle)
+		toggleModal()
+	}
+
 	return props.ads.map((ad, index) => (
 		<div
 			key={index}
@@ -29,7 +49,7 @@ export default function Card(props) {
 						<div className="h-2 bg-gray-200 rounded-full animate-pulse mb-2.5 mx-auto" />
 						<div className="h-2 bg-gray-200 rounded-full animate-pulse mb-2.5 mx-auto" />
 
-						<div className="flex items-center mt-4 space-x-2.5">
+						<div className="flex items-center mt-3 space-x-2.5">
 							<svg
 								className="text-gray-200 w-8 h-8"
 								aria-hidden="true"
@@ -70,7 +90,7 @@ export default function Card(props) {
 						src={ad.imageUrl}
 						alt={ad.title}
 					/>
-					<div className="mt-4">
+					<div className="mt-3">
 						<h1 className="text-xl font-bold text-gray-700">
 							{ad.title}
 						</h1>
@@ -105,7 +125,10 @@ export default function Card(props) {
 							<div className="flex gap-3">
 								{props.delete && (
 									<button
-										onClick={() => props.deleteAds(ad._id)}
+										onClick={() => {
+											handleDelete(ad._id, ad.title)
+											toggleModal()
+										}}
 										className="text-lg block font-semibold p-2 text-red-50 hover:text-white bg-red-400 rounded-lg shadow hover:shadow-md transition duration-300"
 									>
 										<IconTrash outline={true} />
@@ -113,12 +136,18 @@ export default function Card(props) {
 								)}
 
 								{props.edit && (
-									<Link
-										to={`/advertisement/edit/${ad._id}`}
-										className="text-lg block font-semibold p-2 text-green-50 hover:text-white bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300"
+									<Modal
+										buttonText="Създай обява"
+										title="Редактирай обява"
+										edit={true}
 									>
-										<IconEye outline={true} />
-									</Link>
+										<Edit
+											id={ad._id}
+											onUpdateSuccess={
+												handleUpdateSuccess
+											}
+										/>
+									</Modal>
 								)}
 
 								{props.show && (
@@ -132,6 +161,49 @@ export default function Card(props) {
 							</div>
 						</div>
 					</div>
+
+					{isOpen && adId === ad._id && (
+						<div className="bg-gray-900 bg-opacity-10 fixed inset-0 z-[51]">
+							<div className="fixed inset-0 flex items-center justify-center overflow-auto">
+								<div className="w-full max-w-2xl">
+									<div className="max-w-md p-2 mx-auto bg-white shadow rounded-xl hover:shadow-lg transition-all duration-150 ease-linear">
+										<div className="relative p-4">
+											<h1 className="text-3xl font-bold">
+												Изтрий обявата
+											</h1>
+
+											<p className="text-sm text-gray-500">
+												Сигурни ли сте, че искате да
+												изтриете тази обява ?
+											</p>
+
+											<div className="grid gird-cols-2 gap-x-2 mt-6">
+												<button
+													onClick={() => {
+														props.deleteAds(
+															ad._id,
+															ad.title
+														)
+														toggleModal()
+													}}
+													className="sm:w-auto py-[7px] px-5 text-base font-medium text-center text-white rounded-lg bg-red-500 border border-red-500 hover:opacity-80 transition active:scale-95 mb-2.5"
+												>
+													Изтрий
+												</button>
+
+												<button
+													onClick={toggleModal}
+													className="sm:w-auto py-[7px] px-5 text-base font-medium text-center border rounded-lg text-gray-500 bg-white hover:bg-gray-100  hover:opacity-80 transition active:scale-95"
+												>
+													Откажи
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
 				</>
 			)}
 		</div>

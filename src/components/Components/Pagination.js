@@ -90,7 +90,7 @@ export default function Pagination(props) {
 					<button
 						disabled={
 							(totalPages < 5 && currentPage === totalPages) ||
-							currentPage >= totalPages - 2
+							currentPage >= totalPages - 3
 						}
 						onClick={() => handleClick(totalPages)}
 						className="px-3 py-2 flex leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 disabled:bg-slate-50 disabled:cursor-not-allowed"

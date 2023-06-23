@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import React, { useEffect, useState, useCallback } from 'react'
 import { calculateExpiration } from '../utils'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
@@ -14,6 +13,7 @@ export default function MyAds() {
 	const [totalPages, setTotalPages] = useState(0)
 	const [totalAds, setTotalAds] = useState(0)
 	const [ads, setAds] = useState([])
+	const [showAlert, setShowAlert] = useState(false) // State to control the visibility of the alert
 
 	const fetchMyAds = useCallback(
 		async (page) => {
@@ -95,14 +95,16 @@ export default function MyAds() {
 			}
 
 			fetchMyAds(currentPage)
-			setMessageBag({ success: 'Обявата е успешно изтрита!' })
+			setShowAlert(true)
 		} catch (error) {
 			console.error(error)
 		}
 	}
 
-	function handleDeleteAds(adId) {
+	function handleDeleteAds(adId, adTitle) {
 		deleteAdvertisement(adId)
+		setMessageBag(`Обявата с име ${adTitle} е успешно изтрита!`)
+		console.log(adTitle)
 	}
 
 	useEffect(() => {
@@ -111,9 +113,20 @@ export default function MyAds() {
 		}
 	}, [prodavalnikAuth, currentPage, fetchMyAds])
 
+	const handleUpdateSuccess = () => {
+		fetchMyAds(currentPage)
+		setShowAlert(true)
+
+		setTimeout(() => {
+			setShowAlert(false)
+		}, 6000)
+
+		setMessageBag('Обявата е обновена успешно!')
+	}
+
 	return (
 		<>
-			<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-3.5 sm:mb-0">
 				{ads.length === 0 ? (
 					<div className="flex items-center justify-center h-screen w-full sm:col-span-2 lg:col-span-3 text-slate-700 font-semibold">
 						<div className="space-y-2">
@@ -128,6 +141,7 @@ export default function MyAds() {
 						edit={true}
 						delete={true}
 						deleteAds={handleDeleteAds}
+						onUpdateSuccess={handleUpdateSuccess}
 					/>
 				)}
 			</div>
@@ -143,7 +157,7 @@ export default function MyAds() {
 						<span className="font-semibold text-gray-900 ">
 							{totalAds < currentPage * 10
 								? totalAds
-								: currentPage * 10}{' '}
+								: currentPage * 10 - 1}{' '}
 						</span>{' '}
 						от общо{' '}
 						<span className="font-semibold text-gray-900 ">
@@ -159,6 +173,12 @@ export default function MyAds() {
 					handlePageClick={handlePageChange}
 				/>
 			</div>
+
+			{showAlert && (
+				<div className="fixed w-80 md:w-[30rem] top-6 left-1/2 transform -translate-x-1/2 z-50 p-4 mb-4 text-sm text-green-700 rounded-lg bg-green-100 font-semibold">
+					{messageBag}
+				</div>
+			)}
 		</>
 	)
 }

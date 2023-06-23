@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import IconPencil from '../Icons/Pencil'
 
 export default function Modal(props) {
-	const [isOpen, setIsOpen] = useState(!props.closeModal)
-
-	useEffect(() => {
-		setIsOpen(!props.closeModal)
-		console.log()
-	}, [props.closeModal])
+	const [isOpen, setIsOpen] = useState()
 
 	const toggleModal = () => {
 		setIsOpen(!isOpen)
@@ -14,17 +10,29 @@ export default function Modal(props) {
 
 	return (
 		<>
-			<button
-				className="w-full sm:w-auto py-[9px] px-5 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:opacity-80 transition active:scale-95"
-				type="button"
-				onClick={toggleModal}
-			>
-				{props.buttonText}
-			</button>
+			{props.edit && (
+				<button
+					className="text-lg block font-semibold p-2 text-green-50 hover:text-white bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300"
+					type="button"
+					onClick={toggleModal}
+				>
+					<IconPencil outline={true} />
+				</button>
+			)}
+
+			{props.create && (
+				<button
+					className="w-full sm:w-auto py-[9px] px-5 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:opacity-80 transition active:scale-95"
+					type="button"
+					onClick={toggleModal}
+				>
+					{props.buttonText}
+				</button>
+			)}
 
 			{isOpen && (
 				<div className="bg-gray-900 bg-opacity-50 fixed inset-0 z-[51]">
-					<div className="fixed inset-0 flex justify-center overflow-auto">
+					<div className="fixed inset-0 flex 2xl:items-center justify-center overflow-auto">
 						<div className="w-full max-w-2xl pt-8">
 							<div className="relative bg-white rounded-lg shadow pb-16 mb-8">
 								<div className="flex items-start justify-between py-3 border-b rounded-t mx-4">

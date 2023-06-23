@@ -10,7 +10,7 @@ import Textarea from '../HTML/Textarea'
 import IconUpload from '../../Icons/Upload'
 import Dropzone from 'react-dropzone'
 
-export default function Create() {
+export default function Create(props) {
 	const { prodavalnikAuth } = useProdavalnikAuth()
 	const [isSaving, setIsSaving] = useState(false)
 	const [imagePreview, setImagePreview] = useState(null)
@@ -47,7 +47,7 @@ export default function Create() {
 		}))
 	}
 
-	const saveAdvertisement = async () => {
+	const save = async () => {
 		try {
 			setIsSaving(true)
 			const errors = validateForm(formData, imageUrl)
@@ -83,6 +83,7 @@ export default function Create() {
 			setImageUrl(null)
 			setMessageBagError(null)
 			setMessageBagSuccess({ success: 'Обявата е добавена успешно!' })
+			props.onUpdateSuccess()
 			setIsSaving(false)
 		} catch (err) {
 			setIsSaving(false)
@@ -221,7 +222,8 @@ export default function Create() {
 			)}
 
 			<button
-				onClick={saveAdvertisement}
+				onClick={save}
+				disabled={isSaving}
 				type="button"
 				className="absolute bottom-4 left-4 text-white bg-blue-500 hover:opacity-80 font-semibold rounded-lg text-sm px-5 py-2.5 text-center transition active:scale-95"
 			>
