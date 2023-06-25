@@ -1,40 +1,21 @@
-import React, { useState } from 'react'
-import IconPencil from '../Icons/Pencil'
-
 export default function Modal(props) {
-	const [isOpen, setIsOpen] = useState()
-
-	const toggleModal = () => {
-		setIsOpen(!isOpen)
+	const closeModal = () => {
+		props.onClose()
 	}
 
 	return (
 		<>
-			{props.edit && (
-				<button
-					className="text-lg block font-semibold p-2 text-green-50 hover:bg-opacity-80 bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
-					type="button"
-					onClick={toggleModal}
-				>
-					<IconPencil outline={true} />
-				</button>
-			)}
-
-			{props.create && (
-				<button
-					className="w-full sm:w-auto py-[9px] px-5 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:opacity-80 transition active:scale-95"
-					type="button"
-					onClick={toggleModal}
-				>
-					{props.buttonText}
-				</button>
-			)}
-
-			{isOpen && (
+			{props.isOpen && (
 				<div className="bg-gray-900 bg-opacity-50 fixed inset-0 z-[51]">
 					<div className="fixed inset-0 flex 2xl:items-center justify-center overflow-auto">
 						<div className="w-full max-w-2xl pt-8">
-							<div className="relative bg-white rounded-lg shadow pb-16 mb-8">
+							<div
+								className={`relative bg-white rounded-lg shadow mb-8 ${
+									props.cancelButton !== false
+										? 'pb-16'
+										: 'pb-0'
+								}`}
+							>
 								<div className="flex items-center justify-between py-3 border-b rounded-t mx-4">
 									<h3 className="text-xl font-semibold text-gray-700">
 										{props.title}
@@ -43,7 +24,7 @@ export default function Modal(props) {
 									<button
 										type="button"
 										className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-800 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-										onClick={toggleModal}
+										onClick={closeModal}
 									>
 										<svg
 											aria-hidden="true"
@@ -64,13 +45,15 @@ export default function Modal(props) {
 									{props.children}
 								</div>
 
-								<button
-									type="button"
-									className="absolute bottom-4 left-28 text-gray-500 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 text-sm font-semibold px-5 py-2.5 hover:text-gray-900 focus:z-10 transition active:scale-95"
-									onClick={toggleModal}
-								>
-									Затвори
-								</button>
+								{props.cancelButton !== false && (
+									<button
+										type="button"
+										className="absolute bottom-4 left-28 text-gray-500 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 text-sm font-semibold px-5 py-2.5 hover:text-gray-900 focus:z-10 transition active:scale-95"
+										onClick={closeModal}
+									>
+										Затвори
+									</button>
+								)}
 							</div>
 						</div>
 					</div>

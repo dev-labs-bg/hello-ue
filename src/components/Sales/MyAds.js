@@ -3,6 +3,8 @@ import { calculateExpiration } from '../utils'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import Pagination from '../Components/Pagination'
 import Card from '../Components/Ads/Card'
+import Modal from '../Components/Modal'
+import Edit from '../Components/Ads/Edit'
 import IconNotFound from '../Icons/NotFound'
 
 export default function MyAds() {
@@ -12,8 +14,10 @@ export default function MyAds() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [totalPages, setTotalPages] = useState(0)
 	const [totalAds, setTotalAds] = useState(0)
+	const [modalOpen, setModalOpen] = useState(false)
+	const [adId, setAdId] = useState(null)
 	const [ads, setAds] = useState([])
-	const [showAlert, setShowAlert] = useState(false) // State to control the visibility of the alert
+	const [showAlert, setShowAlert] = useState(false)
 
 	const fetchMyAds = useCallback(
 		async (page) => {
@@ -116,12 +120,22 @@ export default function MyAds() {
 	const handleUpdateSuccess = () => {
 		fetchMyAds(currentPage)
 		setShowAlert(true)
+		setModalOpen(false)
 
 		setTimeout(() => {
 			setShowAlert(false)
 		}, 6000)
 
 		setMessageBag('Обявата е обновена успешно!')
+	}
+
+	const handleOpenEditModal = (adId) => {
+		setModalOpen(true)
+		setAdId(adId)
+	}
+
+	const closeModal = () => {
+		setModalOpen(false)
 	}
 
 	return (
@@ -135,41 +149,35 @@ export default function MyAds() {
 						</div>
 					</div>
 				) : (
-					<Card
-						ads={ads}
-						isLoading={isLoading}
-						edit={true}
-						delete={true}
-						deleteAds={handleDeleteAds}
-						onUpdateSuccess={handleUpdateSuccess}
-					/>
+					<>
+						<Card
+							ads={ads}
+							isLoading={isLoading}
+							edit={true}
+							delete={true}
+							deleteAds={handleDeleteAds}
+							openEditModal={handleOpenEditModal}
+						/>
+
+						<Modal
+							title="Редактирай обява"
+							isOpen={modalOpen}
+							onClose={closeModal}
+						>
+							<Edit
+								id={adId}
+								onUpdateSuccess={handleUpdateSuccess}
+							/>
+						</Modal>
+					</>
 				)}
 			</div>
 
 			<div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-				{totalPages > 1 ? (
-					<p className="text-[15px] text-gray-700 font-medium py-2">
-						Заредени обвяви от{' '}
-						<span className="font-semibold text-gray-900 ">
-							{currentPage * 10 - 9}
-						</span>{' '}
-						до{' '}
-						<span className="font-semibold text-gray-900 ">
-							{totalAds < currentPage * 10
-								? totalAds
-								: currentPage * 10 - 1}{' '}
-						</span>{' '}
-						от общо{' '}
-						<span className="font-semibold text-gray-900 ">
-							{totalAds}
-						</span>{' '}
-						резултата
-					</p>
-				) : null}
-
 				<Pagination
 					currentPage={currentPage}
 					totalPages={totalPages}
+					totalAds={totalAds}
 					handlePageClick={handlePageChange}
 				/>
 			</div>

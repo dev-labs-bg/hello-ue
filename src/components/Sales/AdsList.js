@@ -7,6 +7,7 @@ import Pagination from '../Components/Pagination'
 import Modal from '../Components/Modal'
 import Create from '../Components/Ads/Create'
 import Card from '../Components/Ads/Card'
+import ChatBox from '../Components/Ads/Messages/ChatBox'
 import IconMagnifying from '../Icons/Magnifying'
 import IconNotFound from '../Icons/NotFound'
 
@@ -17,6 +18,14 @@ export default function AdsList() {
 	const [isLoading, setIsLoading] = useState(true)
 	const [currentPage, setCurrentPage] = useState(1)
 	const [totalPages, setTotalPages] = useState(0)
+	const [messageBag, setMessageBag] = useState(null)
+	const [modalOpen, setModalOpen] = useState(false)
+	const [modalOpenMessage, setModalOpenMessage] = useState(false)
+	const [showAlert, setShowAlert] = useState(false)
+	const [adId, setAdId] = useState(false)
+	const [authorName, setAuthorName] = useState(false)
+	const [authorFn, setAuthorFn] = useState(false)
+
 	const headersJSON = useMemo(
 		() => ({
 			'Content-Type': 'application/json',
@@ -97,7 +106,34 @@ export default function AdsList() {
 	}
 
 	const handleUpdateSuccess = () => {
+		setModalOpen(false)
+		setShowAlert(true)
 		fetchAds()
+
+		setTimeout(() => {
+			setShowAlert(false)
+		}, 6000)
+
+		setMessageBag('Обявата е добавена успешно!')
+	}
+
+	const openModal = () => {
+		setModalOpen(true)
+	}
+
+	const closeModal = () => {
+		setModalOpen(false)
+	}
+
+	const handleOpenMessageModal = (adId, authorName, authorFn) => {
+		setModalOpenMessage(true)
+		setAdId(adId)
+		setAuthorName(authorName)
+		setAuthorFn(authorFn)
+	}
+
+	const closeMessageModal = () => {
+		setModalOpenMessage(false)
 	}
 
 	return (
@@ -131,10 +167,18 @@ export default function AdsList() {
 					/>
 				</div>
 
+				<button
+					className="w-full sm:w-auto py-[9px] px-5 text-base font-medium text-center text-white rounded-lg bg-blue-500 hover:opacity-80 transition active:scale-95"
+					type="button"
+					onClick={openModal}
+				>
+					Създай обява
+				</button>
+
 				<Modal
-					buttonText="Създай обява"
 					title="Добави обява"
-					create={true}
+					isOpen={modalOpen}
+					onClose={closeModal}
 				>
 					<Create onUpdateSuccess={handleUpdateSuccess} />
 				</Modal>
@@ -174,43 +218,41 @@ export default function AdsList() {
 							</div>
 						</div>
 					) : (
-						<Card
-							ads={ads}
-							isLoading={isLoading}
-							message={true}
-							show={true}
-						/>
+						<>
+							<Card
+								ads={ads}
+								isLoading={isLoading}
+								message={true}
+								show={true}
+								openMessageModal={handleOpenMessageModal}
+							/>
+
+							<Modal
+								title={`Изпрати съобщение до ${authorName}`}
+								isOpen={modalOpenMessage}
+								onClose={closeMessageModal}
+								cancelButton={false}
+							>
+								<ChatBox adId={adId} fn={authorFn} />
+							</Modal>
+						</>
 					)}
 				</div>
 			)}
 
 			<div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-				{totalPages > 1 ? (
-					<p className="text-[15px] text-gray-700 font-medium py-2">
-						Заредени обвяви от{' '}
-						<span className="font-semibold text-gray-900 ">
-							{currentPage * 10 - 9}
-						</span>{' '}
-						до{' '}
-						<span className="font-semibold text-gray-900 ">
-							{totalAds < currentPage * 10
-								? totalAds
-								: currentPage * 10 - 1}{' '}
-						</span>{' '}
-						от общо{' '}
-						<span className="font-semibold text-gray-900 ">
-							{totalAds}
-						</span>{' '}
-						резултата
-					</p>
-				) : null}
-
 				<Pagination
 					currentPage={currentPage}
 					totalPages={totalPages}
 					handlePageClick={handlePageChange}
 				/>
 			</div>
+
+			{showAlert && (
+				<div className="fixed w-80 md:w-[30rem] top-6 left-1/2 transform -translate-x-1/2 z-50 p-4 mb-4 text-sm text-green-700 rounded-lg bg-green-100 font-semibold">
+					{messageBag}
+				</div>
+			)}
 		</>
 	)
 }
