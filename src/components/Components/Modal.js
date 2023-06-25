@@ -12,7 +12,7 @@ export default function Modal(props) {
 		<>
 			{props.edit && (
 				<button
-					className="text-lg block font-semibold p-2 text-green-50 hover:text-white bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300"
+					className="text-lg block font-semibold p-2 text-green-50 hover:bg-opacity-80 bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 					type="button"
 					onClick={toggleModal}
 				>
@@ -35,7 +35,7 @@ export default function Modal(props) {
 					<div className="fixed inset-0 flex 2xl:items-center justify-center overflow-auto">
 						<div className="w-full max-w-2xl pt-8">
 							<div className="relative bg-white rounded-lg shadow pb-16 mb-8">
-								<div className="flex items-start justify-between py-3 border-b rounded-t mx-4">
+								<div className="flex items-center justify-between py-3 border-b rounded-t mx-4">
 									<h3 className="text-xl font-semibold text-gray-700">
 										{props.title}
 									</h3>

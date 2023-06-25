@@ -55,7 +55,7 @@ const Main = () => {
 					badgeColor="green"
 					title="Купи и продай лесно"
 					text="Предоставяме ти шан да купиш или да продадеш лесно учебник през платформата без да губиш излишно време. Възползвай се сега !"
-					href="/sales/list"
+					href="/sales/advertisements"
 					icon={IconLine}
 				/>
 

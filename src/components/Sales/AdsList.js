@@ -174,7 +174,12 @@ export default function AdsList() {
 							</div>
 						</div>
 					) : (
-						<Card ads={ads} isLoading={isLoading} show={true} />
+						<Card
+							ads={ads}
+							isLoading={isLoading}
+							message={true}
+							show={true}
+						/>
 					)}
 				</div>
 			)}

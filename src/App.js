@@ -41,8 +41,8 @@ function App() {
 				</Route>
 
 				<Route path="sales" element={<SalesMain />}>
-					<Route path="list" element={<AdsList />} />
-					<Route path="my" element={<MyAds />} />
+					<Route path="advertisements" element={<AdsList />} />
+					<Route path="user-advertisements" element={<MyAds />} />
 				</Route>
 
 				<Route path="advertisement">

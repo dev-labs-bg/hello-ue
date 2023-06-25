@@ -103,7 +103,7 @@ export default function MyAds() {
 
 	function handleDeleteAds(adId, adTitle) {
 		deleteAdvertisement(adId)
-		setMessageBag(`Обявата с име ${adTitle} е успешно изтрита!`)
+		setMessageBag(`Обява с име ${adTitle} е успешно изтрита!`)
 		console.log(adTitle)
 	}
 

@@ -3,26 +3,43 @@ import React, { useState } from 'react'
 import { textSplit, calculateExpiration, currencyFormat } from '../../utils'
 import IconCart from '../../Icons/Cart'
 import IconTrash from '../../Icons/Trash'
+import IconChatBubble from '../../Icons/ChatBubble'
+import IconSend from '../../Icons/Send'
 import Edit from './Edit'
 import Modal from '../Modal'
+import Input from '../HTML/Input'
 
 export default function Card(props) {
-	const [isOpen, setIsOpen] = useState()
+	const [isOpenMessageModal, setIsOpenMessageModal] = useState()
+	const [isOpenDeleteModal, setIsOpenDeleteModal] = useState()
 	const [adId, setAdId] = useState(null)
-	const [adTitle, setAdTitle] = useState(null)
+	const [message, setMessage] = useState({ message: '' })
 
-	const toggleModal = () => {
-		setIsOpen(!isOpen)
+	const toggleMessageModal = () => {
+		setIsOpenMessageModal(!isOpenMessageModal)
+	}
+
+	const toggleDeleteModal = () => {
+		setIsOpenDeleteModal(!isOpenDeleteModal)
 	}
 
 	const handleUpdateSuccess = () => {
 		props.onUpdateSuccess()
 	}
 
-	const handleDelete = (adId, adTitle) => {
+	const handleModal = (adId) => {
 		setAdId(adId)
-		setAdTitle(adTitle)
-		toggleModal()
+	}
+
+	const sendMessage = async (fn, message) => {
+		console.log(fn, message)
+	}
+
+	const handleInputChange = (name, value) => {
+		setMessage((prevData) => ({
+			...prevData,
+			[name]: value,
+		}))
 	}
 
 	return props.ads.map((ad, index) => (
@@ -123,13 +140,25 @@ export default function Card(props) {
 							</p>
 
 							<div className="flex gap-3">
+								{props.message && (
+									<button
+										onClick={() => {
+											handleModal(ad._id)
+											toggleMessageModal()
+										}}
+										className="text-lg block font-semibold p-2 text-purple-50  hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+									>
+										<IconChatBubble outline={true} />
+									</button>
+								)}
+
 								{props.delete && (
 									<button
 										onClick={() => {
-											handleDelete(ad._id, ad.title)
-											toggleModal()
+											handleModal(ad._id)
+											toggleDeleteModal()
 										}}
-										className="text-lg block font-semibold p-2 text-red-50 hover:text-white bg-red-400 rounded-lg shadow hover:shadow-md transition duration-300"
+										className="text-lg block font-semibold p-2 text-red-50 hover:bg-opacity-80 bg-red-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 									>
 										<IconTrash outline={true} />
 									</button>
@@ -153,7 +182,7 @@ export default function Card(props) {
 								{props.show && (
 									<Link
 										to={`/advertisement/show/${ad._id}`}
-										className="text-lg block font-semibold p-2 text-blue-50 hover:text-white bg-blue-400 rounded-lg shadow hover:shadow-md transition duration-300"
+										className="text-lg block font-semibold p-2 text-blue-50  hover:bg-opacity-80 bg-blue-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 									>
 										<IconCart outline={true} />
 									</Link>
@@ -162,7 +191,7 @@ export default function Card(props) {
 						</div>
 					</div>
 
-					{isOpen && adId === ad._id && (
+					{isOpenDeleteModal && adId === ad._id && (
 						<div className="bg-gray-900 bg-opacity-50 fixed inset-0 z-[51]">
 							<div className="fixed inset-0 flex items-center justify-center overflow-auto">
 								<div className="w-full max-w-2xl">
@@ -184,7 +213,7 @@ export default function Card(props) {
 															ad._id,
 															ad.title
 														)
-														toggleModal()
+														toggleDeleteModal()
 													}}
 													className="sm:w-auto py-[7px] px-5 text-base font-medium text-center text-white rounded-lg bg-red-500 border border-red-500 hover:opacity-80 transition active:scale-95 mb-2.5"
 												>
@@ -192,11 +221,134 @@ export default function Card(props) {
 												</button>
 
 												<button
-													onClick={toggleModal}
+													onClick={toggleDeleteModal}
 													className="sm:w-auto py-[7px] px-5 text-base font-medium text-center border rounded-lg text-gray-500 bg-white hover:bg-gray-100  hover:opacity-80 transition active:scale-95"
 												>
 													Откажи
 												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					)}
+
+					{isOpenMessageModal && adId === ad._id && (
+						<div className="bg-gray-900 bg-opacity-50 fixed inset-0 z-[51]">
+							<div className="fixed inset-0 flex justify-center overflow-auto">
+								<div className="w-full max-w-2xl pt-8">
+									<div className="relative bg-white rounded-lg shadow mb-8">
+										<div className="flex items-center justify-between py-3 border-b rounded-t mx-4">
+											<h3 className="text-xl font-semibold text-gray-700">
+												Изпрати съобщение до{' '}
+												{ad.author.name}
+											</h3>
+
+											<button
+												type="button"
+												className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-800 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+												onClick={toggleMessageModal}
+											>
+												<svg
+													aria-hidden="true"
+													className="w-5 h-5"
+													fill="currentColor"
+													viewBox="0 0 20 20"
+												>
+													<path
+														fillRule="evenodd"
+														d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+														clipRule="evenodd"
+													/>
+												</svg>
+											</button>
+										</div>
+
+										<div className="overflow-auto h-[30rem]">
+											<div className="flex h-full w-full flex-row overflow-x-hidden">
+												<div className="flex h-full flex-auto flex-col p-4">
+													<div className="flex h-full flex-auto flex-shrink-0 flex-col rounded-2xl bg-gray-100 p-4">
+														<div className="mb-4 flex h-full flex-col overflow-x-auto">
+															<div className="flex h-full flex-col">
+																<div className="space-y-2">
+																	<div className="w-full flex items-center p-3">
+																		<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
+																			E
+																		</div>
+
+																		<div className="relative ml-3 rounded-xl bg-white px-4 py-2 text-sm shadow">
+																			<div>
+																				Hey
+																				How
+																				are
+																				youtoday?
+																			</div>
+																		</div>
+																	</div>
+
+																	<div className="flex flex-row-reverse items-center justify-start p-3">
+																		<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
+																			A
+																		</div>
+
+																		<div className="relative mr-3 rounded-xl bg-indigo-100 px-4 py-2 text-sm shadow">
+																			<div>
+																				Lorem
+																				ipsum
+																				dolor
+																				sit,
+																				amet
+																				consectetur
+																				adipisicing.
+																				?
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div className="flex h-16 w-full flex-row items-center rounded-lg bg-white py-2 px-3">
+															<div className="flex-grow">
+																<div className="relative w-full">
+																	<Input
+																		value={
+																			message.message
+																		}
+																		type="text"
+																		id="message"
+																		name="message"
+																		placeholder="Напипете съобщение..."
+																		onChange={(
+																			value
+																		) =>
+																			handleInputChange(
+																				'message',
+																				value
+																			)
+																		}
+																	/>
+																</div>
+															</div>
+
+															<div className="ml-4">
+																<button
+																	onClick={() =>
+																		sendMessage(
+																			ad
+																				.author
+																				.fn,
+																			message.message
+																		)
+																	}
+																	className="w-10 h-10 flex items-center justify-center rounded-xl bg-blue-500 text-white hover:bg-blue-600 transition active:scale-90"
+																>
+																	<IconSend className="w-5 h-5" />
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

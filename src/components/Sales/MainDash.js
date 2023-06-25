@@ -50,7 +50,7 @@ const SalesMain = () => {
 	const tabs = [
 		{
 			text: 'Обяви',
-			path: '/sales/list',
+			path: '/sales/advertisements',
 		},
 		{
 			text: 'Съобщения',
@@ -58,7 +58,7 @@ const SalesMain = () => {
 		},
 		{
 			text: 'Моите обяви',
-			path: '/sales/my',
+			path: '/sales/user-advertisements',
 		},
 	]
 

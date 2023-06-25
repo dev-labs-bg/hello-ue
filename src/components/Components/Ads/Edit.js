@@ -16,7 +16,6 @@ export default function Edit(props) {
 	const [imagePreview, setImagePreview] = useState(null)
 	const [imageUrl, setImageUrl] = useState(null)
 	const [messageBagError, setMessageBagError] = useState(null)
-	const [messageBagSuccess, setMessageBagSuccess] = useState(null)
 	const [advertisement, setAdvertisement] = useState(null)
 	const [category, setCategory] = useState([])
 	const [formData, setFormData] = useState({
@@ -62,7 +61,7 @@ export default function Edit(props) {
 		}))
 	}
 
-	const updateAds = async () => {
+	const update = async () => {
 		try {
 			setIsSaving(true)
 			const errors = validateForm(formData, imageUrl)
@@ -88,7 +87,6 @@ export default function Edit(props) {
 				JSON.stringify(payload)
 			)
 
-			setMessageBagSuccess({ success: 'Обявата е обновена успешно!' })
 			props.onUpdateSuccess()
 			setIsSaving(false)
 		} catch (err) {
@@ -144,7 +142,7 @@ export default function Edit(props) {
 
 	return (
 		<div>
-			<Alert error={messageBagError} success={messageBagSuccess} />
+			<Alert error={messageBagError} />
 
 			{isLoading ? (
 				<div className="flex items-center justify-center h-96 w-full">
@@ -263,7 +261,7 @@ export default function Edit(props) {
 					)}
 
 					<button
-						onClick={updateAds}
+						onClick={update}
 						disabled={isSaving}
 						type="button"
 						className="absolute bottom-4 left-4 text-white bg-blue-500 hover:opacity-80 font-semibold rounded-lg text-sm px-5 py-2.5 text-center transition active:scale-95"
