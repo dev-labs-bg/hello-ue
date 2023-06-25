@@ -23,6 +23,13 @@ export async function performFetch(url, method, headers, data) {
 	return response
 }
 
+export function currencyFormat(number) {
+	return new Intl.NumberFormat('fr-FR', {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2,
+	}).format(number)
+}
+
 export function textSplit(text, charCount) {
 	if (text.length > charCount) {
 		return text.substring(0, charCount) + '...'

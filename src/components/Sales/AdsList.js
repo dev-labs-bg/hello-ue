@@ -29,54 +29,44 @@ export default function AdsList() {
 		price: '',
 	})
 
-	const fetchAds = useCallback(
-		async (page) => {
-			try {
-				setIsLoading(true)
+	const fetchAds = useCallback(async () => {
+		try {
+			setIsLoading(true)
 
-				let apiUrl = `https://prodavalnik-api.devlabs-projects.info/ads?page=${
-					filterData.title ? 1 : page
-				}&status=active`
+			let apiUrl = `https://prodavalnik-api.devlabs-projects.info/ads?page=${currentPage}&status=active`
 
-				if (filterData.title) {
-					apiUrl += `&search=${filterData.title}`
-				}
-
-				if (filterData.price) {
-					apiUrl += `&sort=${
-						filterData.price === 'Низходящ' ? 'desc' : 'asc'
-					}`
-				}
-
-				const response = await performFetch(apiUrl, 'GET', headersJSON)
-				const data = await response.json()
-
-				setAds(
-					data.ads.filter(
-						(ad) =>
-							calculateExpiration(
-								ad.createdAt,
-								ad.expiration,
-								true
-							) > 0
-					)
-				)
-
-				setTotalAds(data.totalCount)
-				setTotalPages(Math.ceil(data.totalCount / 10))
-				setIsLoading(false)
-			} catch (err) {
-				console.error(err)
-				setIsLoading(false)
+			if (filterData.title) {
+				apiUrl += `&search=${filterData.title}`
 			}
-		},
-		[headersJSON, filterData.title, filterData.price]
-	)
+
+			if (filterData.price) {
+				apiUrl += `&sort=${
+					filterData.price === 'Низходящ' ? 'desc' : 'asc'
+				}`
+			}
+
+			const response = await performFetch(apiUrl, 'GET', headersJSON)
+			const data = await response.json()
+
+			setAds(
+				data.ads.filter(
+					(ad) =>
+						calculateExpiration(ad.createdAt, ad.expiration, true) >
+						0
+				)
+			)
+			setTotalAds(data.totalCount)
+			setTotalPages(Math.ceil(data.totalCount / 10))
+			setIsLoading(false)
+		} catch (err) {
+			console.error(err)
+			setIsLoading(false)
+		}
+	}, [headersJSON, currentPage, filterData.title, filterData.price])
 
 	const handlePageChange = (page) => {
 		sessionStorage.setItem('currentPageAdsList', page)
 		setCurrentPage(page)
-		fetchAds(page)
 	}
 
 	useEffect(() => {
@@ -85,7 +75,7 @@ export default function AdsList() {
 		if (storedPage && currentPage !== parseInt(storedPage)) {
 			setCurrentPage(parseInt(storedPage))
 		} else if (prodavalnikAuth) {
-			fetchAds(currentPage)
+			fetchAds()
 		}
 	}, [
 		prodavalnikAuth,
@@ -107,7 +97,7 @@ export default function AdsList() {
 	}
 
 	const handleUpdateSuccess = () => {
-		fetchAds(currentPage)
+		fetchAds()
 	}
 
 	return (

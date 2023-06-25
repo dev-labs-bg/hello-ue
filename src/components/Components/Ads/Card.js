@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
-import { textSplit, calculateExpiration } from '../../utils'
+import { textSplit, calculateExpiration, currencyFormat } from '../../utils'
 import IconCart from '../../Icons/Cart'
 import IconTrash from '../../Icons/Trash'
 import Edit from './Edit'
@@ -119,7 +119,7 @@ export default function Card(props) {
 
 						<div className="mt-4 mb-2 flex items-center justify-between gap-3">
 							<p className="block text-xl font-semibold text-gray-700">
-								{ad.price}лв.
+								{currencyFormat(ad.price)}лв.
 							</p>
 
 							<div className="flex gap-3">
@@ -163,7 +163,7 @@ export default function Card(props) {
 					</div>
 
 					{isOpen && adId === ad._id && (
-						<div className="bg-gray-900 bg-opacity-10 fixed inset-0 z-[51]">
+						<div className="bg-gray-900 bg-opacity-50 fixed inset-0 z-[51]">
 							<div className="fixed inset-0 flex items-center justify-center overflow-auto">
 								<div className="w-full max-w-2xl">
 									<div className="max-w-md p-2 mx-auto bg-white shadow rounded-xl hover:shadow-lg transition-all duration-150 ease-linear">
