@@ -50,9 +50,8 @@ export default function ChatBox(props) {
 					)
 
 					fetchMessages()
+					setMessage('')
 				}
-
-				// setMessageBagSuccess({ success: 'Обявата е добавена успешно!' })
 			} catch (err) {
 				// setMessageBagError({
 				//   error: 'Възникна грешка при добавянето на обявата.',
