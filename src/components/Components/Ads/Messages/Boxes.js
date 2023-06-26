@@ -5,8 +5,8 @@ export default function Boxes(props) {
 	const messagesEndRef = useRef(null)
 	const [isLoading, setIsLoading] = useState(true)
 
-	function getBulgarianTime(message) {
-		const date = new Date(message)
+	function getBulgarianTime(time) {
+		const date = new Date(time)
 		date.setHours(date.getUTCHours() + 3)
 
 		let hour = date.getHours()
@@ -15,6 +15,7 @@ export default function Boxes(props) {
 		if (hour < 10) {
 			hour = '0' + hour
 		}
+
 		if (minutes < 10) {
 			minutes = '0' + minutes
 		}
@@ -70,7 +71,9 @@ export default function Boxes(props) {
 							</div>
 						))
 					) : (
-						<div>Няма изпратени или получени съобщения</div>
+						<div className="flex items-center justify-center h-56 w-full">
+							Няма изпратени или получени съобщения
+						</div>
 					)}
 
 					<div ref={messagesEndRef} />

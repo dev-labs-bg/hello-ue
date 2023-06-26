@@ -11,6 +11,7 @@ import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
 import SalesMain from './components/Sales/MainDash'
 import AdsList from './components/Sales/AdsList'
 import MyAds from './components/Sales/MyAds'
+import Chat from './components/Sales/Chat'
 import AdvertisementShow from './components/Аdvertisement/Show'
 import LocationDash from './components/LocationComponents/MainDash'
 import Corps from './components/LocationComponents/Corps'
@@ -42,6 +43,7 @@ function App() {
 
 				<Route path="sales" element={<SalesMain />}>
 					<Route path="advertisements" element={<AdsList />} />
+					<Route path="chat" element={<Chat />} />
 					<Route path="user-advertisements" element={<MyAds />} />
 				</Route>
 

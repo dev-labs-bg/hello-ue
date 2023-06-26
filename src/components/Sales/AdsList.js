@@ -10,6 +10,7 @@ import Create from '../Components/Ads/Create'
 import Card from '../Components/Ads/Card'
 import ChatBox from '../Components/Ads/Messages/ChatBox'
 import IconMagnifying from '../Icons/Magnifying'
+import IconXmark from '../Icons/Xmark'
 import IconNotFound from '../Icons/NotFound'
 
 export default function AdsList() {
@@ -143,7 +144,11 @@ export default function AdsList() {
 				<div className="sm:flex items-center mb-2.5 sm:mb-0">
 					<div className="relative mb-2.5 sm:mb-0">
 						<div className="absolute inset-y-0 left-0 flex items-center pl-3">
-							<IconMagnifying className="w-5 h-5 text-gray-500 mt-1.5" />
+							{filterData.title ? (
+								<IconXmark className="w-5 h-5 text-gray-500 cursor-pointer hover:opacity-80 transition active:scale-90" />
+							) : (
+								<IconMagnifying className="w-5 h-5 text-gray-500" />
+							)}
 						</div>
 
 						<Input
@@ -162,7 +167,7 @@ export default function AdsList() {
 						name="sort"
 						placeholder="Сортирай по цена"
 						options={['Възходящ', 'Низходящ']}
-						classes="sm:w-44 md:w-56 mt-1.5 sm:ml-3"
+						classes="sm:w-44 md:w-56 sm:ml-3"
 						value={filterData.price}
 						onChange={(value) => handleInputChange('price', value)}
 					/>
