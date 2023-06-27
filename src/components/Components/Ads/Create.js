@@ -185,14 +185,14 @@ export default function Create(props) {
 							className="w-10 h-10 mb-3 text-gray-400"
 						/>
 
-						<p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+						<p className="mb-2 text-sm text-gray-500">
 							<span className="font-semibold">
 								Натиснете тук за да прикачите снимка
 							</span>{' '}
 							или я провлачете
 						</p>
 
-						<p className="text-xs text-gray-500 dark:text-gray-400">
+						<p className="text-xs text-gray-500">
 							PNG, JPG или JPEG (MAX. 10MB)
 						</p>
 					</div>

@@ -24,10 +24,6 @@ export default function ChatBox(props) {
 		[prodavalnikAuth]
 	)
 
-	const handleInputChange = (value) => {
-		setMessage(value)
-	}
-
 	const fetchMessages = useCallback(async () => {
 		const messageUrl = `https://prodavalnik-api.devlabs-projects.info/messages/${props.adId}`
 		await fetchData(messageUrl, headers, setMessages)
@@ -67,13 +63,19 @@ export default function ChatBox(props) {
 		}
 	}, [prodavalnikAuth, fetchMessages])
 
+	const handleKeyDown = (event) => {
+		if (event.key === 'Enter') {
+			send(props.adId, props.fn)
+		}
+	}
+
 	return (
 		<div className="overflow-auto h-[30rem]">
 			<div className="flex h-full w-full flex-row overflow-x-hidden">
-				<div className="flex h-full flex-auto flex-col p-4">
-					<div className="flex h-full flex-auto flex-shrink-0 flex-col rounded-2xl bg-gray-100 p-4">
+				<div className="flex h-full flex-auto flex-col">
+					<div className="flex h-full flex-auto flex-shrink-0 flex-col rounded-xl bg-gray-50">
 						<div className="mb-4 flex h-full flex-col overflow-x-auto">
-							<div className="flex h-full flex-col">
+							<div className="flex h-full flex-col p-2.5">
 								<div className="space-y-2">
 									<Boxes sentMessages={messages} />
 								</div>
@@ -88,9 +90,8 @@ export default function ChatBox(props) {
 										id="message"
 										name="message"
 										placeholder="Напишете съобщение..."
-										onChange={(value) =>
-											handleInputChange(value)
-										}
+										onChange={(value) => setMessage(value)}
+										onKeyDown={handleKeyDown}
 									/>
 								</div>
 							</div>

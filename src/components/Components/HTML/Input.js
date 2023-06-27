@@ -5,6 +5,12 @@ export default function Input(props) {
 		}
 	}
 
+	const handleKeyDown = (event) => {
+		if (props.onKeyDown) {
+			props.onKeyDown(event)
+		}
+	}
+
 	return (
 		<>
 			<span>
@@ -22,6 +28,7 @@ export default function Input(props) {
 					placeholder={props.placeholder}
 					required
 					onChange={handleChange}
+					onKeyDown={handleKeyDown}
 					className={`${props.classes} border border-gray-200 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-0 focus:border-gray-300 block w-full p-2.5 placeholder-gray-400 transition hover:bg-gray-50 focus:bg-gray-50`}
 				/>
 
