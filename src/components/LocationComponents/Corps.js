@@ -9,7 +9,7 @@ const Corps = () => {
     return (
         <section
             id="container"
-            className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#034687] to-[#00c379]"
+            className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-tr from-[#edf2f7]"
         >
             <Navigation />
             <div className="flex lg:flex-row flex-col  my-28  md:my-36 border-gray-800 rounded-xl border-4 bg-gray-100">

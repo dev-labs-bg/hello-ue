@@ -7,7 +7,7 @@ import "./Mapper.css"
 export const Floors = () => {
 
     return (
-        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-l from-[#034687] to-[#00c379]">
+        <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-l from-[#edf2f7]">
             <Navigation />
             <div className="w-full min-h-screen grid place-content-center align-middle auto-cols-auto ">
                 <div className="w-fit h-fit md:py-8 gap-8 lg:gap-14 grid 2xl:max-2xl:grid-cols-3 xl:grid-cols-2 grid-cols-1 grid-flow-row justify-center my-20 ">
