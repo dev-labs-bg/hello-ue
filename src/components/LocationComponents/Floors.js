@@ -9,8 +9,8 @@ export const Floors = () => {
     return (
         <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-l from-[#034687] to-[#00c379]">
             <Navigation />
-            <div className="w-full min-h-screen grid place-content-center align-middle auto-cols-auto sm:py-8">
-                <div className="w-fit h-fit md:py-8 gap-4 lg:gap-14 grid xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 grid-flow-row justify-self-auto place-items-center mx-[20px] my-[120px] auto-cols-auto">
+            <div className="w-full min-h-screen grid place-content-center align-middle auto-cols-auto ">
+                <div className="w-fit h-fit md:py-8 gap-8 lg:gap-14 grid 2xl:max-2xl:grid-cols-3 xl:grid-cols-2 grid-cols-1 grid-flow-row justify-center my-20 ">
                     {data.map((item, index) => {
                         const imgCoords = data.find((coord) => coord.name === item.name);
                         return (

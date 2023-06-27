@@ -2,7 +2,7 @@ import React from 'react'
 import Navigation from './Navigation'
 import { Outlet } from 'react-router-dom'
 
-const EventsMain = () => {
+const MainDash = () => {
 	return (
 		<section
 			id="container"
@@ -14,4 +14,4 @@ const EventsMain = () => {
 	)
 }
 
-export default EventsMain
+export default MainDash

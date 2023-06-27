@@ -19,7 +19,6 @@ import AdvertisementShow from './components/Аdvertisement/Show'
 import LocationDash from './components/LocationComponents/MainDash'
 import Corps from './components/LocationComponents/Corps'
 import Floors from './components/LocationComponents/Floors'
-import Library from './components/LocationComponents/Library'
 
 function App() {
 	const user = useAuth().auth
@@ -46,7 +45,6 @@ function App() {
 				<Route path="location" element={<LocationDash />}>
 					<Route path="corps" element={<Corps />} />
 					<Route path="floors" element={<Floors />} />
-					<Route path="library" element={<Library />} />
 				</Route>
 
 
