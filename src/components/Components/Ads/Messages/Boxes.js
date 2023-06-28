@@ -37,6 +37,8 @@ export default function Boxes(props) {
 		}, 1000)
 	}, [])
 
+	console.log(props.sentMessages)
+
 	return (
 		<>
 			{isLoading ? (

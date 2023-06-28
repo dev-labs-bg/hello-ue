@@ -81,7 +81,7 @@ export default function ChatBox(props) {
 								</div>
 							</div>
 						</div>
-						<div className="flex h-16 w-full flex-row items-center rounded-lg bg-white py-2 px-3">
+						<div className="flex h-16 w-full flex-row items-center bg-slate-50 py-2.5 px-3 border-t border-slate-200">
 							<div className="flex-grow">
 								<div className="relative w-full">
 									<Input
