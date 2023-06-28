@@ -18,6 +18,7 @@ import AdvertisementEdit from './components/Аdvertisement/Edit'
 import AdvertisementShow from './components/Аdvertisement/Show'
 import LocationDash from './components/LocationComponents/MainDash'
 import Corps from './components/LocationComponents/Corps'
+import Floors from './components/LocationComponents/Floors'
 import Quest2 from './components/Quests/Quest2'
 import Quiz from './components/Quests/Quiz'
 import Quest1 from './components/Quests/Quest1'
@@ -53,8 +54,8 @@ function App() {
 
 				<Route path="location" element={<LocationDash />}>
 					<Route path="corps" element={<Corps />} />
-					{/* <Route path="floors" element={}/> */}
-					{/* <Route path="library" element={}/> */}
+
+					<Route path="floors" element={<Floors />} />
 				</Route>
 
 				<Route path="sales" element={<SalesMain />}>

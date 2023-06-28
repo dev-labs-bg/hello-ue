@@ -72,7 +72,9 @@ const Navbar = ({ title }) => {
 				<Link to="events">
 					<Button variant="ghost">Събития</Button>
 				</Link>
-				<Button variant="ghost">Как да стигна?</Button>
+				<Link to="location/corps">
+					<Button variant="ghost">Как да стигна?</Button>
+				</Link>
 				<Button variant="ghost">Забавни спомени</Button>
 				<Link to="schedule">
 					<Button variant="ghost">Програма</Button>
@@ -112,9 +114,11 @@ const Navbar = ({ title }) => {
 								Събития
 							</Button>
 						</Link>
-						<Button variant="ghost" mb="5px">
-							Как да стигна?
-						</Button>
+						<Link to="location/corps">
+							<Button variant="ghost" mb="5px">
+								Как да стигна?
+							</Button>
+						</Link>
 						<Button variant="ghost" mb="5px">
 							Забавни спомени
 						</Button>
