@@ -20,7 +20,7 @@
 	filter: drop-shadow(0 25px 25px rgba(69, 68, 68, 0.15));
 }
 
-@media screen and (width > 345px) and (width <= 430px) {
+/* @media screen and (width > 345px) and (width <= 430px) {
 	#img-mapper,
 	.img-mapper-img {
 		width: 310px !important;
@@ -34,4 +34,4 @@
 		width: 350px !important;
 		height: 350px !important;
 	}
-}
+} */

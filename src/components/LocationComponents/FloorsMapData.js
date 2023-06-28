@@ -4,7 +4,7 @@ const data = [
         title: "Нулев етаж",
         imgUrl: "../images/schema0.png",
         areas: [
-            { name: "Кафене", shape: "poly", coords: [178, 115, 149, 76, 141, 124], fillColor: "#D1DEDE", },
+            { name: "Кафене", shape: "poly", coords: [636, 472, 754, 667, 912, 574, 795, 377], fillColor: "#D1DEDE", },
             { name: "Тестови център", shape: "rect", coords: [217, 41, 365, 70], fillColor: "#D1DEDE", },
             { name: "WC - м/ж", shape: "rect", coords: [187, 50, 225, 76], fillColor: "#D1DEDE", },
             { name: "Компютърни зали", shape: "circle", coords: [106, 146, 23], fillColor: "D1DEDE" },

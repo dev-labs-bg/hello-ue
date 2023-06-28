@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import data from './FloorsMapData'
 import ImageMapper from 'reactjs-img-mapper'
 
 const ImageMap = (props) => {
@@ -7,19 +8,11 @@ const ImageMap = (props) => {
     const handleMouseEnter = (area, evt) => {
         const { clientX, clientY } = evt
         setHoveredArea({ ...area, clientX, clientY })
+        props.setCurrentIndex(prevIndex => (prevIndex + 1) % data.length)
     }
 
     const handleMouseLeave = () => {
         setHoveredArea(null)
-    }
-
-    const clicked = (area) => {
-        hoveredArea(`${area.name}`)
-    }
-
-    const clickedOutside = (evt) => {
-        const coords = { x: evt.nativeEvent.layerX, y: evt.nativeEvent.layerY }
-        hoveredArea(`${JSON.stringify(coords)}`)
     }
 
     return (
@@ -28,22 +21,20 @@ const ImageMap = (props) => {
                 <ImageMapper
                     src={props.item && props.item.imgUrl}
                     map={props.map}
-                    imgWidth={500}
-                    width={500}
-                    height={400}
+                    responsive={true}
+                    currentIndex={props.currentIndex}
+                    parentWidth={window.innerWidth * 0.8}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    onClick={(area) => clicked(area)}
-                    onImageClick={(evt) => clickedOutside(evt)}
                 />
                 {hoveredArea && (
                     <div
                         style={{
                             width: "100%",
-                            zIndex: '99',
                             padding: '5px',
                             fontWeight: 'bold',
                             textAlign: "center",
+                            zIndex: "99",
                             position: 'absolute',
                             background:
                                 hoveredArea.preFillColor || 'rgba(0, 0, 0, 0.7)',
