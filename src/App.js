@@ -19,6 +19,11 @@ import AdvertisementShow from './components/Аdvertisement/Show'
 import LocationDash from './components/LocationComponents/MainDash'
 import Corps from './components/LocationComponents/Corps'
 import Floors from './components/LocationComponents/Floors'
+import Quest2 from './components/Quests/Quest2'
+import Quiz from './components/Quests/Quiz'
+import Quest1 from './components/Quests/Quest1'
+import QuestsMenu from './components/Quests/QuestsMenu'
+import CompletedQuest from './components/Quests/CompletedQuest'
 
 function App() {
 	const user = useAuth().auth
@@ -39,14 +44,19 @@ function App() {
 				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
-				<Route path="qrscanner" element={<QrCodeScanner />} />
+				<Route path="qr-scanner" element={<QrCodeScanner />} />
+				<Route path="quests-menu" element={<QuestsMenu />} />
+				<Route path="quest1" element={<Quest1 />} />
+				<Route path="quest2" element={<Quest2 />} />
+				<Route path="quiz" element={<Quiz />} />
+				<Route path="successful-quest" element={<CompletedQuest />} />
 				<Route path="dashboard-news" element={<DashboardNews />} />
 
 				<Route path="location" element={<LocationDash />}>
 					<Route path="corps" element={<Corps />} />
+
 					<Route path="floors" element={<Floors />} />
 				</Route>
-
 
 				<Route path="sales" element={<SalesMain />}>
 					<Route path="list" element={<AdsList />} />

@@ -102,3 +102,7 @@
 #html5qr-code-full-region {
 	border: unset !important;
 }
+
+.link-decoration:hover {
+	text-decoration: none;
+}

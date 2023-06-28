@@ -28,7 +28,7 @@ import useAuth from '../hooks/useAuth'
 import logo from '../logo.png'
 import Logout from './Logout'
 
-const Navbar = () => {
+const Navbar = ({ title }) => {
 	const { isOpen, onToggle } = useDisclosure()
 	const { auth } = useAuth()
 
@@ -66,7 +66,9 @@ const Navbar = () => {
 				<Link to="dashboard">
 					<Button variant="ghost">Начало</Button>
 				</Link>
-				<Button variant="ghost">Куестове</Button>
+				<Link to="quests-menu">
+					<Button variant="ghost">Куестове</Button>
+				</Link>
 				<Link to="events">
 					<Button variant="ghost">Събития</Button>
 				</Link>
@@ -74,9 +76,9 @@ const Navbar = () => {
 					<Button variant="ghost">Как да стигна?</Button>
 				</Link>
 				<Button variant="ghost">Забавни спомени</Button>
-				<Button variant="ghost">
-					<Link to="schedule">Програма</Link>
-				</Button>
+				<Link to="schedule">
+					<Button variant="ghost">Програма</Button>
+				</Link>
 				<Link to="sales/list">
 					<Button variant="ghost">Продавалник</Button>
 				</Link>
@@ -97,16 +99,20 @@ const Navbar = () => {
 					display={{ sm: 'flex', md: 'flex', lg: 'none' }}
 				>
 					<Flex flexDir="column">
-						<Link to="dashboard">
-							<Button variant="ghost" mb="5px">
+						<Link to="dashboard" textalign="center">
+							<Button variant="ghost" mb="5px" w="100%">
 								Начало
 							</Button>
 						</Link>
-						<Button variant="ghost" mb="5px">
-							Куестове
-						</Button>
-						<Link to="events">
-							<Button variant="ghost">Събития</Button>
+						<Link to="quests-menu" textalign="center">
+							<Button variant="ghost" mb="5px" w="100%">
+								Куестове
+							</Button>
+						</Link>
+						<Link to="events" textalign="center">
+							<Button variant="ghost" mb="5px" w="100%">
+								Събития
+							</Button>
 						</Link>
 						<Link to="location/corps">
 							<Button variant="ghost" mb="5px">
@@ -116,13 +122,13 @@ const Navbar = () => {
 						<Button variant="ghost" mb="5px">
 							Забавни спомени
 						</Button>
-						<Link to="schedule">
-							<Button variant="ghost" mb="5px">
+						<Link to="schedule" textalign="center">
+							<Button variant="ghost" mb="5px" w="100%">
 								Програма
 							</Button>
 						</Link>
-						<Link to="sales/list">
-							<Button variant="ghost" mb="5px">
+						<Link to="sales/list" textalign="center">
+							<Button variant="ghost" mb="5px" w="100%">
 								Продавалник
 							</Button>
 						</Link>
