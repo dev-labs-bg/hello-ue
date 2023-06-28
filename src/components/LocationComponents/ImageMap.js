@@ -29,10 +29,10 @@ const ImageMap = (props) => {
                         style={{
                             width: "100%",
                             padding: '5px',
+                            borderRadius: "5px",
                             fontWeight: 'bold',
                             textAlign: "center",
                             zIndex: "99",
-                            position: 'absolute',
                             background:
                                 hoveredArea.preFillColor || 'rgba(0, 0, 0, 0.7)',
                             color: hoveredArea.fillColor || 'white',

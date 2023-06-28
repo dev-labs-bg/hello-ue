@@ -9,6 +9,6 @@
 
 .img-mapper-img:hover {
 	border-radius: 1.5rem;
-	filter: hue-rotate(15deg);
+	filter: hue-rotate(30deg);
 	filter: drop-shadow(0 25px 25px rgba(69, 68, 68, 0.15));
 }

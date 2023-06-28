@@ -16,7 +16,12 @@ const Corps = () => {
                 <div className=" w-[350px] md:w-[450px] lg:w-[325px] xl:w-[400px] h-fit flex flex-col items-center text-left justify-center focus:ring-4 focus:outline-none font-medium p-4 rounded-lg  bg-white">
                     <div className="flex gap-5 items-center border-b-4">
                         <div className="flex flex-col">
-                            <h3 className="text-xl py-4">Първи корпус</h3>
+                            <span className="flex items-center gap-2">
+                                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                                    <path d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                                </svg>
+                                <h3 className="text-xl py-4">Първи корпус</h3>
+                            </span>
                             <p className="text-sm text-left mb-4 font-normal lg:text-xl xl:px-8 text-gray-600">
                                 бул "Княз Борис |-ви" 77,
                                 <br />
@@ -45,7 +50,12 @@ const Corps = () => {
                     </div>
                     <div className="flex gap-5 border-b-4">
                         <div className="flex flex-col">
-                            <h3 className="text-xl py-4">Втори корпус</h3>
+                            <span className="flex items-center gap-2">
+                                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                                    <path d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                                </svg>
+                                <h3 className="text-xl py-4">Втори корпус</h3>
+                            </span>
                             <p className="text-sm mb-4 font-normal lg:text-xl xl:px-8 text-gray-600">
                                 ул "Евлоги Георгиев" 24,
                                 <br />
@@ -74,7 +84,12 @@ const Corps = () => {
                     </div>
                     <div className="flex gap-5 ">
                         <div className="flex flex-col">
-                            <h3 className="text-xl py-4">Трети корпус</h3>
+                            <span className="flex items-center gap-2">
+                                <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                                    <path d="M8 0a7.992 7.992 0 0 0-6.583 12.535 1 1 0 0 0 .12.183l.12.146c.112.145.227.285.326.4l5.245 6.374a1 1 0 0 0 1.545-.003l5.092-6.205c.206-.222.4-.455.578-.7l.127-.155a.934.934 0 0 0 .122-.192A8.001 8.001 0 0 0 8 0Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                                </svg>
+                                <h3 className="text-xl py-4">Трети корпус</h3>
+                            </span>
                             <p className="text-sm mb-4 font-normal lg:text-xl xl:px-4 text-gray-600">
                                 бул "Сливница" 158 А,
                                 <br />

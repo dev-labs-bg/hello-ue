@@ -8,7 +8,7 @@ const data = [
             { name: "Кафене", shape: "poly", coords: [636, 472, 754, 667, 912, 574, 795, 377], fillColor: "#D1DEDE", },
             { name: "WC - м/ж", shape: "circle", coords: [1024, 327, 89], fillColor: "#D1DEDE", },
             { name: "Компютърни зали 50/51", shape: "circle", coords: [718, 1032, 165], fillColor: "D1DEDE" },
-            { name: "Компютърни зала 52", shape: "circle", coords: [540, 770, 99], fillColor: "D1DEDE" },
+            { name: "Електронни спортове 52", shape: "circle", coords: [540, 770, 99], fillColor: "D1DEDE" },
             { name: "Компютърни зала 53", shape: "circle", coords: [559, 599, 111], fillColor: "D1DEDE" },
             { name: "Тестови център / зала 55", shape: "rect", coords: [1089, 236, 1477, 356], fillColor: "#D1DEDE", },
             { name: "Тестови център / зала 56", shape: "rect", coords: [1480, 204, 1824, 345], fillColor: "#D1DEDE", },
@@ -21,6 +21,8 @@ const data = [
         imgUrl: "../images/schema1.png",
         areas: [
             { name: "Вход", shape: "circle", coords: [744, 1143, 61], fillColor: "#D1DEDE" },
+            { name: "WC - мъже", shape: "rect", coords: [1387, 555, 1513, 727], fillColor: "#D1DEDE" },
+            { name: "WC - жени", shape: "rect", coords: [1261, 554, 1381, 727], fillColor: "#D1DEDE" },
             { name: "Кариерен център", shape: "rect", coords: [1161, 554, 1258, 725], fillColor: "#D1DEDE" },
             { name: "Книжарница", shape: "rect", coords: [1060, 554, 1157, 726], fillColor: "#D1DEDE" },
             { name: "Студентски съвет", shape: "rect", coords: [907, 553, 1056, 732], fillColor: "#D1DEDE" },
