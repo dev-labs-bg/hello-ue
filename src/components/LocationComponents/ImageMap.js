@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import data from './FloorsMapData'
 import ImageMapper from 'reactjs-img-mapper'
 
 const ImageMap = (props) => {
@@ -8,7 +7,6 @@ const ImageMap = (props) => {
     const handleMouseEnter = (area, evt) => {
         const { clientX, clientY } = evt
         setHoveredArea({ ...area, clientX, clientY })
-        props.setCurrentIndex(prevIndex => (prevIndex + 1) % data.length)
     }
 
     const handleMouseLeave = () => {
@@ -22,7 +20,6 @@ const ImageMap = (props) => {
                     src={props.item && props.item.imgUrl}
                     map={props.map}
                     responsive={true}
-                    currentIndex={props.currentIndex}
                     parentWidth={window.innerWidth * 0.8}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
