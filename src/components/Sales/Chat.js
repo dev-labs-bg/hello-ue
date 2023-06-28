@@ -144,12 +144,12 @@ const Chat = (props) => {
 	return (
 		<div className="flex">
 			<div className="relative rounded-l-lg bg-white shadow-lg min-h-screen text-gray-600 border border-slate-100 border-r-0">
-				<div className="p-3">
+				<div className="p-3 overflow-y-auto">
 					<h3 className="mb-1 text-xs font-semibold uppercase text-gray-400">
 						Чат
 					</h3>
 
-					<div className="w-[320px] flex flex-col-reverse">
+					<div className="w-[320px]">
 						{Object.values(messages).map((item) =>
 							Object.values(item.messages)
 								.reverse()
@@ -157,72 +157,67 @@ const Chat = (props) => {
 									const messageId = item.ad[0]._id
 									const senderId = message.from.fn
 
-									if (Number(authUser) !== senderId) {
-										if (
-											!shownSenders[messageId] ||
-											!shownSenders[messageId].includes(
+									if (
+										!shownSenders[messageId] ||
+										!shownSenders[messageId].includes(
+											senderId
+										)
+									) {
+										if (!shownSenders[messageId]) {
+											shownSenders[messageId] = [senderId]
+										} else {
+											shownSenders[messageId].push(
 												senderId
 											)
-										) {
-											if (!shownSenders[messageId]) {
-												shownSenders[messageId] = [
-													senderId,
-												]
-											} else {
-												shownSenders[messageId].push(
-													senderId
-												)
-											}
+										}
 
-											return (
-												<button
-													className="w-full py-2.5 text-left focus:outline-none hover:bg-gray-50 transition px-1.5 border-b border-slate-200"
-													key={index}
-												>
-													<div className="flex items-center">
-														<div className="flex h-9 w-11 mr-2 items-center justify-center rounded-full bg-blue-400 text-white font-semibold">
-															{message.from.name.charAt(
-																0
-															)}
-														</div>
+										return (
+											<button
+												className="w-full py-2.5 text-left focus:outline-none hover:bg-gray-50 transition px-1.5 border-b border-slate-200"
+												key={index}
+											>
+												<div className="flex items-center">
+													<div className="flex h-9 w-11 mr-2 items-center justify-center rounded-full bg-blue-400 text-white font-semibold">
+														{message.from.name.charAt(
+															0
+														)}
+													</div>
 
-														<div className="w-full">
-															<h4 className="text-sm font-semibold text-gray-800 flex">
+													<div className="w-full">
+														<h4 className="text-sm font-semibold text-gray-800 flex">
+															{textSplit(
+																message.from
+																	.name,
+																15
+															)}{' '}
+															-{' '}
+															<span className="ml-1 text-sm text-gray-500">
 																{textSplit(
-																	message.from
-																		.name,
+																	item.ad[0]
+																		.title,
 																	15
-																)}{' '}
-																-{' '}
-																<span className="ml-1 text-sm text-gray-500">
-																	{textSplit(
-																		item
-																			.ad[0]
-																			.title,
-																		15
-																	)}
-																</span>
-															</h4>
+																)}
+															</span>
+														</h4>
 
-															<div className="w-full text-[12.5px] flex gap-1.5 justify-between items-center">
-																<span>
-																	{textSplit(
-																		message.text,
-																		22
-																	)}
-																</span>
+														<div className="w-full text-[12.5px] flex gap-1.5 justify-between items-center">
+															<span>
+																{textSplit(
+																	message.text,
+																	22
+																)}
+															</span>
 
-																<span>
-																	{getBulgarianTime(
-																		message.createdAt
-																	)}
-																</span>
-															</div>
+															<span>
+																{getBulgarianTime(
+																	message.createdAt
+																)}
+															</span>
 														</div>
 													</div>
-												</button>
-											)
-										}
+												</div>
+											</button>
+										)
 									}
 
 									return null
