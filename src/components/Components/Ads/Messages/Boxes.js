@@ -8,21 +8,53 @@ export default function Boxes(props) {
 	const [isLoading, setIsLoading] = useState(true)
 
 	function getBulgarianTime(time) {
+		const currentDate = new Date()
 		const date = new Date(time)
 		date.setHours(date.getUTCHours() + 3)
 
-		let hour = date.getHours()
-		let minutes = date.getMinutes()
+		const hour = date.getHours()
+		const minutes = date.getMinutes()
+		const diffInHours = Math.floor((currentDate - date) / (1000 * 60 * 60))
+
+		let timeString = ''
+
+		if (diffInHours >= 24) {
+			const day = date.getDate()
+			const month = getMonthName(date.getMonth())
+			const formattedDate = `${day} ${month}`
+			timeString = formattedDate + ', '
+		}
+
+		let hourString = hour.toString()
+		let minuteString = minutes.toString()
 
 		if (hour < 10) {
-			hour = '0' + hour
+			hourString = '0' + hourString
 		}
 
 		if (minutes < 10) {
-			minutes = '0' + minutes
+			minuteString = '0' + minuteString
 		}
 
-		return hour + ':' + minutes
+		return timeString + hourString + ':' + minuteString + 'ч.'
+	}
+
+	function getMonthName(monthIndex) {
+		const monthNames = [
+			'Яну',
+			'Фев',
+			'Мар',
+			'Апр',
+			'Май',
+			'Юни',
+			'Юли',
+			'Авг',
+			'Сеп',
+			'Окт',
+			'Ное',
+			'Дек',
+		]
+		return monthNames[monthIndex]
 	}
 
 	useEffect(() => {
@@ -37,63 +69,66 @@ export default function Boxes(props) {
 		}, 1000)
 	}, [])
 
-	console.log(props.sentMessages)
-
-	return (
+	return isLoading ? (
+		<Loader />
+	) : (
 		<>
-			{isLoading ? (
-				<Loader />
-			) : (
-				<>
-					{Array.isArray(props.sentMessages) ? (
-						props.sentMessages.map((message, index) =>
-							Number(authUser) === message.from.fn ? (
-								<div
-									className="flex flex-row-reverse items-center justify-start p-2"
-									key={index}
-								>
-									<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
-										{message.from.name.charAt(0) ??
-											message.to.name.charAt(0)}
-									</div>
-
-									<div className="relative mr-3 rounded-xl bg-indigo-100 px-4 py-2 text-sm shadow">
-										<div>{message.text}</div>
-									</div>
-
-									<div className="mr-2 text-xs italic text-gray-500">
-										{getBulgarianTime(message.createdAt)}
-									</div>
+			{props.sentMessages.length ? (
+				props.sentMessages.map((message, index) =>
+					Number(authUser) === message.to.fn ||
+					Number(authUser) === message.from.fn ? (
+						Number(authUser) === message.from.fn ? (
+							<div
+								className="flex flex-row-reverse items-center justify-start p-2"
+								key={index}
+							>
+								<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
+									{message.from.name.charAt(0) ??
+										message.to.name.charAt(0)}
 								</div>
-							) : (
-								<div
-									className="w-full flex items-center p-2"
-									key={index}
-								>
-									<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
-										{message.from.name.charAt(0) ??
-											message.to.name.charAt(0)}
-									</div>
 
-									<div className="relative ml-3 rounded-xl bg-white px-4 py-2 text-sm shadow">
-										<div>{message.text}</div>
-									</div>
-
-									<div className="ml-2 text-xs italic text-gray-500">
-										{getBulgarianTime(message.createdAt)}
-									</div>
+								<div className="relative mr-3 rounded-xl bg-indigo-100 px-4 py-2 text-sm shadow">
+									<div>{message.text}</div>
 								</div>
-							)
+
+								<div className="mr-2 text-xs italic text-gray-500">
+									{getBulgarianTime(message.createdAt)}
+								</div>
+							</div>
+						) : (
+							<div
+								className="w-full flex items-center p-2"
+								key={index}
+							>
+								<div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-blue-500 text-white font-semibold">
+									{message.from.name.charAt(0) ??
+										message.to.name.charAt(0)}
+								</div>
+
+								<div className="relative ml-3 rounded-xl bg-white px-4 py-2 text-sm shadow">
+									<div>{message.text}</div>
+								</div>
+
+								<div className="ml-2 text-xs italic text-gray-500">
+									{getBulgarianTime(message.createdAt)}
+								</div>
+							</div>
 						)
 					) : (
-						<div className="flex items-center justify-center h-56 w-full">
-							Няма изпратени или получени съобщения
-						</div>
-					)}
-
-					<div ref={messagesEndRef} />
-				</>
+						index === 1 && (
+							<div className="flex items-center justify-center h-full w-full">
+								Няма изпратени или получени съобщения
+							</div>
+						)
+					)
+				)
+			) : (
+				<div className="flex items-center justify-center h-full w-full">
+					Няма изпратени или получени съобщения
+				</div>
 			)}
+
+			<div ref={messagesEndRef} />
 		</>
 	)
 }

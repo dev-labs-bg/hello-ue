@@ -16,6 +16,7 @@ export default function ProfileIcon() {
 	function handleLogout() {
 		removeAuth()
 		removeProfileData()
+		localStorage.clear()
 		navigate('/')
 	}
 

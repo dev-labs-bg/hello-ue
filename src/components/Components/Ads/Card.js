@@ -9,7 +9,6 @@ import { textSplit, calculateExpiration, currencyFormat } from '../../utils'
 
 export default function Card(props) {
 	const authUser = useAuth().auth.data.faculty_number
-
 	const [isOpenDeleteModal, setIsOpenDeleteModal] = useState()
 	const [adId, setAdId] = useState(null)
 
@@ -120,20 +119,23 @@ export default function Card(props) {
 								</p>
 
 								<div className="flex gap-3">
-									{props.message && (
-										/*Number(authUser) !== ad.author.fn &&*/ <button
-											onClick={() => {
-												props.openMessageModal(
-													ad._id,
-													ad.author.name,
-													ad.author.fn
-												)
-											}}
-											className="text-lg block font-semibold p-2 text-purple-50  hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
-										>
-											<IconChatBubble outline={true} />
-										</button>
-									)}
+									{props.message &&
+										Number(authUser) !== ad.author.fn && (
+											<button
+												onClick={() => {
+													props.openMessageModal(
+														ad._id,
+														ad.author.name,
+														ad.author.fn
+													)
+												}}
+												className="text-lg block font-semibold p-2 text-purple-50  hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+											>
+												<IconChatBubble
+													outline={true}
+												/>
+											</button>
+										)}
 
 									{props.delete && (
 										<button

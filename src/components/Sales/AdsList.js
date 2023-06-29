@@ -44,7 +44,9 @@ export default function AdsList() {
 		try {
 			setIsLoading(true)
 
-			let apiUrl = `https://prodavalnik-api.devlabs-projects.info/ads?page=${currentPage}&status=active`
+			let apiUrl = `https://prodavalnik-api.devlabs-projects.info/ads?page=${
+				filterData.title ? 1 : currentPage
+			}&status=active`
 
 			if (filterData.title) {
 				apiUrl += `&search=${filterData.title}`
@@ -66,6 +68,7 @@ export default function AdsList() {
 						0
 				)
 			)
+
 			setTotalAds(data.totalCount)
 			setTotalPages(Math.ceil(data.totalCount / 10))
 			setIsLoading(false)

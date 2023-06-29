@@ -76,7 +76,7 @@ export default function ChatBox(props) {
 					<div className="flex h-full flex-auto flex-shrink-0 flex-col rounded-xl bg-gray-50">
 						<div className="mb-4 flex h-full flex-col overflow-x-auto">
 							<div className="flex h-full flex-col p-2.5">
-								<div className="space-y-2">
+								<div className="space-y-2 h-full">
 									<Boxes sentMessages={messages} />
 								</div>
 							</div>
