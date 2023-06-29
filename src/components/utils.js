@@ -66,3 +66,64 @@ export function calculateExpiration(createdAt, expiration, kind) {
 			  }`
 	}
 }
+
+export function getBulgarianTime(time) {
+	const currentDate = new Date()
+	const date = new Date(time)
+	date.setHours(date.getUTCHours() + 3)
+
+	const hour = date.getHours()
+	const minutes = date.getMinutes()
+	const diffInHours = Math.floor((currentDate - date) / (1000 * 60 * 60))
+
+	let timeString = ''
+
+	if (diffInHours >= 24) {
+		const yesterday = new Date(currentDate)
+		yesterday.setDate(currentDate.getDate() - 1)
+
+		if (
+			date.getDate() === yesterday.getDate() &&
+			date.getMonth() === yesterday.getMonth() &&
+			date.getFullYear() === yesterday.getFullYear()
+		) {
+			timeString = 'От вчера, '
+		} else {
+			const day = date.getDate()
+			const month = getMonthName(date.getMonth())
+			const formattedDate = `${day} ${month}`
+			timeString = formattedDate + ', '
+		}
+	}
+
+	let hourString = hour.toString()
+	let minuteString = minutes.toString()
+
+	if (hour < 10) {
+		hourString = '0' + hourString
+	}
+
+	if (minutes < 10) {
+		minuteString = '0' + minuteString
+	}
+
+	return timeString + hourString + ':' + minuteString + 'ч.'
+}
+
+export function getMonthName(monthIndex) {
+	const monthNames = [
+		'Яну',
+		'Фев',
+		'Мар',
+		'Апр',
+		'Май',
+		'Юни',
+		'Юли',
+		'Авг',
+		'Сеп',
+		'Окт',
+		'Ное',
+		'Дек',
+	]
+	return monthNames[monthIndex]
+}

@@ -1,61 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react'
 import useAuth from '../../../../hooks/useAuth'
 import Loader from '../../Loader'
+import { getBulgarianTime } from '../../../utils'
 
 export default function Boxes(props) {
 	const authUser = useAuth().auth.data.faculty_number
 	const messagesEndRef = useRef(null)
 	const [isLoading, setIsLoading] = useState(true)
-
-	function getBulgarianTime(time) {
-		const currentDate = new Date()
-		const date = new Date(time)
-		date.setHours(date.getUTCHours() + 3)
-
-		const hour = date.getHours()
-		const minutes = date.getMinutes()
-		const diffInHours = Math.floor((currentDate - date) / (1000 * 60 * 60))
-
-		let timeString = ''
-
-		if (diffInHours >= 24) {
-			const day = date.getDate()
-			const month = getMonthName(date.getMonth())
-			const formattedDate = `${day} ${month}`
-			timeString = formattedDate + ', '
-		}
-
-		let hourString = hour.toString()
-		let minuteString = minutes.toString()
-
-		if (hour < 10) {
-			hourString = '0' + hourString
-		}
-
-		if (minutes < 10) {
-			minuteString = '0' + minuteString
-		}
-
-		return timeString + hourString + ':' + minuteString + 'ч.'
-	}
-
-	function getMonthName(monthIndex) {
-		const monthNames = [
-			'Яну',
-			'Фев',
-			'Мар',
-			'Апр',
-			'Май',
-			'Юни',
-			'Юли',
-			'Авг',
-			'Сеп',
-			'Окт',
-			'Ное',
-			'Дек',
-		]
-		return monthNames[monthIndex]
-	}
 
 	useEffect(() => {
 		if (messagesEndRef.current) {
@@ -66,7 +17,7 @@ export default function Boxes(props) {
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(false)
-		}, 1000)
+		}, 800)
 	}, [])
 
 	return isLoading ? (
@@ -88,7 +39,7 @@ export default function Boxes(props) {
 								</div>
 
 								<div className="relative mr-3 rounded-xl bg-indigo-100 px-4 py-2 text-sm shadow">
-									<div>{message.text}</div>
+									{message.text}
 								</div>
 
 								<div className="mr-2 text-xs italic text-gray-500">
@@ -105,8 +56,8 @@ export default function Boxes(props) {
 										message.to.name.charAt(0)}
 								</div>
 
-								<div className="relative ml-3 rounded-xl bg-white px-4 py-2 text-sm shadow">
-									<div>{message.text}</div>
+								<div className="text-left ml-3 rounded-xl bg-white px-4 py-2 text-sm shadow ">
+									{message.text}
 								</div>
 
 								<div className="ml-2 text-xs italic text-gray-500">

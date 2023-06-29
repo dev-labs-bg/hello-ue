@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import useAuth from '../../hooks/useAuth'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import Loader from '../Components/Loader'
 import Input from '../Components/HTML/Input'
 import Boxes from '../Components/Ads/Messages/Boxes'
 import IconSend from '../Icons/Send'
-import { fetchData, performFetch, textSplit } from '../utils'
+import { fetchData, performFetch, textSplit, getBulgarianTime } from '../utils'
 
 const Chat = (props) => {
 	const { prodavalnikAuth } = useProdavalnikAuth()
@@ -14,6 +14,7 @@ const Chat = (props) => {
 	const [isLoading, setIsLoading] = useState(true)
 	const [messagesTo, setMessagesTo] = useState([])
 	const [message, setMessage] = useState('')
+	const [clickedButtonIndex, setClickedButtonIndex] = useState(null)
 	const [messages, setMessages] = useState('')
 	const [userFromFn, setUserFromFn] = useState(null)
 	const [userToFn, setUserToFn] = useState(null)
@@ -99,60 +100,10 @@ const Chat = (props) => {
 		}
 	}
 
-	function getBulgarianTime(time) {
-		const currentDate = new Date()
-		const date = new Date(time)
-		date.setHours(date.getUTCHours() + 3)
-
-		const hour = date.getHours()
-		const minutes = date.getMinutes()
-		const diffInHours = Math.floor((currentDate - date) / (1000 * 60 * 60))
-
-		let timeString = ''
-
-		if (diffInHours >= 24) {
-			const day = date.getDate()
-			const month = getMonthName(date.getMonth())
-			const formattedDate = `${day} ${month}`
-			timeString = formattedDate + ', '
-		}
-
-		let hourString = hour.toString()
-		let minuteString = minutes.toString()
-
-		if (hour < 10) {
-			hourString = '0' + hourString
-		}
-
-		if (minutes < 10) {
-			minuteString = '0' + minuteString
-		}
-
-		return timeString + hourString + ':' + minuteString + 'ч.'
-	}
-
-	function getMonthName(monthIndex) {
-		const monthNames = [
-			'Яну',
-			'Фев',
-			'Мар',
-			'Апр',
-			'Май',
-			'Юни',
-			'Юли',
-			'Авг',
-			'Сеп',
-			'Окт',
-			'Ное',
-			'Дек',
-		]
-		return monthNames[monthIndex]
-	}
-
 	useEffect(() => {
 		setTimeout(() => {
 			setIsLoading(false)
-		}, 1000)
+		}, 800)
 	}, [])
 
 	return isLoading ? (
@@ -166,9 +117,8 @@ const Chat = (props) => {
 					</h3>
 
 					<div>
-						{Object.values(messages).length ? (
-							Object.values(messages)
-							.map((item) =>
+						{Object.values(messages) ? (
+							Object.values(messages).map((item) =>
 								Object.values(item.messages).map(
 									(message, index) => {
 										const messageId = item.ad[0]._id
@@ -195,9 +145,17 @@ const Chat = (props) => {
 
 												return (
 													<button
-														className="w-full py-2.5 text-left focus:outline-none hover:bg-gray-50 transition px-1.5 border-b border-slate-200"
-														key={index}
+														className={`w-full py-2.5 text-left focus:outline-none hover:bg-gray-50 transition px-1.5 border-b border-slate-200 ${
+															message._id ===
+															clickedButtonIndex
+																? 'bg-gray-100'
+																: 'hover:bg-gray-50'
+														}`}
+														key={message._id}
 														onClick={() => {
+															setClickedButtonIndex(
+																message._id
+															)
 															fetchUserMessages(
 																item.ad[0]._id,
 																message.to.fn,
@@ -271,7 +229,7 @@ const Chat = (props) => {
 								)
 							)
 						) : (
-							<p className="min-h-screen">
+							<p className="flex items-center justify-center h-[34rem] w-full">
 								Няма налични съобщения
 							</p>
 						)}

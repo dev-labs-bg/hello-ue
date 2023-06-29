@@ -51,7 +51,7 @@ export default function Create(props) {
 			setIsSaving(true)
 			const errors = validateForm(formData, imageUrl)
 
-			if (Object.keys(errors).length > 0) {
+			if (Object.keys(errors).length) {
 				setMessageBagError(errors)
 				setIsSaving(false)
 				return

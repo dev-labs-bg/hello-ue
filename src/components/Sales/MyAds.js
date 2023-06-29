@@ -140,14 +140,7 @@ export default function MyAds() {
 	return (
 		<>
 			<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-3.5 sm:mb-0">
-				{ads.length === 0 ? (
-					<div className="flex items-center justify-center h-screen w-full sm:col-span-2 lg:col-span-3 text-slate-700 font-semibold">
-						<div className="space-y-2">
-							<IconNotFound />
-							Няма намерени данни
-						</div>
-					</div>
-				) : (
+				{ads.length ? (
 					<>
 						<Card
 							ads={ads}
@@ -169,6 +162,13 @@ export default function MyAds() {
 							/>
 						</Modal>
 					</>
+				) : (
+					<div className="flex items-center justify-center h-screen w-full sm:col-span-2 lg:col-span-3 text-slate-700 font-semibold">
+						<div className="space-y-2">
+							<IconNotFound />
+							Няма намерени данни
+						</div>
+					</div>
 				)}
 			</div>
 
