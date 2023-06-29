@@ -108,7 +108,6 @@ export default function MyAds() {
 	function handleDeleteAds(adId, adTitle) {
 		deleteAdvertisement(adId)
 		setMessageBag(`Обява с име ${adTitle} е успешно изтрита!`)
-		console.log(adTitle)
 	}
 
 	useEffect(() => {

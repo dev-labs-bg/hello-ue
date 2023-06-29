@@ -10,6 +10,8 @@ const SalesMain = () => {
 	const { auth } = useAuth()
 	const { setProdavalnikAuth, prodavalnikAuth } = useProdavalnikAuth()
 
+	console.log(auth)
+
 	useEffect(() => {
 		async function userPayload() {
 			try {
@@ -18,8 +20,6 @@ const SalesMain = () => {
 					name: auth.data.firstName + ' ' + auth.data.lastName,
 					email: auth.data.email,
 				}
-
-				console.log(auth)
 
 				const response = await fetch(
 					'https://prodavalnik-api.devlabs-projects.info/auth',

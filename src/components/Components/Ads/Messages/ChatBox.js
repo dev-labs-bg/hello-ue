@@ -49,9 +49,7 @@ export default function ChatBox(props) {
 					setMessage('')
 				}
 			} catch (err) {
-				// setMessageBagError({
-				//   error: 'Възникна грешка при добавянето на обявата.',
-				// })
+				console.log(err)
 			}
 		},
 		[message, headersJSON, fetchMessages]

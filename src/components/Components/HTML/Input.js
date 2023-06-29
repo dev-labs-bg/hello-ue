@@ -29,7 +29,7 @@ export default function Input(props) {
 					required
 					onChange={handleChange}
 					onKeyDown={handleKeyDown}
-					className={`${props.classes} border border-gray-200 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-0 focus:border-gray-300 block w-full p-2.5 placeholder-gray-400 transition hover:bg-gray-50 focus:bg-gray-50`}
+					className={`${props.classes} border border-gray-200 text-gray-700 text-sm rounded-md focus:outline-none focus:ring-0 focus:border-gray-400 block w-full p-2.5 placeholder-gray-400 transition hover:border-gray-400`}
 				/>
 
 				{props.error && (

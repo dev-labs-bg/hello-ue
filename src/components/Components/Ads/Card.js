@@ -103,7 +103,7 @@ export default function Card(props) {
 								{textSplit(ad.description, 35)}
 							</p>
 
-							<div className="mt-3 flex items-center p-1">
+							<div className="mt-3 flex items-center px-1">
 								<div className="w-8 h-8 bg-blue-400 text-white rounded-full font-semibold flex justify-center items-center pb-0.5">
 									{ad.author.name.charAt(0)}
 								</div>
@@ -113,7 +113,7 @@ export default function Card(props) {
 								</div>
 							</div>
 
-							<div className="mt-4 mb-2 flex items-center justify-between gap-3">
+							<div className="mt-3 mb-2 flex items-center justify-between gap-3">
 								<p className="block text-xl font-semibold text-gray-700">
 									{currencyFormat(ad.price)}лв.
 								</p>
