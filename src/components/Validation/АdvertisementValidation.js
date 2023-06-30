@@ -5,10 +5,9 @@ export function validateForm(formData, imageUrl) {
 		errors.title = 'Моля, въведете име на книгата'
 	} else if (
 		formData.title.trim().length < 2 ||
-		formData.title.trim().length > 50
+		formData.title.trim().length > 40
 	) {
-		errors.title =
-			'Дължината на името на книгата трябва да бъде между 2 и 50 символа'
+		errors.title = 'Дължината на името трябва да бъде между 2 и 40 символа'
 	}
 
 	if (formData.category.trim() === '') {

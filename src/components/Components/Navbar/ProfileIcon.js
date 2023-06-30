@@ -16,6 +16,7 @@ export default function ProfileIcon() {
 	function handleLogout() {
 		removeAuth()
 		removeProfileData()
+		localStorage.clear()
 		navigate('/')
 	}
 
@@ -33,7 +34,7 @@ export default function ProfileIcon() {
 			</button>
 
 			{dropdownOpen && (
-				<div className="absolute right-0 py-2 mt-2.5 bg-white border border-slate-50 rounded-lg shadow w-40 md:w-48">
+				<div className="absolute right-0 py-2 mt-2.5 bg-white border border-slate-50 rounded-lg shadow w-40 md:w-48 dropdown-enter dropdown-enter-active dropdown-exit">
 					<Link
 						to="/profile"
 						className="px-3.5 py-2 text-gray-700 hover:bg-slate-200 hover:bg-opacity-50 flex items-center transition text-sm md:text-base"

@@ -4,7 +4,7 @@ import IconArrowLeft from '../Icons/ArrowLeft'
 import IconArrowLeftTwo from '../Icons/ArrowLeftTwo'
 
 export default function Pagination(props) {
-	const { currentPage, totalPages, handlePageClick } = props
+	const { currentPage, totalPages, totalAds, handlePageClick } = props
 
 	const handleNextPage = () => {
 		if (currentPage < totalPages) {
@@ -40,6 +40,28 @@ export default function Pagination(props) {
 
 	return totalPages > 1 ? (
 		<>
+			{totalPages > 1 ? (
+				<p className="text-[15px] text-gray-700 font-medium py-2">
+					Заредени обвяви от{' '}
+					<span className="font-semibold text-gray-900 ">
+						{currentPage > 1
+							? currentPage * 10 - 10
+							: currentPage * 10 - 9}
+					</span>{' '}
+					до{' '}
+					<span className="font-semibold text-gray-900 ">
+						{totalAds < currentPage * 10
+							? totalAds
+							: currentPage * 10 - 1}{' '}
+					</span>{' '}
+					от общо{' '}
+					<span className="font-semibold text-gray-900 ">
+						{totalAds}
+					</span>{' '}
+					резултата
+				</p>
+			) : null}
+
 			<ul className="inline-flex -space-x-px">
 				<li>
 					<button
@@ -89,8 +111,8 @@ export default function Pagination(props) {
 				<li>
 					<button
 						disabled={
-							currentPage === totalPages ||
-							currentPage >= totalPages - 2
+							(totalPages < 5 && currentPage === totalPages) ||
+							currentPage >= totalPages - 3
 						}
 						onClick={() => handleClick(totalPages)}
 						className="px-3 py-2 flex leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 disabled:bg-slate-50 disabled:cursor-not-allowed"

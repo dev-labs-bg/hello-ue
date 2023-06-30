@@ -46,7 +46,7 @@ const Statistics = () => {
 		{
 			name: 'Обяви',
 			num: 10,
-			path: '/sales/list',
+			path: '/sales/advertisements',
 			color: 'purple',
 			icon: IconFolder,
 		},
@@ -70,4 +70,3 @@ const Statistics = () => {
 }
 
 export default Statistics
-
