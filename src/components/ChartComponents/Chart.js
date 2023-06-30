@@ -145,9 +145,8 @@ const Chart = ({ data }) => {
 	const onSliceClick = (data) => {
 		console.log(data)
 		setClickedData({
-			id: `${
-				data.id + '-' + data.data.description + '-' + data.data.location
-			}`,
+			id: `${data.id + '-' + data.data.description + '-' + data.data.location
+				}`,
 			label: data.label,
 			value: data.value,
 			description: data.description,

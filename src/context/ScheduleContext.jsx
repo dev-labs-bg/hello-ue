@@ -29,7 +29,6 @@ const ScheduleProvider = ({ children }) => {
 
 	const saveProfileData = (profileData) => {
 		localStorage.setItem('profileData', JSON.stringify(profileData))
-		setProfileData(profileData)
 	}
 
 	const removeProfileData = () => {
@@ -42,7 +41,6 @@ const ScheduleProvider = ({ children }) => {
 				setProfileData: saveProfileData,
 				getProfileData,
 				removeProfileData,
-				profileData,
 			}}
 		>
 			{children}

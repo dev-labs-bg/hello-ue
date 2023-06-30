@@ -6,7 +6,7 @@ export default function Links() {
 		<>
 			<NavLink location="/" text="Начало" />
 
-			<NavLink location="/s" text="Куестове" />
+			<NavLink location="/quests-menu" text="Куестове" />
 
 			<NavLink location="/events" text="Събития" />
 

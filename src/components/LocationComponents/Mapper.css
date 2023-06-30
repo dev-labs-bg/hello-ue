@@ -1,0 +1,14 @@
+.img-mapper-img {
+	position: relative;
+	width: 100%;
+	border-radius: 1rem;
+	margin-inline: auto;
+	transition: all 500ms ease-in-out;
+	box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.img-mapper-img:hover {
+	border-radius: 1.5rem;
+	filter: hue-rotate(30deg);
+	filter: drop-shadow(0 25px 25px rgba(69, 68, 68, 0.15));
+}
