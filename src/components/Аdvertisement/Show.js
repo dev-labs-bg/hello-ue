@@ -69,14 +69,12 @@ export default function Show() {
 		var callbackParams = {
 			isSandbox: true,
 			onSuccess: function (data) {
-				setIsPaymentProcess(false)
 				setIsSaving(true)
 				setMessageBag({ success: 'Успешно закупихте учебника!' })
 				setIsBought(true)
 				onClose()
 			},
 			onError: function () {
-				setIsPaymentProcess(false)
 				setMessageBag({
 					error: 'Възникна грешка при закупуването на учебника.',
 				})
@@ -193,7 +191,7 @@ export default function Show() {
 												!isBought && (
 													<Button
 														colorScheme="teal"
-														onClick={onOpen}
+														onClick={buyBook}
 													>
 														Купи
 													</Button>
@@ -204,38 +202,6 @@ export default function Show() {
 							</Box>
 						</Flex>
 					)}
-
-					<Modal isOpen={isOpen} onClose={onClose}>
-						<ModalOverlay />
-
-						<ModalContent>
-							<ModalHeader>Потвърждение</ModalHeader>
-							<ModalCloseButton />
-
-							<ModalBody>
-								Сигурни ли сте, че искате да закупите този
-								учебник?
-							</ModalBody>
-
-							<ModalFooter>
-								<Button
-									variant="ghost"
-									mr={3}
-									onClick={onClose}
-								>
-									Не
-								</Button>
-
-								<Button
-									colorScheme="teal"
-									onClick={buyBook}
-									isLoading={isSaving}
-								>
-									Да
-								</Button>
-							</ModalFooter>
-						</ModalContent>
-					</Modal>
 				</>
 			)}
 		</div>
