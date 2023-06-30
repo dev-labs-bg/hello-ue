@@ -3,18 +3,15 @@ import Layout from './components/Layout'
 import Schedule from './components/Schedule'
 import Dashboard from './components/DashboardComponents/Dashboard'
 import Profile from './components/Profile'
-import Logout from './components/Logout'
 import Login from './components/Login'
 import useAuth from './hooks/useAuth'
 import ProtectedRoute from './components/ProtectedLayout'
 import EventsMain from './components/EventsComponents/EventsMain'
 import QrCodeScanner from './components/QrCodeScanner/QrScannerLayout'
-import DashboardNews from './components/DashboardComponents/DashboardNews'
-import SalesMain from './components/SalesComponent/MainDash'
-import AdsList from './components/SalesComponent/AdsList'
-import MyAds from './components/SalesComponent/MyAds'
-import AdvertisementCreate from './components/Аdvertisement/Create'
-import AdvertisementEdit from './components/Аdvertisement/Edit'
+import SalesMain from './components/Sales/MainDash'
+import AdsList from './components/Sales/AdsList'
+import MyAds from './components/Sales/MyAds'
+import Chat from './components/Sales/Chat'
 import AdvertisementShow from './components/Аdvertisement/Show'
 import LocationDash from './components/LocationComponents/MainDash'
 import Corps from './components/LocationComponents/Corps'
@@ -39,9 +36,7 @@ function App() {
 			</Route>
 			<Route path="/" element={<ProtectedRoute />}>
 				<Route index element={<Dashboard />} />
-				<Route path="dashboard" element={<Dashboard />} />
 				<Route path="profile" element={<Profile />} />
-				<Route path="logout" element={<Logout />} />
 				<Route path="schedule" element={<Schedule />} />
 				<Route path="events" element={<EventsMain />} />
 				<Route path="qr-scanner" element={<QrCodeScanner />} />
@@ -50,22 +45,19 @@ function App() {
 				<Route path="quest2" element={<Quest2 />} />
 				<Route path="quiz" element={<Quiz />} />
 				<Route path="successful-quest" element={<CompletedQuest />} />
-				<Route path="dashboard-news" element={<DashboardNews />} />
-
+				
 				<Route path="location" element={<LocationDash />}>
 					<Route path="corps" element={<Corps />} />
-
 					<Route path="floors" element={<Floors />} />
 				</Route>
 
 				<Route path="sales" element={<SalesMain />}>
-					<Route path="list" element={<AdsList />} />
-					<Route path="my" element={<MyAds />} />
+					<Route path="advertisements" element={<AdsList />} />
+					<Route path="chat" element={<Chat />} />
+					<Route path="user-advertisements" element={<MyAds />} />
 				</Route>
 
 				<Route path="advertisement">
-					<Route path="create" element={<AdvertisementCreate />} />
-					<Route path="edit/:id" element={<AdvertisementEdit />} />
 					<Route path="show/:id" element={<AdvertisementShow />} />
 				</Route>
 			</Route>

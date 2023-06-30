@@ -1,70 +1,48 @@
-import {
-	Box,
-	Stack,
-	Input,
-	Button,
-	Heading,
-	FormControl,
-	Center,
-	Link,
-	Alert,
-	AlertIcon,
-	AlertTitle,
-	FormLabel,
-} from '@chakra-ui/react'
-
-import HeaderLogin from './loginUI/HeaderLogin'
 import { useState } from 'react'
 import useAuth from '../hooks/useAuth'
 import useSchedule from '../hooks/useSchedule'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import Input from './Components/HTML/Input'
+import logo from '../logo.png'
 
 const Login = () => {
 	const setAuth = useAuth().setAuth
 	const getProfileData = useSchedule().getProfileData
 	const setProfileData = useSchedule().setProfileData
 	const navigate = useNavigate()
-	const [formData, setFormdata] = useState({
+	const [formData, setFormData] = useState({
 		facultyNumber: '',
 		password: '',
 	})
 
 	const [hasError, setError] = useState(false)
-	const [isInvalid, setIsInvalid] = useState(false)
-
-	function handleChange(event) {
-		setFormdata((prevData) => {
-			const { name, value } = event.target
-			return {
-				...prevData,
-				[name]: value,
-			}
-		})
-	}
-
-	function validateFacultyNumber(evt) {
-		let value = evt.target.value
-		let isFacultyNumberInvalid = isNaN(Number(value))
-		setIsInvalid(isFacultyNumberInvalid)
-		setError('Невалиден факултетен номер.')
-		if (!isFacultyNumberInvalid) {
-			handleChange(evt)
-		}
-	}
 
 	async function loginUser(credentials) {
 		let response = null
+
+		if (formData.facultyNumber.trim() === '') {
+			setError('Моля, въведете факултетен номер')
+			return
+		} else if (!Number(formData.facultyNumber)) {
+			setError('Факултетния номер трябва да съдържа само цифри')
+			return
+		} else if (formData.password.trim() === '') {
+			setError('Моля, въведете парола')
+			return
+		}
+
 		try {
 			let request = await fetch('https://info.ue-varna.bg/api/v1/login', {
 				method: 'POST',
 				body: JSON.stringify(credentials),
 			})
+
 			response = await request.json()
+
 			if (!request.ok) {
 				throw new Error(response ? response.error : request.statusText)
 			}
 		} catch (err) {
-			setIsInvalid(true)
 			setError(err.message)
 		}
 		if (response && !response.error) {
@@ -72,7 +50,7 @@ const Login = () => {
 			setAuth(response)
 			let data = await getProfileData(response.token)
 			setProfileData(data)
-			navigate('/dashboard')
+			navigate('/')
 		}
 	}
 
@@ -84,90 +62,90 @@ const Login = () => {
 		})
 	}
 
+	const handleInputChange = (name, value) => {
+		setFormData((prevData) => ({
+			...prevData,
+			[name]: value,
+		}))
+	}
+
 	return (
 		<>
-			<HeaderLogin />
-			<Box marginTop="5rem">
-				<Center>
-					<Box marginBottom="3rem">
-						<Heading>Вписване</Heading>
-					</Box>
-				</Center>
-				<form onSubmit={handleSubmit} id="form_id">
-					<Center>
-						{isInvalid && (
-							<Center>
-								<Alert status="error">
-									<AlertIcon />
-									<AlertTitle>{hasError}</AlertTitle>
-								</Alert>
-							</Center>
-						)}
-					</Center>
-					<Stack spacing={2} margin="1rem" marginBottom="5rem">
-						<Center>
-							<Box>
-								<Center>
-									<FormLabel>Факултетен номер</FormLabel>
-								</Center>
-								<FormControl isRequired>
-									<Input
-										id="id_facultyNUmber"
-										name="facultyNumber"
-										placeholder="91234"
-										required
-										onChange={validateFacultyNumber}
-										bg="white"
-										maxWidth="30rem"
-									/>
-								</FormControl>
-							</Box>
-						</Center>
-						<Center>
-							<Box marginTop="1rem">
-								<Center>
-									<FormLabel>Парола</FormLabel>
-								</Center>
-								<FormControl isRequired>
-									<Input
-										id="id_password"
-										name="password"
-										placeholder="*****"
-										type="password"
-										required
-										onChange={handleChange}
-										bg="white"
-										maxWidth="60rem"
-									/>
-								</FormControl>
-							</Box>
-						</Center>
-						<Center>
-							<Box>
-								<Button
-									type="submit"
-									width="100%"
-									colorScheme="green"
-									size="lg"
-									marginTop="4rem"
+			<section className="bg-[#edf2f7]">
+				<div className="flex flex-col items-center justify-center px-2 md:px-6 py-8 mx-auto md:h-screen lg:py-0">
+					<img
+						src={logo}
+						alt="App Logo"
+						className="h-20 w-20 object-cover mb-1"
+					/>
+
+					<div className="flex items-center mb-6 text-2xl font-semibold text-gray-700 italic">
+						Hello UE
+					</div>
+
+					<div className="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-md xl:p-0">
+						<div className="p-6 space-y-4 md:space-y-6 sm:p-8">
+							{hasError && (
+								<div className="p-4 text-sm text-red-800 rounded-lg bg-red-50">
+									{hasError}
+								</div>
+							)}
+
+							<h1 className="text-xl font-bold leading-tight tracking-tight text-gray-700 md:text-2xl">
+								Вписване
+							</h1>
+
+							<div>
+								<Input
+									id="faculty-number"
+									for="faculty-number"
+									label="Факултетен номер"
+									type="text"
+									placeholder="Факултетен номер"
+									value={formData.facultyNumber}
+									onChange={(value) =>
+										handleInputChange(
+											'facultyNumber',
+											value
+										)
+									}
+								/>
+							</div>
+
+							<div>
+								<Input
+									id="password"
+									for="password"
+									label="Парола"
+									type="password"
+									placeholder="•••••••••••"
+									value={formData.password}
+									onChange={(value) =>
+										handleInputChange('password', value)
+									}
+								/>
+							</div>
+
+							<div className="flex items-center justify-between">
+								<Link
+									className="text-sm font-medium text-primary-600 hover:underline"
+									to="https://info.ue-varna.bg/forgotten-password"
+									target="_blank"
 								>
-									Влез
-								</Button>
-							</Box>
-						</Center>
-					</Stack>
-				</form>
-			</Box>
-			<Center>
-				<Box marginBottom="5rem">
-					<Link
-						href="https://info.ue-varna.bg/forgotten-password"
-						isExternal
-					>
-						Забравена парола?
-					</Link>
-				</Box>
-			</Center>
+									Забравена парола?
+								</Link>
+							</div>
+
+							<button
+								onClick={handleSubmit}
+								className="w-full text-white bg-blue-500 bg-primary-600 hover:opacity-80 active:scale-95 transition focus:outline-none font-semibold text-sm rounded-lg px-5 py-2.5 text-center"
+							>
+								Вход
+							</button>
+						</div>
+					</div>
+				</div>
+			</section>
 		</>
 	)
 }
