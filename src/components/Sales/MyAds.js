@@ -5,6 +5,7 @@ import Pagination from '../Components/Pagination'
 import Card from '../Components/Ads/Card'
 import Modal from '../Components/Modal'
 import Edit from '../Components/Ads/Edit'
+import Loader from '../Components/Loader'
 import IconNotFound from '../Icons/NotFound'
 
 export default function MyAds() {
@@ -69,6 +70,10 @@ export default function MyAds() {
 	}
 
 	useEffect(() => {
+		setTotalPages(Math.ceil(totalAds / 9))
+	}, [totalAds])
+
+	useEffect(() => {
 		const storedPage = sessionStorage.getItem('currentPage')
 
 		if (storedPage && currentPage !== parseInt(storedPage)) {
@@ -78,8 +83,10 @@ export default function MyAds() {
 	}, [currentPage, fetchMyAds])
 
 	useEffect(() => {
-		setTotalPages(Math.ceil(totalAds / 10))
-	}, [totalAds])
+		if (prodavalnikAuth) {
+			fetchMyAds(currentPage)
+		}
+	}, [prodavalnikAuth, currentPage, fetchMyAds])
 
 	const deleteAdvertisement = async (id) => {
 		try {
@@ -110,12 +117,6 @@ export default function MyAds() {
 		setMessageBag(`Обява с име ${adTitle} е успешно изтрита!`)
 	}
 
-	useEffect(() => {
-		if (prodavalnikAuth) {
-			fetchMyAds(currentPage)
-		}
-	}, [prodavalnikAuth, currentPage, fetchMyAds])
-
 	const handleUpdateSuccess = () => {
 		fetchMyAds(currentPage)
 		setShowAlert(true)
@@ -137,7 +138,9 @@ export default function MyAds() {
 		setModalOpen(false)
 	}
 
-	return (
+	return isLoading ? (
+		<Loader />
+	) : (
 		<>
 			<div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-3.5 sm:mb-0">
 				{ads.length ? (

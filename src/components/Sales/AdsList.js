@@ -84,6 +84,10 @@ export default function AdsList() {
 	}
 
 	useEffect(() => {
+		setTotalPages(Math.ceil(totalAds / 9))
+	}, [totalAds])
+
+	useEffect(() => {
 		const storedPage = sessionStorage.getItem('currentPageAdsList')
 
 		if (storedPage && currentPage !== parseInt(storedPage)) {
@@ -98,10 +102,6 @@ export default function AdsList() {
 		filterData.price,
 		fetchAds,
 	])
-
-	useEffect(() => {
-		setTotalPages(Math.ceil(totalAds / 10))
-	}, [totalAds])
 
 	const handleInputChange = (name, value) => {
 		setFilterData((prevData) => ({

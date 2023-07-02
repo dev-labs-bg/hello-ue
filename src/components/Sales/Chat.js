@@ -119,114 +119,107 @@ const Chat = (props) => {
 					<div>
 						{Object.values(messages) ? (
 							Object.values(messages).map((item) =>
-								Object.values(item.messages).map(
-									(message, index) => {
-										const messageId = item.ad[0]._id
-										const senderId = message.from.fn
+								Object.values(item.messages).map((message) => {
+									const messageId = item.ad[0]._id
+									const senderId = message.from.fn
 
+									if (Number(authUser) !== message.from.fn) {
 										if (
-											Number(authUser) !== message.from.fn
+											!shownSenders[messageId] ||
+											!shownSenders[messageId].includes(
+												senderId
+											)
 										) {
-											if (
-												!shownSenders[messageId] ||
-												!shownSenders[
-													messageId
-												].includes(senderId)
-											) {
-												if (!shownSenders[messageId]) {
-													shownSenders[messageId] = [
-														senderId,
-													]
-												} else {
-													shownSenders[
-														messageId
-													].push(senderId)
-												}
-
-												return (
-													<button
-														className={`w-full py-2.5 text-left focus:outline-none hover:bg-gray-50 transition px-1.5 border-b border-slate-200 ${
-															message._id ===
-															clickedButtonIndex
-																? 'bg-gray-100'
-																: 'hover:bg-gray-50'
-														}`}
-														key={message._id}
-														onClick={() => {
-															setClickedButtonIndex(
-																message._id
-															)
-															fetchUserMessages(
-																item.ad[0]._id,
-																message.to.fn,
-																'to'
-															)
-															fetchUserMessages(
-																item.ad[0]._id,
-																message.from.fn,
-																'from'
-															)
-															setAdId(
-																item.ad[0]._id
-															)
-															setUserFromFn(
-																message.from.fn
-															)
-															setUserToFn(
-																message.to.fn
-															)
-														}}
-													>
-														<div className="flex items-center">
-															<div className="flex h-9 w-11 mr-2 items-center justify-center rounded-full bg-blue-400 text-white font-semibold">
-																{message.from.name.charAt(
-																	0
-																)}
-															</div>
-
-															<div className="w-full">
-																<h4 className="text-sm font-semibold text-gray-800 flex">
-																	{textSplit(
-																		message
-																			.from
-																			.name,
-																		15
-																	)}{' '}
-																	-{' '}
-																	<span className="ml-1 text-sm text-gray-500">
-																		{textSplit(
-																			item
-																				.ad[0]
-																				.title,
-																			15
-																		)}
-																	</span>
-																</h4>
-
-																<div className="w-full text-[12.5px] flex gap-1.5 justify-between items-center">
-																	<span>
-																		{textSplit(
-																			message.text,
-																			22
-																		)}
-																	</span>
-
-																	<span>
-																		{getBulgarianTime(
-																			message.createdAt
-																		)}
-																	</span>
-																</div>
-															</div>
-														</div>
-													</button>
+											if (!shownSenders[messageId]) {
+												shownSenders[messageId] = [
+													senderId,
+												]
+											} else {
+												shownSenders[messageId].push(
+													senderId
 												)
 											}
-										}
 
-										return null
+											return (
+												<button
+													className={`w-full py-2.5 text-left focus:outline-none hover:bg-gray-50 transition px-1.5 border-b border-slate-200 ${
+														message._id ===
+														clickedButtonIndex
+															? 'bg-gray-100'
+															: 'hover:bg-gray-50'
+													}`}
+													key={message._id}
+													onClick={() => {
+														setClickedButtonIndex(
+															message._id
+														)
+														fetchUserMessages(
+															item.ad[0]._id,
+															message.to.fn,
+															'to'
+														)
+														fetchUserMessages(
+															item.ad[0]._id,
+															message.from.fn,
+															'from'
+														)
+														setAdId(item.ad[0]._id)
+														setUserFromFn(
+															message.from.fn
+														)
+														setUserToFn(
+															message.to.fn
+														)
+													}}
+												>
+													<div className="flex items-center">
+														<div className="flex h-9 w-11 mr-2 items-center justify-center rounded-full bg-blue-400 text-white font-semibold">
+															{message.from.name.charAt(
+																0
+															)}
+														</div>
+
+														<div className="w-full">
+															<h4 className="text-sm font-semibold text-gray-800 flex">
+																{textSplit(
+																	message.from
+																		.name,
+																	15
+																)}{' '}
+																-{' '}
+																<span className="ml-1 text-sm text-gray-500">
+																	{textSplit(
+																		item
+																			.ad[0]
+																			.title,
+																		15
+																	)}
+																</span>
+															</h4>
+
+															<div className="w-full text-[12.5px] flex gap-1.5 justify-between items-center">
+																<span>
+																	{textSplit(
+																		message.text,
+																		22
+																	)}
+																</span>
+
+																<span>
+																	{getBulgarianTime(
+																		message.createdAt
+																	)}
+																</span>
+															</div>
+														</div>
+													</div>
+												</button>
+											)
+										}
 									}
-								)
+
+									return null
+								})
 							)
 						) : (
 							<p className="flex items-center justify-center h-[34rem] w-full">
