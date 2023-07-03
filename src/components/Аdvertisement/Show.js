@@ -15,7 +15,7 @@ export default function Show() {
 	const [isPaymentProcess, setIsPaymentProcess] = useState(false)
 	const [isBought, setIsBought] = useState(false)
 	const [isSaving, setIsSaving] = useState(false)
-	const [ad, setAd] = useState(null)
+	const [advertisement, setAdvertisement] = useState(null)
 	const [messageBag, setMessageBag] = useState(null)
 	const headers = useMemo(() => {
 		return {
@@ -29,18 +29,18 @@ export default function Show() {
 		var paymentParams = {
 			sid: '000000000000010',
 			walletNumber: '61938166610',
-			amount: ad.price,
+			amount: advertisement.price,
 			currency: 'BGN',
-			orderID: `${ad._id}.${auth.data.faculty_number}.${Math.random()
-				.toString(36)
-				.substr(2, 9)}`,
+			orderID: `${advertisement._id}.${
+				auth.data.faculty_number
+			}.${Math.random().toString(36).substr(2, 9)}`,
 			urlNotify: 'https://prodavalnik-api.devlabs-projects.info/checkout',
 			keyIndex: 1,
 			cartItems: [
 				{
-					article: ad.title,
+					article: advertisement.title,
 					quantity: 1,
-					price: ad.price,
+					price: advertisement.price,
 					currency: 'BGN',
 				},
 			],
@@ -61,7 +61,7 @@ export default function Show() {
 		}
 
 		MyPOSEmbedded.createPayment(
-			'Feature Policy: Skipping unsupported feature name “payment”.',
+			'myPOSEmbeddedCheckout',
 			paymentParams,
 			callbackParams
 		)
@@ -71,7 +71,7 @@ export default function Show() {
 		if (prodavalnikAuth) {
 			const fetchAdvertisement = async () => {
 				const advertisementUrl = `https://prodavalnik-api.devlabs-projects.info/ads/${_id}`
-				await fetchData(advertisementUrl, headers, setAd)
+				await fetchData(advertisementUrl, headers, setAdvertisement)
 				setIsLoading(false)
 			}
 
@@ -84,7 +84,7 @@ export default function Show() {
 			{isLoading ? (
 				<Loader />
 			) : (
-				ad && (
+				advertisement && (
 					<>
 						{messageBag &&
 							Object.keys(messageBag).map((key) => (
@@ -94,18 +94,18 @@ export default function Show() {
 							))}
 
 						<section className="flex items-center justify-center pt-20 sm:pt-0 pb-6 sm:pb-0 min-h-screen body-font overflow-hidden bg-[#edf2f7] text-gray-700">
-							<div className="relative mx-auto flex flex-wrap md:w-4/5 shadow-lg border bg-white border-slate-100 p-6">
+							<div className="relative mx-auto flex flex-wrap md:w-4/5 shadow-lg border bg-white border-slate-100 p-6 pt-14">
 								<Link
 									to="/sales/advertisements"
-									className="absolute left-3 top-3 ml-auto flex rounded bg-blue-500 px-5 py-1.5 text-white hover:bg-blue-600 transition focus:outline-none"
+									className="absolute left-6 top-3 ml-auto flex rounded bg-blue-500 px-5 py-1.5 text-white hover:bg-blue-600 transition focus:outline-none"
 								>
 									Обратно в списъка
 								</Link>
 
 								<div className="w-full md:w-2/5 border rounded p-5">
 									<img
-										src={ad.imageUrl}
-										alt={ad.title}
+										src={advertisement.imageUrl}
+										alt={advertisement.title}
 										className="w-full object-cover"
 									/>
 								</div>
@@ -113,31 +113,37 @@ export default function Show() {
 								<div className="mt-6 w-full md:mt-0 md:w-3/5 md:py-6 md:pl-10">
 									<div className="w-full flex justify-start">
 										<span className="rounded bg-green-100 px-2.5 py-0.5 text-[13px] font-medium text-green-700 mb-1">
-											{ad.category}
+											{advertisement.category}
 										</span>
 									</div>
 
 									<h1 className="title-font text-left mb-1 text-3xl font-medium text-gray-700">
-										{ad.title}
+										{advertisement.title}
 									</h1>
 
 									<p className="leading-relaxed text-justify">
-										{ad.description}
+										{advertisement.description}
 									</p>
 									<div className="my-4 flex items-center border-b-2 border-gray-200 pb-5">
 										<div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 pb-0.5 font-semibold text-white">
-											{ad.author.name.charAt(0)}
+											{advertisement.author.name.charAt(
+												0
+											)}
 										</div>
 										<div className="ml-2 font-semibold text-gray-700">
-											{ad.author.name}
+											{advertisement.author.name}
 										</div>
 									</div>
 									<div className="flex">
 										<span className="title-font text-2xl font-medium text-gray-700">
-											Цена: {currencyFormat(ad.price)}лв.
+											Цена:{' '}
+											{currencyFormat(
+												advertisement.price
+											)}
+											лв.
 										</span>
 
-										{!ad.bought && !isBought && (
+										{!advertisement.bought && !isBought && (
 											<button
 												onClick={buyBook}
 												disabled={isSaving}

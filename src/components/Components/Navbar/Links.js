@@ -12,8 +12,6 @@ export default function Links() {
 
 			<NavLink location="/location" text="Как да стигна" />
 
-			<NavLink location="/s" text="Забавни спомени" />
-
 			<NavLink location="/schedule" text="Програма" />
 
 			<NavLink location="/sales/advertisements" text="Продавалник" />

@@ -46,11 +46,13 @@ const Chat = (props) => {
 	const fetchUserMessages = useCallback(
 		async (adId, userFromFn, direction) => {
 			const messageUrl = `https://prodavalnik-api.devlabs-projects.info/messages/${adId}/${userFromFn}`
+
 			if (direction === 'from') {
 				await fetchData(messageUrl, headers, setMessagesFrom)
-			} else if (direction === 'to') {
-				await fetchData(messageUrl, headers, setMessagesTo)
 			}
+			// } else if (direction === 'to') {
+			// 	await fetchData(messageUrl, headers, setMessagesTo)
+			// }
 		},
 		[headers]
 	)
@@ -88,6 +90,21 @@ const Chat = (props) => {
 		fetchUserMessages,
 	])
 
+	const seenMessage = useCallback(
+		async (id) => {
+			try {
+				await performFetch(
+					`https://prodavalnik-api.devlabs-projects.info/messages/${id}/markSeen`,
+					'POST',
+					headers
+				)
+			} catch (err) {
+				console.log(err)
+			}
+		},
+		[headers]
+	)
+
 	useEffect(() => {
 		if (prodavalnikAuth) {
 			fetchMessages()
@@ -105,6 +122,8 @@ const Chat = (props) => {
 			setIsLoading(false)
 		}, 800)
 	}, [])
+
+	console.log(messages)
 
 	return isLoading ? (
 		<Loader />
@@ -150,6 +169,7 @@ const Chat = (props) => {
 													}`}
 													key={message._id}
 													onClick={() => {
+														seenMessage(message._id)
 														setClickedButtonIndex(
 															message._id
 														)

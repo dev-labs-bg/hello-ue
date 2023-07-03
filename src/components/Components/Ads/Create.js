@@ -113,6 +113,8 @@ export default function Create(props) {
 			setMessageBagError({
 				error: 'Възникна грешка при добавянето на снимката.',
 			})
+			setImagePreview(null)
+			setImageUrl(null)
 		}
 	}
 

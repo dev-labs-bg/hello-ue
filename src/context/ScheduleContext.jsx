@@ -19,13 +19,13 @@ const ScheduleProvider = ({ children }) => {
 		}
 	}
 
-	const getSavedProfileData = () => {
-		const profileDataString = localStorage.getItem('profileData')
-		const profileData = JSON.parse(profileDataString)
-		return profileData
-	}
+	// const getSavedProfileData = () => {
+	// 	const profileDataString = localStorage.getItem('profileData')
+	// 	const profileData = JSON.parse(profileDataString)
+	// 	return profileData
+	// }
 
-	const [profileData, setProfileData] = React.useState(getSavedProfileData())
+	// const [profileData, setProfileData] = React.useState(getSavedProfileData())
 
 	const saveProfileData = (profileData) => {
 		localStorage.setItem('profileData', JSON.stringify(profileData))

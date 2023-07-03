@@ -78,11 +78,6 @@ export default function AdsList() {
 		}
 	}, [headersJSON, currentPage, filterData.title, filterData.price])
 
-	const handlePageChange = (page) => {
-		sessionStorage.setItem('currentPageAdsList', page)
-		setCurrentPage(page)
-	}
-
 	useEffect(() => {
 		setTotalPages(Math.ceil(totalAds / 9))
 	}, [totalAds])
@@ -102,6 +97,11 @@ export default function AdsList() {
 		filterData.price,
 		fetchAds,
 	])
+
+	const handlePageChange = (page) => {
+		sessionStorage.setItem('currentPageAdsList', page)
+		setCurrentPage(page)
+	}
 
 	const handleInputChange = (name, value) => {
 		setFilterData((prevData) => ({
@@ -130,7 +130,7 @@ export default function AdsList() {
 		setModalOpen(false)
 	}
 
-	const handleOpenMessageModal = (adId, authorName, authorFn) => {
+	const openMessageModal = (adId, authorName, authorFn) => {
 		setModalOpenMessage(true)
 		setAdId(adId)
 		setAuthorName(authorName)
@@ -204,7 +204,7 @@ export default function AdsList() {
 								isLoading={isLoading}
 								message={true}
 								show={true}
-								openMessageModal={handleOpenMessageModal}
+								openMessageModal={openMessageModal}
 							/>
 
 							<Modal
