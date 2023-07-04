@@ -4,7 +4,7 @@ import useScheduleData from '../hooks/useScheduleData'
 const loadingImage = process.env.PUBLIC_URL + '/loading.gif'
 const errorImage = process.env.PUBLIC_URL + '/no-access.gif'
 const errorMessage =
-	'Опа! Няма налични данни за графика. Моля опитайте покъсно.'
+	'Опа! Няма налични данни за графика. Може би студентите са в сесия?'
 
 const Schedule = () => {
 	const { chartData, isLoading, error } = useScheduleData()
