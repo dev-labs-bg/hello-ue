@@ -83,6 +83,8 @@ export default function Show() {
 		<div id="myPOSEmbeddedCheckout">
 			{isLoading ? (
 				<Loader />
+			) : isPaymentProcess ? (
+				<div></div> // empty component to show checkout
 			) : (
 				advertisement && (
 					<>
