@@ -1,14 +1,17 @@
 import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
-import useAuth from '../../../hooks/useAuth'
 import IconCart from '../../Icons/Cart'
 import IconTrash from '../../Icons/Trash'
 import IconChatBubble from '../../Icons/ChatBubble'
 import IconPencil from '../../Icons/Pencil'
-import { textSplit, calculateExpiration, currencyFormat } from '../../utils'
+import {
+	textSplit,
+	calculateExpiration,
+	currencyFormat,
+	getBulgarianTime,
+} from '../../utils'
 
 export default function Card(props) {
-	const authUser = useAuth().auth.data.faculty_number
 	const [isOpenDeleteModal, setIsOpenDeleteModal] = useState()
 	const [adId, setAdId] = useState(null)
 
@@ -77,7 +80,11 @@ export default function Card(props) {
 					</>
 				) : (
 					<>
-						<div className="absolute right-7 top-7 bg-green-100 text-green-800 text-[13px] font-semibold px-3 py-1 rounded text-left">
+						<div className="absolute left-7 top-7 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded text-left">
+							{getBulgarianTime(ad.createdAt, true)}
+						</div>
+
+						<div className="absolute right-7 top-7 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded text-left">
 							{ad.category}
 						</div>
 
@@ -119,23 +126,20 @@ export default function Card(props) {
 								</p>
 
 								<div className="flex gap-3">
-									{props.message &&
-										Number(authUser) !== ad.author.fn && (
-											<button
-												onClick={() => {
-													props.openMessageModal(
-														ad._id,
-														ad.author.name,
-														ad.author.fn
-													)
-												}}
-												className="text-lg block font-semibold p-2 text-purple-50  hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
-											>
-												<IconChatBubble
-													outline={true}
-												/>
-											</button>
-										)}
+									{props.message && (
+										<button
+											onClick={() => {
+												props.openMessageModal(
+													ad._id,
+													ad.author.name,
+													ad.author.fn
+												)
+											}}
+											className="text-lg block font-semibold p-2 text-purple-50  hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+										>
+											<IconChatBubble outline={true} />
+										</button>
+									)}
 
 									{props.delete && (
 										<button

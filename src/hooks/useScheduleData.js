@@ -9,7 +9,19 @@ const useScheduleData = () => {
 	const [error, setError] = useState(null) // Add a new state for error handling
 
 	useEffect(() => {
-		let schedule_url = profileData.schedule_url
+		//ideally here we need to populate an url similar to https://info.ue-varna.bg/schedule/view/1/1/2/9/0/?export from the profile data. In this case some of the params should include the course and group of the student.
+		// let schedule_url = profileData?.schedule_url ? profileData.schedule_url : 'https://info.ue-varna.bg/schedule/view/1/1/2/9/0/'; //TODO: change the hardcoded fallback
+
+		if(! profileData?.schedule_url) {
+			console.log('error', error)
+			setChartData([])
+			setIsLoading(false)
+			setError("no schedule url")
+		}
+			
+		let schedule_url = profileData?.schedule_url
+	
+
 		let myToken = () => {
 			const tokenString = localStorage.getItem('auth')
 			const token = JSON.parse(tokenString)

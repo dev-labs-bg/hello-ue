@@ -120,6 +120,8 @@ export default function Edit(props) {
 			setMessageBagError({
 				error: 'Възникна грешка при добавянето на снимката.',
 			})
+			setImagePreview(null)
+			setImageUrl(null)
 		}
 	}
 

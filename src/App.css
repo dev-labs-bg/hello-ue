@@ -68,10 +68,6 @@
 	margin: auto;
 }
 
-#html5-qrcode-button-camera-start {
-	display: none;
-}
-
 #html5-qrcode-button-camera-permission {
 	background-color: #44818b;
 	color: white;

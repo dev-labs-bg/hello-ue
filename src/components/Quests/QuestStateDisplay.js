@@ -1,4 +1,5 @@
-import { Box, Center, Link } from '@chakra-ui/react'
+import { Box, Center } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
 
 export default function QuestStateDisplay(props) {
 	let iconPath = `url('/${props.state.toLowerCase()}.svg')`
@@ -12,7 +13,7 @@ export default function QuestStateDisplay(props) {
 	}
 
 	return (
-		<Link href={linkTo} class="link-decoration">
+		<Link to={linkTo} class="link-decoration">
 			<Box
 				bgSize="contain"
 				bgImage={iconPath}

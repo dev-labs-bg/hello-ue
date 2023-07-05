@@ -1,31 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
+import { currencyFormat } from '../utils'
 import * as MyPOSEmbedded from 'mypos-embedded-checkout'
-
-import {
-	Alert,
-	AlertIcon,
-	Badge,
-	Button,
-	Box,
-	Flex,
-	Spinner,
-	Stack,
-	Image,
-	Text,
-	Center,
-	useDisclosure,
-	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalFooter,
-	ModalBody,
-	ModalCloseButton,
-} from '@chakra-ui/react'
 import useProdavalnikAuth from '../../hooks/useProdavalnikAuth'
 import useAuth from '../../hooks/useAuth'
-import { fetchData, performFetch } from '../utils'
+import Loader from '../Components/Loader'
+import { fetchData } from '../utils'
 
 export default function Show() {
 	const _id = useParams().id
@@ -37,7 +17,6 @@ export default function Show() {
 	const [isSaving, setIsSaving] = useState(false)
 	const [advertisement, setAdvertisement] = useState(null)
 	const [messageBag, setMessageBag] = useState(null)
-	const { isOpen, onOpen, onClose } = useDisclosure()
 	const headers = useMemo(() => {
 		return {
 			user: prodavalnikAuth,
@@ -47,13 +26,14 @@ export default function Show() {
 	const buyBook = async () => {
 		setIsPaymentProcess(true)
 
-		console.log(advertisement)
 		var paymentParams = {
 			sid: '000000000000010',
 			walletNumber: '61938166610',
 			amount: advertisement.price,
 			currency: 'BGN',
-			orderID: `${advertisement._id}.${auth.data.faculty_number}.${Math.random().toString(36).substr(2, 9)}`,
+			orderID: `${advertisement._id}.${
+				auth.data.faculty_number
+			}.${Math.random().toString(36).substr(2, 9)}`,
 			urlNotify: 'https://prodavalnik-api.devlabs-projects.info/checkout',
 			keyIndex: 1,
 			cartItems: [
@@ -72,7 +52,6 @@ export default function Show() {
 				setIsSaving(true)
 				setMessageBag({ success: 'Успешно закупихте учебника!' })
 				setIsBought(true)
-				onClose()
 			},
 			onError: function () {
 				setMessageBag({
@@ -103,106 +82,84 @@ export default function Show() {
 	return (
 		<div id="myPOSEmbeddedCheckout">
 			{isLoading ? (
-				<Flex
-					height="100vh"
-					alignItems="center"
-					justifyContent="center"
-				>
-					<Spinner size="xl" />
-					<Box ml={4}>Зареждане на данните...</Box>
-				</Flex>
+				<Loader />
 			) : isPaymentProcess ? (
-				<Flex /> // empty component to show checkout
+				<div></div> // empty component to show checkout
 			) : (
-				<>
-					{messageBag &&
-						Object.keys(messageBag).map((key) => (
-							<Alert
-								status={key === 'success' ? 'success' : 'error'}
-								key={key}
-							>
-								<AlertIcon />
-								{messageBag[key]}
-							</Alert>
-						))}
-					<Link to="/sales/list">
-						<Button marginTop="1rem">Обратно към списъка</Button>
-					</Link>
+				advertisement && (
+					<>
+						{messageBag &&
+							Object.keys(messageBag).map((key) => (
+								<div className="fixed w-80 md:w-[30rem] top-6 left-1/2 transform -translate-x-1/2 z-50 p-4 mb-4 text-sm text-green-700 rounded-lg bg-green-100 font-semibold">
+									{messageBag[key]}
+								</div>
+							))}
 
-					{advertisement && (
-						<Flex direction="column" align="center">
-							<Box
-								maxW="sm"
-								borderWidth="1px"
-								borderRadius="lg"
-								overflow="hidden"
-								marginTop="1rem"
-							>
-								<Flex direction="column" align="center">
-									<Image
+						<section className="flex items-center justify-center pt-20 sm:pt-0 pb-6 sm:pb-0 min-h-screen body-font overflow-hidden bg-[#edf2f7] text-gray-700">
+							<div className="relative mx-auto flex flex-wrap md:w-4/5 shadow-lg border bg-white border-slate-100 p-6 pt-14">
+								<Link
+									to="/sales/advertisements"
+									className="absolute left-6 top-3 ml-auto flex rounded bg-blue-500 px-5 py-1.5 text-white hover:bg-blue-600 transition focus:outline-none"
+								>
+									Обратно в списъка
+								</Link>
+
+								<div className="w-full md:w-2/5 border rounded p-5">
+									<img
 										src={advertisement.imageUrl}
 										alt={advertisement.title}
-										width="150px"
-										height="220px"
-										marginTop="1rem"
+										className="w-full object-cover"
 									/>
-								</Flex>
+								</div>
 
-								<Box p="4">
-									<Box d="flex" alignItems="baseline" mb={2}>
-										<Text
-											fontSize="lg"
-											fontWeight="bold"
-											color="teal.600"
-											mr={2}
-										>
-											{advertisement.title}
-										</Text>
-
-										<Badge colorScheme="blue" mb={1}>
+								<div className="mt-6 w-full md:mt-0 md:w-3/5 md:py-6 md:pl-10">
+									<div className="w-full flex justify-start">
+										<span className="rounded bg-green-100 px-2.5 py-0.5 text-[13px] font-medium text-green-700 mb-1">
 											{advertisement.category}
-										</Badge>
+										</span>
+									</div>
 
-										<Text fontSize="sm" color="gray.500">
-											от {advertisement.author.name}
-										</Text>
-									</Box>
+									<h1 className="title-font text-left mb-1 text-3xl font-medium text-gray-700">
+										{advertisement.title}
+									</h1>
 
-									<Box mt="1" fontSize="sm">
+									<p className="leading-relaxed text-justify">
 										{advertisement.description}
-									</Box>
+									</p>
+									<div className="my-4 flex items-center border-b-2 border-gray-200 pb-5">
+										<div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-400 pb-0.5 font-semibold text-white">
+											{advertisement.author.name.charAt(
+												0
+											)}
+										</div>
+										<div className="ml-2 font-semibold text-gray-700">
+											{advertisement.author.name}
+										</div>
+									</div>
+									<div className="flex">
+										<span className="title-font text-2xl font-medium text-gray-700">
+											Цена:{' '}
+											{currencyFormat(
+												advertisement.price
+											)}
+											лв.
+										</span>
 
-									<Box d="flex" mt="2" alignItems="center">
-										<Text fontWeight="bold" fontSize="lg">
-											Цена: {advertisement.price}лв.
-										</Text>
-									</Box>
-
-									<Center mt={4}>
-										<Stack
-											direction={['column', 'row']}
-											spacing="24px"
-										>
-											<Button colorScheme="blue">
-												Съобщение
-											</Button>
-
-											{!advertisement.bought &&
-												!isBought && (
-													<Button
-														colorScheme="teal"
-														onClick={buyBook}
-													>
-														Купи
-													</Button>
-												)}
-										</Stack>
-									</Center>
-								</Box>
-							</Box>
-						</Flex>
-					)}
-				</>
+										{!advertisement.bought && !isBought && (
+											<button
+												onClick={buyBook}
+												disabled={isSaving}
+												className="ml-auto flex rounded bg-blue-500 px-5 py-1.5 text-white hover:bg-blue-600 transition focus:outline-none"
+											>
+												Купи
+											</button>
+										)}
+									</div>
+								</div>
+							</div>
+						</section>
+					</>
+				)
 			)}
 		</div>
 	)

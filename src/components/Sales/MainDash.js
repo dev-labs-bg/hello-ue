@@ -10,8 +10,6 @@ const SalesMain = () => {
 	const { auth } = useAuth()
 	const { setProdavalnikAuth, prodavalnikAuth } = useProdavalnikAuth()
 
-	console.log(auth)
-
 	useEffect(() => {
 		async function userPayload() {
 			try {

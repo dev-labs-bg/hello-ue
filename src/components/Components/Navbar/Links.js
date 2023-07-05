@@ -10,9 +10,7 @@ export default function Links() {
 
 			<NavLink location="/events" text="Събития" />
 
-			<NavLink location="/location" text="Как да стигна" />
-
-			<NavLink location="/s" text="Забавни спомени" />
+			<NavLink location="/location/corps" text="Как да стигна" />
 
 			<NavLink location="/schedule" text="Програма" />
 
