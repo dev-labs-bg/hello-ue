@@ -148,7 +148,13 @@ export default function AdsList() {
 					<div className="relative mb-2.5 sm:mb-0">
 						<div className="absolute inset-y-0 left-0 flex items-center pl-3">
 							{filterData.title ? (
-								<IconXmark className="w-5 h-5 text-gray-500 cursor-pointer hover:opacity-80 transition active:scale-90" />
+								<div
+									onClick={() =>
+										handleInputChange('title', '')
+									}
+								>
+									<IconXmark className="w-5 h-5 text-gray-500 cursor-pointer hover:opacity-80 transition active:scale-90" />
+								</div>
 							) : (
 								<IconMagnifying className="w-5 h-5 text-gray-500" />
 							)}

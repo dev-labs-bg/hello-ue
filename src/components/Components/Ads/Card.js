@@ -2,8 +2,10 @@ import { Link } from 'react-router-dom'
 import React, { useState } from 'react'
 import IconCart from '../../Icons/Cart'
 import IconTrash from '../../Icons/Trash'
+import IconClock from '../../Icons/Clock'
 import IconChatBubble from '../../Icons/ChatBubble'
 import IconPencil from '../../Icons/Pencil'
+import { Tooltip } from '@chakra-ui/react'
 import {
 	textSplit,
 	calculateExpiration,
@@ -80,47 +82,65 @@ export default function Card(props) {
 					</>
 				) : (
 					<>
-						<div className="absolute left-7 top-7 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded text-left">
+						<div className="absolute left-7 top-7 bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-0.5 rounded text-left shadow-lg border">
 							{getBulgarianTime(ad.createdAt, true)}
 						</div>
 
-						<div className="absolute right-7 top-7 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded text-left">
+						<div className="absolute right-7 top-7 bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-0.5 rounded text-left shadow-lg border">
 							{ad.category}
 						</div>
 
 						<img
-							className="w-full sm:w-72 h-64 object-cover rounded-md shadow"
+							className="w-full sm:w-72 h-64 object-cover rounded-md shadow-md"
 							src={ad.imageUrl}
 							alt={ad.title}
 						/>
+
 						<div className="mt-3">
-							<h1 className="text-xl font-bold text-gray-700">
+							<h1 className="text-xl text-left font-bold text-gray-700">
 								{ad.title}
 							</h1>
 
-							<p className="text-sm mt-2 text-gray-700 font-semibold">
-								{calculateExpiration(
-									ad.createdAt,
-									ad.expiration,
-									false
-								)}
+							<p className="text-sm mt-1 text-left text-gray-500 pb-3 border-b">
+								{textSplit(ad.description, 36)}
 							</p>
 
-							<p className="text-sm mt-2 text-gray-700">
-								{textSplit(ad.description, 35)}
-							</p>
+							<div className="flex items-center justify-between px-1 mb-3 pt-3">
+								<div className="flex items-center">
+									<div className="w-8 h-8 bg-blue-400 text-white rounded-full font-semibold flex justify-center items-center pb-0.5 shadow-md">
+										{ad.author.name.charAt(0)}
+									</div>
 
-							<div className="mt-3 flex items-center px-1">
-								<div className="w-8 h-8 bg-blue-400 text-white rounded-full font-semibold flex justify-center items-center pb-0.5">
-									{ad.author.name.charAt(0)}
+									<div className="text-gray-700 font-semibold ml-2">
+										{ad.author.name}
+									</div>
 								</div>
 
-								<div className="text-gray-700 font-semibold ml-2">
-									{ad.author.name}
-								</div>
+								<Tooltip
+									label={
+										'Обявата изтича след ' +
+										calculateExpiration(
+											ad.createdAt,
+											ad.expiration,
+											false
+										)
+									}
+								>
+									<div className="flex items-center mt-1 gap-1 hover:cursor-pointer">
+										<IconClock />
+
+										<span className="text-sm text-gray-700 font-semibold">
+											{calculateExpiration(
+												ad.createdAt,
+												ad.expiration,
+												false
+											)}
+										</span>
+									</div>
+								</Tooltip>
 							</div>
 
-							<div className="mt-3 mb-2 flex items-center justify-between gap-3">
+							<div className="flex items-center justify-between gap-3 border-t pt-2">
 								<p className="block text-xl font-semibold text-gray-700">
 									{currencyFormat(ad.price)}лв.
 								</p>
@@ -135,7 +155,7 @@ export default function Card(props) {
 													ad.author.fn
 												)
 											}}
-											className="text-lg block font-semibold p-2 text-purple-50  hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+											className="text-lg block font-semibold p-2 text-white hover:bg-opacity-80 bg-purple-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 										>
 											<IconChatBubble outline={true} />
 										</button>
@@ -147,7 +167,7 @@ export default function Card(props) {
 												handleModal(ad._id)
 												toggleDeleteModal()
 											}}
-											className="text-lg block font-semibold p-2 text-red-50 hover:bg-opacity-80 bg-red-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+											className="text-lg block font-semibold p-2 text-white hover:bg-opacity-80 bg-red-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 										>
 											<IconTrash outline={true} />
 										</button>
@@ -155,7 +175,7 @@ export default function Card(props) {
 
 									{props.edit && (
 										<button
-											className="text-lg block font-semibold p-2 text-green-50 hover:bg-opacity-80 bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+											className="text-lg block font-semibold p-2 text-white hover:bg-opacity-80 bg-green-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 											type="button"
 											onClick={() => {
 												props.openEditModal(ad._id)
@@ -168,7 +188,7 @@ export default function Card(props) {
 									{props.show && (
 										<Link
 											to={`/advertisement/show/${ad._id}`}
-											className="text-lg block font-semibold p-2 text-blue-50  hover:bg-opacity-80 bg-blue-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
+											className="text-lg block font-semibold p-2 text-white hover:bg-opacity-80 bg-blue-400 rounded-lg shadow hover:shadow-md transition duration-300 active:scale-90"
 										>
 											<IconCart outline={true} />
 										</Link>

@@ -176,28 +176,56 @@ export default function Create(props) {
 				onChange={(value) => handleInputChange('description', value)}
 			/>
 
-			<div className="flex items-center justify-center w-full">
+			<div className="flex items-center justify-center w-full group">
 				<label
 					htmlFor="dropzone-file"
-					className="flex flex-col items-center justify-center w-full h-40 border border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-50 mt-5"
+					className="flex flex-col items-center justify-center relative w-full h-40 border border-gray-300 border-dashed rounded-lg cursor-pointer hover:bg-gray-50 mt-5"
 				>
-					<div className="flex flex-col items-center justify-center pt-5 pb-6">
-						<IconUpload
-							stroke="2"
-							className="w-10 h-10 mb-3 text-gray-400"
-						/>
+					{imagePreview ? (
+						<div className="">
+							<img
+								src={imagePreview}
+								alt="Preview"
+								className="w-36 h-36 object-cover rounded-md mx-auto shadow-lg group-hover:opacity-20 z-0"
+							/>
 
-						<p className="mb-2 text-sm text-gray-500">
-							<span className="font-semibold">
-								Натиснете тук за да прикачите снимка
-							</span>{' '}
-							или я провлачете
-						</p>
+							<div className="hidden group-hover:block absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full z-50">
+								<IconUpload
+									stroke="2"
+									className="w-10 h-10 mb-3 text-gray-400 mx-auto"
+								/>
 
-						<p className="text-xs text-gray-500">
-							PNG, JPG или JPEG (MAX. 10MB)
-						</p>
-					</div>
+								<p className="mb-2 text-sm text-gray-500">
+									<span className="font-semibold">
+										Натиснете тук за да прикачите снимка
+									</span>{' '}
+									или я провлачете
+								</p>
+
+								<p className="text-xs text-gray-500">
+									PNG, JPG или JPEG (MAX. 10MB)
+								</p>
+							</div>
+						</div>
+					) : (
+						<div className="flex flex-col items-center justify-center pt-5 pb-6 w-full">
+							<IconUpload
+								stroke="2"
+								className="w-10 h-10 mb-3 text-gray-400"
+							/>
+
+							<p className="mb-2 text-sm text-gray-500">
+								<span className="font-semibold">
+									Натиснете тук за да прикачите снимка
+								</span>{' '}
+								или я провлачете
+							</p>
+
+							<p className="text-xs text-gray-500">
+								PNG, JPG или JPEG (MAX. 10MB)
+							</p>
+						</div>
+					)}
 
 					<Dropzone onDrop={handleImageUpload}>
 						{({ getRootProps, getInputProps }) => (
@@ -213,14 +241,6 @@ export default function Create(props) {
 					</Dropzone>
 				</label>
 			</div>
-
-			{imagePreview && (
-				<img
-					src={imagePreview}
-					alt="Preview"
-					className="w-40 h-40 mt-3 object-cover rounded-md mx-auto"
-				/>
-			)}
 
 			<button
 				onClick={save}

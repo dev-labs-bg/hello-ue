@@ -5,7 +5,7 @@ export default function Trash(props) {
 				<svg
 					viewBox="0 0 24 24"
 					fill="currentColor"
-					className={props.className || 'w-6 h-6'}
+					className={props.className || 'w-5 h-5'}
 				>
 					<path
 						fillRule="evenodd"
@@ -19,7 +19,7 @@ export default function Trash(props) {
 					viewBox="0 0 24 24"
 					strokeWidth={props.stroke || '1.6'}
 					stroke="currentColor"
-					className={props.className || 'w-6 h-6'}
+					className={props.className || 'w-5 h-5'}
 				>
 					<path
 						strokeLinecap="round"
