@@ -51,19 +51,13 @@ export function calculateExpiration(createdAt, expiration, kind) {
 	const minutes = Math.floor((timeDifference / (60 * 1000)) % 60)
 
 	if (days > 0) {
-		return kind
-			? days
-			: `Обявата изтича след ${days}  ${days === 1 ? 'ден' : 'дни'}`
+		return kind ? days : `${days}  ${days === 1 ? 'ден' : 'дни'}`
 	} else if (hours > 0) {
-		return kind
-			? hours
-			: `Обявата изтича след ${hours}  ${hours === 1 ? 'час' : 'часа'}`
+		return kind ? hours : `${hours}  ${hours === 1 ? 'час' : 'часа'}`
 	} else {
 		return kind
 			? minutes
-			: `Обявата изтича след ${minutes}  ${
-					minutes === 1 ? 'минута' : 'минути'
-			  }`
+			: `${minutes}  ${minutes === 1 ? 'минута' : 'минути'}`
 	}
 }
 
@@ -87,7 +81,7 @@ export function getBulgarianTime(time) {
 			date.getMonth() === yesterday.getMonth() &&
 			date.getFullYear() === yesterday.getFullYear()
 		) {
-			timeString = 'От вчера, '
+			timeString = 'От вчера - '
 		} else {
 			const day = date.getDate()
 			const month = getMonthName(date.getMonth())

@@ -123,15 +123,13 @@ const Chat = (props) => {
 		}, 800)
 	}, [])
 
-	console.log(messages)
-
 	return isLoading ? (
 		<Loader />
 	) : (
 		<div className="flex">
-			<div className="relative rounded-l-lg bg-white shadow-lg min-h-screen max-h-screen w-[500px] overflow-y-auto text-gray-600 border border-slate-100 border-r-0">
+			<div className="relative rounded-l-lg bg-white shadow-lg min-h-screen max-h-screen w-[500px]  overflow-y-auto text-gray-600 border border-slate-100 border-r-0">
 				<div className="p-3">
-					<h3 className="mb-1 text-xs font-semibold uppercase text-gray-400">
+					<h3 className="mb-1 text-xs font-semibold uppercase  text-gray-400">
 						Чат
 					</h3>
 
